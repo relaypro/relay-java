@@ -1,6 +1,7 @@
 
 run:
-	./gradlew run
+	./gradlew appRun
 
 build: 
 	./gradlew build
+
