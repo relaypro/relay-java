@@ -5,4 +5,5 @@
 /.gradle/
 
 # Ignore Gradle build output directory
-/app/build
+/sdk/build/
+/app/build/

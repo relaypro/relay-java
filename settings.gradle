@@ -9,3 +9,4 @@
 
 rootProject.name = 'relay-java'
 include('app')
+include('sdk')

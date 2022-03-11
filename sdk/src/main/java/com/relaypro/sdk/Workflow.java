@@ -1,4 +1,4 @@
-package com.relaypro;
+package com.relaypro.sdk;
 
 public abstract class Workflow {
 
