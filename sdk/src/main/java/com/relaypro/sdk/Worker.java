@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Callable;
 
-public class Worker implements Callable {
+class Worker implements Callable {
 
     private WorkflowWrapper wrapper;
     
