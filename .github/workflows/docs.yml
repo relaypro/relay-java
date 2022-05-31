@@ -22,12 +22,10 @@ jobs:
         with:
           java-version: '8'
 
-      - name: generate markdown and concatenate
+      - name: generate docs
         run: |
           cd src
-          npm install rimraf
-          npm run docs
-          npm run concat-doc
+          make docs
       - uses: actions/checkout@v3
         with:
           ref: 'gh-pages'
