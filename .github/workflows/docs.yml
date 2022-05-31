@@ -34,7 +34,7 @@ jobs:
       - name: promote
         run: |
           cd web
-          cp ../src/API.md ./index.md
+          cp -rp docs/* .
       - uses: EndBug/add-and-commit@v9
         with:
           message: 'publish generated docs'
