@@ -1,0 +1,47 @@
+name: docs
+
+on:
+  push:
+    branches: [ main, docs ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: './src/'
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+
+      - name: generate markdown and concatenate
+        run: |
+          cd src
+          npm install rimraf
+          npm run docs
+          npm run concat-doc
+      - uses: actions/checkout@v3
+        with:
+          ref: 'gh-pages'
+          path: './web/'
+
+      - name: promote
+        run: |
+          cd web
+          cp ../src/API.md ./index.md
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: 'publish generated docs'
+          add: '*.md'
+          cwd: './web/'
+          author_name: 'Relay Pro builder'
+          author_email: 'info@relaypro.com'
+          push: true
