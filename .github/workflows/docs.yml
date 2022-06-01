@@ -37,7 +37,7 @@ jobs:
         run: |
           cd web
           pwd
-          cp -rp ../build/docs/* .
+          cp -rp ../src/docs/* .
       - uses: EndBug/add-and-commit@v9
         with:
           message: 'publish generated docs'
