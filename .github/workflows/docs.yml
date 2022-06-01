@@ -25,7 +25,7 @@ jobs:
 
       - name: generate docs
         run: |
-          cd /sdk/src
+          cd src
           make docs
       - uses: actions/checkout@v3
         with:
@@ -35,7 +35,7 @@ jobs:
       - name: promote
         run: |
           cd web
-          cp -rp ../sdk/src/docs/* .
+          cp -rp ../src/docs/* .
       - uses: EndBug/add-and-commit@v9
         with:
           message: 'publish generated docs'
