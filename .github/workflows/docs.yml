@@ -35,7 +35,7 @@ jobs:
       - name: promote
         run: |
           cd web
-          cp -rp ../src/docs/* .
+          cp -rp ../build/docs/* .
       - uses: EndBug/add-and-commit@v9
         with:
           message: 'publish generated docs'
