@@ -26,6 +26,7 @@ jobs:
       - name: generate docs
         run: |
           cd src
+          pwd
           make docs
       - uses: actions/checkout@v3
         with:
@@ -35,6 +36,7 @@ jobs:
       - name: promote
         run: |
           cd web
+          pwd
           cp -rp ../build/docs/* .
       - uses: EndBug/add-and-commit@v9
         with:
