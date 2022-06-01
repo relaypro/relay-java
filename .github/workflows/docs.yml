@@ -28,7 +28,7 @@ jobs:
           cd src
           pwd
           make docs
-          pwd
+          ls
       - uses: actions/checkout@v3
         with:
           ref: 'gh-pages'
