@@ -38,6 +38,7 @@ jobs:
           cd web
           pwd
           cp -rp ../src/sdk/build/docs/* .
+          ls
       - uses: EndBug/add-and-commit@v9
         with:
           message: 'publish generated docs'
