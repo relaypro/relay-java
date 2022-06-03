@@ -26,7 +26,6 @@ jobs:
       - name: generate docs
         run: |
           cd src
-          pwd
           make docs
       - uses: actions/checkout@v3
         with:
@@ -36,10 +35,7 @@ jobs:
       - name: promote
         run: |
           cd web
-          pwd
-          mkdir index
           cp -rp ../src/sdk/build/docs/* index
-          ls
       - uses: EndBug/add-and-commit@v9
         with:
           message: 'publish generated docs'
