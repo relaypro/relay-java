@@ -1,3 +1,4 @@
+# Copyright © 2022 Relay Inc.
 
 run:
 	./gradlew app:run
@@ -5,7 +6,7 @@ run:
 build: 
 	./gradlew build
 
-# builds sdk jar in sdk/build/libs/sdk.jsr
+# builds sdk jar in sdk/build/libs/sdk.jar
 jar:
 	./gradlew sdk:jar
 	
