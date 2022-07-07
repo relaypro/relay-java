@@ -12,4 +12,7 @@ jar:
 	
 clean:
 	./gradlew clean
+
+docs:
+	./gradlew javadoc
 	
