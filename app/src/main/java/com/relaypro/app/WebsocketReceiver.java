@@ -1,3 +1,5 @@
+// Copyright © 2022 Relay Inc.
+
 package com.relaypro.app;
 
 import com.relaypro.sdk.Relay;
