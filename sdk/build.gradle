@@ -28,3 +28,7 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+javadoc {
+    title = "Relay SDK for Java"
+    options.overview("src/main/java/overview.html")
+}

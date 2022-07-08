@@ -15,4 +15,3 @@ clean:
 
 docs:
 	./gradlew javadoc
-	

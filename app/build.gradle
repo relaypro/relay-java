@@ -32,3 +32,6 @@ tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
+// we want javadoc only from the SDK, not the sample apps
+tasks.withType(Javadoc).all { enabled = false }
