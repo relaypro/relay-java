@@ -214,6 +214,20 @@ public class Relay {
         return null;
     }
 
+    public String endInteraction(String sourceUri, String name) {
+        logger.debug("Ending Interaction for source uri " + sourceUri);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.EndInteraction, sourceUri,
+            entry("name", name)
+        );
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return (String) resp.parsedJson.get("error");
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error ending interaction", e);
+        }
+        return null;
+    }
+
     public String say(String sourceUri, String text) {
         return say(sourceUri, text, LanguageType.English);
     }

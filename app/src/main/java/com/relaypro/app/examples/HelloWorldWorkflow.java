@@ -38,6 +38,9 @@ public class HelloWorldWorkflow extends Workflow {
         
         if (type.equals("started")) {
             relay.sayAndWait( sourceUri, "hello world");
+            relay.endInteraction(sourceUri, "interaction name");
+        }
+        if (type.equals("ended")) {
             relay.terminate();
         }
     }
