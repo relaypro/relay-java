@@ -325,6 +325,22 @@ public class Relay {
         }
     }
 
+    public String translate(String text, LanguageType from, LanguageType to) {
+        logger.debug("Translating text");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Translate,
+            entry("text", text),
+            entry("from_lang", from.value()),
+            entry("to_lang", to.value())
+        );
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return resp != null ? (String) resp.parsedJson.get("text") : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error translating text", e);
+        }
+        return null;
+    }
+
     public void switchAllLedOn( String sourceUri, String color) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.colors.ring = color;
