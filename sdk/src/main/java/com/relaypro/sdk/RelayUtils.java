@@ -2,26 +2,28 @@
 
 package com.relaypro.sdk;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static java.util.Map.entry;
 
 class RelayUtils {
     static Random random = new Random();
+    private static Logger logger = LoggerFactory.getLogger(RelayUtils.class);
     
-    static void invokeEventCallback(MessageWrapper wrapper, WorkflowWrapper wfWrapper) {
+    static void invokeEventCallback(MessageWrapper messageWrapper, Relay relay) {
         // invoke the callback using reflection
+        String methodName = "on" + toCamelCase(messageWrapper.type);
         try {
-            String methodName = "on" + toCamelCase(wrapper.type);
-            Method method = Workflow.class.getMethod(methodName, Map.class);
-            method.invoke(wfWrapper.workflow, wrapper.parsedJson);
+            Method method = Workflow.class.getMethod(methodName, Relay.class, messageWrapper.eventObject.getClass());
+//            logger.debug("invoking method " + method);
+            method.invoke(relay.workflow, relay, messageWrapper.eventObject);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
+            logger.error("Error invoking event callback for " + methodName, e);
         }
     }
     
@@ -63,10 +65,27 @@ class RelayUtils {
     }
 
     static Map<String, Object> buildRequest(RequestType type, String sourceUri, Map.Entry<String, Object> ...params) {
-        Map map = buildRequest(type, params);
+        Map<String, Object> map = buildRequest(type, params);
         map.put("_target", RelayUtils.makeTarget(sourceUri));
         return map;
     }
 
-    
+    static Map<String, Object> sanitize(Map<String, Object> map) {
+        map.keySet().forEach(k -> {
+            Object v = map.get(k);
+            if (v instanceof Map) {
+                map.put(k, sanitize((Map)v));
+            }
+            else if (v instanceof ArrayList && ((ArrayList<Double>)v).get(0) instanceof Double) {
+                String s = "";
+                for (Double d : (ArrayList<Double>)v) {
+                    s += String.valueOf(Character.valueOf((char)d.byteValue()));
+                }
+                map.put(k, s);
+            }
+        });
+        return map;
+    }
+
+
 }

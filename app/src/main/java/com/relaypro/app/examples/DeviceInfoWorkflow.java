@@ -4,82 +4,78 @@ package com.relaypro.app.examples;
 
 import com.relaypro.sdk.Relay;
 import com.relaypro.sdk.Workflow;
+import com.relaypro.sdk.types.InteractionLifecycleEvent;
+import com.relaypro.sdk.types.StartEvent;
 
 import java.util.Map;
 
 public class DeviceInfoWorkflow extends Workflow {
 
     @Override
-    public void onStart(Map<String, Object> startEvent) {
-        super.onStart(startEvent);
+    public void onStart(Relay relay, StartEvent startEvent) {
+        super.onStart(relay, startEvent);
 
-        String sourceUri = Relay.getStartEventSourceUri(startEvent);
+        String sourceUri = (String)startEvent.trigger.args.get("source_uri");
 
-        Relay.startInteraction(this, sourceUri, "interaction name", null);
+        relay.startInteraction(sourceUri, "interaction name", null);
     }
-    
-    @Override
-    public void onInteractionLifecycle(Map<String, Object> lifecycleEvent) {
-        super.onInteractionLifecycle(lifecycleEvent);
 
-        String type = (String)lifecycleEvent.get("type");
-        String sourceUri = (String)lifecycleEvent.get("source_uri");
+    @Override
+    public void onInteractionLifecycle(Relay relay, InteractionLifecycleEvent lifecycleEvent) {
+        super.onInteractionLifecycle(relay, lifecycleEvent);
+
+        String type = (String) lifecycleEvent.type;
+        String sourceUri = (String) lifecycleEvent.sourceUri;
 
         if (type.equals("started")) {
-
-            Relay.setDeviceName(this, sourceUri, "optimus prime");
-            Relay.setLocationEnabled(this, sourceUri, true);
+            relay.setDeviceName(sourceUri, "optimus prime");
+            relay.setLocationEnabled(sourceUri, true);
             
-            
-            String name  = Relay.getDeviceName(this, sourceUri, true);
-            Relay.sayAndWait(this, sourceUri, "Device name is " + name);
+            String name = relay.getDeviceName(sourceUri, true);
+            relay.sayAndWait(sourceUri, "Device name is " + name);
 
-            String id = Relay.getDeviceId(this, sourceUri, true);
-            Relay.sayAndWait(this, sourceUri, "Device id is " + id);
+            String id = relay.getDeviceId(sourceUri, true);
+            relay.sayAndWait(sourceUri, "Device id is " + id);
 
-            String address = Relay.getDeviceAddress(this, sourceUri, false);
-            if (address != null){
-                Relay.sayAndWait(this, sourceUri, "Device address is " + address);
-            }
-            else {
-                Relay.sayAndWait(this, sourceUri, "Device address is unavailable");
+            String address = relay.getDeviceAddress(sourceUri, false);
+            if (address != null) {
+                relay.sayAndWait(sourceUri, "Device address is " + address);
+            } else {
+                relay.sayAndWait(sourceUri, "Device address is unavailable");
             }
 
-            double[] latlong = Relay.getDeviceLatLong(this, sourceUri, false);
-            if (latlong != null){
-                Relay.sayAndWait(this, sourceUri, "Device lat long is " + latlong[0] + " lat " + latlong[1] + " long");
-            }
-            else {
-                Relay.sayAndWait(this, sourceUri, "Device lat long is unavailable");
+            double[] latlong = relay.getDeviceLatLong(sourceUri, false);
+            if (latlong != null) {
+                relay.sayAndWait(sourceUri, "Device lat long is " + latlong[0] + " lat " + latlong[1] + " long");
+            } else {
+                relay.sayAndWait(sourceUri, "Device lat long is unavailable");
             }
 
-            String indoorLoc = Relay.getDeviceIndoorLocation(this, sourceUri, false);
-            if (indoorLoc != null){
-                Relay.sayAndWait(this, sourceUri, "Device indoor location is " + indoorLoc);
+            String indoorLoc = relay.getDeviceIndoorLocation(sourceUri, false);
+            if (indoorLoc != null) {
+                relay.sayAndWait(sourceUri, "Device indoor location is " + indoorLoc);
+            } else {
+                relay.sayAndWait(sourceUri, "Device indoor location is unavailable");
             }
-            else {
-                Relay.sayAndWait(this, sourceUri, "Device indoor location is unavailable");
-            }
-            
-            Integer battery = Relay.getDeviceBattery(this, sourceUri, false);
+
+            Integer battery = relay.getDeviceBattery(sourceUri, false);
             if (battery != null) {
-                Relay.sayAndWait(this, sourceUri, "Device battery is " + battery + " percent");
-            }
-            else {
-                Relay.sayAndWait(this, sourceUri, "Device battery is unknown");
+                relay.sayAndWait(sourceUri, "Device battery is " + battery + " percent");
+            } else {
+                relay.sayAndWait(sourceUri, "Device battery is unknown");
             }
 
-            String deviceType = Relay.getDeviceType(this, sourceUri, true);
-            Relay.sayAndWait(this, sourceUri, "Device type is " + deviceType);
-            
-            String username = Relay.getDeviceUsername(this, sourceUri, true);
-            Relay.sayAndWait(this, sourceUri, "Device username is " + username);
-            
-            Boolean locEnabled = Relay.getDeviceLocationEnabled(this, sourceUri, true);
-            Relay.sayAndWait(this, sourceUri, "Device location enabled is " + locEnabled);
-            
-            Relay.terminate(this);
+            String deviceType = relay.getDeviceType(sourceUri, true);
+            relay.sayAndWait(sourceUri, "Device type is " + deviceType);
+
+            String username = relay.getDeviceUsername(sourceUri, true);
+            relay.sayAndWait(sourceUri, "Device username is " + username);
+
+            Boolean locEnabled = relay.getDeviceLocationEnabled(sourceUri, true);
+            relay.sayAndWait(sourceUri, "Device location enabled is " + locEnabled);
+
+            relay.terminate();
         }
     }
-    
+
 }

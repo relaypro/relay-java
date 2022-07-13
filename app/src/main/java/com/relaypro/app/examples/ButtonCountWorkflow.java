@@ -4,6 +4,9 @@ package com.relaypro.app.examples;
 
 import com.relaypro.sdk.Relay;
 import com.relaypro.sdk.Workflow;
+import com.relaypro.sdk.types.ButtonEvent;
+import com.relaypro.sdk.types.InteractionLifecycleEvent;
+import com.relaypro.sdk.types.StartEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,22 +21,22 @@ public class ButtonCountWorkflow extends Workflow {
     Map<String, Map<String, Integer>> counts = new HashMap<>();     // track button clicks by button type, then taps type
 
     @Override
-    public void onStart(Map<String, Object> startEvent) {
-        super.onStart(startEvent);
-        String sourceUri = Relay.getStartEventSourceUri(startEvent);
-        Relay.startInteraction(this, sourceUri, "interaction name", null);
+    public void onStart(Relay relay, StartEvent startEvent) {
+        super.onStart(relay, startEvent);
+        String sourceUri = (String)startEvent.trigger.args.get("source_uri");
+        relay.startInteraction(sourceUri, "interaction name", null);
     }
 
     @Override
-    public void onInteractionLifecycle(Map<String, Object> lifecycleEvent) {
-        super.onInteractionLifecycle(lifecycleEvent);
-        this.sourceUri = (String)lifecycleEvent.get("source_uri");
+    public void onInteractionLifecycle(Relay relay, InteractionLifecycleEvent lifecycleEvent) {
+        super.onInteractionLifecycle( relay, lifecycleEvent);
+        this.sourceUri = lifecycleEvent.sourceUri;
     }
 
     @Override
-    public void onButton(Map<String, Object> buttonEvent) {
-        String button = Relay.getButtonEventButton(buttonEvent);
-        String taps = Relay.getButtonEventTaps(buttonEvent);
+    public void onButton(Relay relay, ButtonEvent buttonEvent) {
+        String button = buttonEvent.button;
+        String taps = buttonEvent.taps;
 
         if (!counts.containsKey(button)) {
             counts.put(button, new HashMap<>());
@@ -47,6 +50,6 @@ public class ButtonCountWorkflow extends Workflow {
         buttonMap.put(taps, count);
 
         logger.debug(taps + " clicked " + button + " " + count + " times");
-        Relay.sayAndWait(this, sourceUri, taps + " clicked " + button + " " + count + " times");
+        relay.sayAndWait(sourceUri, taps + " clicked " + button + " " + count + " times");
     }
 }

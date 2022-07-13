@@ -5,7 +5,6 @@ package com.relaypro.app;
 import com.relaypro.app.examples.*;
 import com.relaypro.sdk.Relay;
 
-import com.relaypro.sdk.Workflow;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -23,12 +22,13 @@ public class Setup {
     public static void main(String... args) {
         
         Relay.addWorkflow("helloworld", new HelloWorldWorkflow());
+        Relay.addWorkflow("javatest", new HelloWorldWorkflow());
         Relay.addWorkflow("timers", new TimerWorkflow());
         Relay.addWorkflow("leds", new LedsWorkflow());
         Relay.addWorkflow("info", new DeviceInfoWorkflow());
         Relay.addWorkflow("buttons", new ButtonCountWorkflow());
         
-        startServer();
+         startServer();
     }
     
     private static void startServer() {

@@ -2,75 +2,77 @@
 
 package com.relaypro.sdk;
 
+import com.relaypro.sdk.types.*;
+
 import java.util.Map;
 
 public abstract class Workflow implements Cloneable {
 
-    public void onStart(Map<String, Object> startEvent) {
+    public void onStart(Relay relay, StartEvent startEvent) {
     }
 
-    public void onStop(Map<String, Object> stopEvent) {
+    public void onStop(Relay relay, StopEvent stopEvent) {
     }
 
-    public void onInteractionLifecycle(Map<String, Object> lifecycleEvent) {
+    public void onInteractionLifecycle(Relay relay, InteractionLifecycleEvent lifecycleEvent) {
     }
 
-    public void onPrompt(Map<String, Object> promptEvent) {
+    public void onPrompt(Relay relay, PromptEvent promptEvent) {
     }
 
-    public void onTimer(Map<String, Object> timerEvent) {
+    public void onTimer(Relay relay, TimerEvent timerEvent) {
     }
 
-    public void onTimerFired(Map<String, Object> timerFiredEvent) {
+    public void onTimerFired(Relay relay, TimerFiredEvent timerFiredEvent) {
     }
 
-    public void onButton(Map<String, Object> buttonEvent) {
+    public void onButton(Relay relay, ButtonEvent buttonEvent) {
     }
 
-    public void onNotification() {
+    public void onNotification(Relay relay, NotificationEvent notificationEvent) {
     }
 
-    public void onSms() {
-
-    }
-
-    public void onAudio() {
+    public void onSms(Relay relay, SmsEvent smsEvent) {
 
     }
 
-    public void onIncident() {
+    public void onSpeech(Relay relay, SpeechEvent speechEvent) {
 
     }
 
-    public void onCallStartRequest() {
+    public void onIncident(Relay relay, IncidentEvent incidentEvent) {
 
     }
 
-    public void onCallReceived() {
+    public void onCallStartRequest(Relay relay, CallStartEvent callStartEvent) {
 
     }
 
-    public void onCallRinging() {
+    public void onCallReceived(Relay relay, CallReceivedEvent callReceivedEvent) {
 
     }
 
-    public void onCallProgressing() {
+    public void onCallRinging(Relay relay, CallRingingEvent callRingingEvent) {
 
     }
 
-    public void onCallConnected() {
+    public void onCallProgressing(Relay relay, CallProgressingEvent callProgressingEvent) {
 
     }
 
-    public void onCallDisconnected() {
+    public void onCallConnected(Relay relay, CallConnectedEvent callConnectedEvent) {
 
     }
 
-    public void onCallFailed() {
+    public void onCallDisconnected(Relay relay, CallDisconnectedEvent callDisconnectedEvent) {
 
     }
 
-    public void onPlayInboxMessage() {
+    public void onCallFailed(Relay relay, CallFailedEvent callFailedEvent) {
+
+    }
+
+    public void onPlayInboxMessage(Relay relay, PlayInboxMessagesEvent playInboxMessagesEvent) {
 
     }
 
