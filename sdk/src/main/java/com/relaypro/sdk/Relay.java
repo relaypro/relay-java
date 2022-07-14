@@ -325,6 +325,29 @@ public class Relay {
         }
     }
 
+    public void startTimer(int timeout) {
+        logger.debug("Starting timer unnamed ");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StartTimer,
+                entry("timeout", timeout)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error starting timer ", e);
+        }
+    }
+
+    public void stopTimer() {
+        logger.debug("Stopping timer unnamed ");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StopTimer);
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error stopping timer ", e);
+        }
+    }
+
     public String translate(String text, LanguageType from, LanguageType to) {
         logger.debug("Translating text");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Translate,
@@ -339,6 +362,67 @@ public class Relay {
             logger.error("Error translating text", e);
         }
         return null;
+    }
+
+    public void createIncident( String originator, String itype) {
+        logger.debug("Creating incident");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.CreateIncident, 
+            entry("type", itype),
+            entry("originator_uri", originator)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error creating incident", e);
+        }
+    }
+
+    public void resolveIncident( String incidentId, String reason) {
+        logger.debug("Resolving incident");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.ResolveIncident, 
+            entry("incident_id", incidentId),
+            entry("reason", reason)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error resolving incident", e);
+        }
+    }
+
+    public void logUserMessage( String message, String deviceUri, String category) {
+        logger.debug("Logging user message");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.LogAnalytics,
+            entry("content", message),
+            entry("content_type", "text/plain"),
+            entry("category", category),
+            entry("device_uri", deviceUri)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error logging user message", e);
+        }
+    }
+
+    public void logMessage( String message, String category) {
+        logger.debug("Logging message");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.LogAnalytics,
+            entry("content", message),
+            entry("content_type", "text/plain"),
+            entry("category", category)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error logging message", e);
+        }
+    }
+
+    public void switchLedOn( String sourceUri, int index, String color) {
+        LedInfo ledInfo = new LedInfo();
+        ledInfo.colors.led8 = color;
+        setLeds( sourceUri, LedEffect.STATIC, ledInfo);
     }
 
     public void switchAllLedOn( String sourceUri, String color) {
@@ -403,6 +487,49 @@ public class Relay {
             sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error vibrating", e);
+        }
+    }
+
+    public void setVar(String name, String value) {
+        logger.debug("Setting variable: " + name + " with value " +  value);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetVar,
+                entry("name", name),
+                entry("value", value)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error setting variable", e);
+        }
+    }
+
+    public String getVar(String name, String defaultValue) {
+        logger.debug("Getting variable: " + name + " with default value " +  defaultValue);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetVar,
+                entry("name", name),
+                entry("value", defaultValue)
+        );
+
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return (String) resp.parsedJson.get("value");
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error getting variable", e);
+        }
+        return null;
+    }
+
+    public void unsetVar(String name) {
+        logger.debug("Unsetting variable: " + name);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.UnsetVar,
+                entry("name", name)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error unsetting variable", e);
         }
     }
 
@@ -486,8 +613,35 @@ public class Relay {
         setDeviceInfo( sourceUri, DeviceField.Label, name);
     }
 
+    public void enableLocation( String sourceUri) {
+        setLocationEnabled(sourceUri, true);
+    }
+
+    public void disableLocation( String sourceUri) {
+        setLocationEnabled(sourceUri, false);
+    }
+
     public  void setLocationEnabled( String sourceUri, boolean enabled) {
         setDeviceInfo( sourceUri, DeviceField.LocationEnabled, String.valueOf(enabled));
+    }
+
+    public void setDeviceChannel(String sourceUri, String channel) {
+        setDeviceInfo( sourceUri, DeviceField.Channel, channel);
+    }
+
+    public  void setChannel( String sourceUri, String channelName, boolean suppressTTS, boolean disableHomeChannel) {
+        logger.debug("Setting channel: " + channelName + ": supresstts:" + suppressTTS + " disableHomeChannel:" + disableHomeChannel);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetChannel, sourceUri,
+                entry("channel_name", channelName),
+                entry("suppress_tts", suppressTTS),
+                entry("disable_home_channel", disableHomeChannel)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error setting channel", e);
+        }
     }
 
     private  void setDeviceInfo( String sourceUri, DeviceField field, String value) {
@@ -518,18 +672,24 @@ public class Relay {
         }
     }
 
-    public  void setChannel( String sourceUri, String channelName, boolean suppressTTS, boolean disableHomeChannel) {
-        logger.debug("Setting channel: " + channelName + ": supresstts:" + suppressTTS + " disableHomeChannel:" + disableHomeChannel);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetChannel, sourceUri,
-                entry("channel_name", channelName),
-                entry("suppress_tts", suppressTTS),
-                entry("disable_home_channel", disableHomeChannel)
+    public void enableHomeChannel(String target) {
+        setHomeChannelState(target, false);
+    }
+
+    public void disableHomeChannel(String target) {
+        setHomeChannelState(target, false);
+    }
+
+    private void setHomeChannelState(String sourceUri, boolean enabled) {
+        logger.debug("Setting home channel state.");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetHomeChannelState, sourceUri,
+            entry("enabled", enabled)               
         );
 
         try {
             sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
-            logger.error("Error setting channel", e);
+            logger.error("Error setting home channel state", e);
         }
     }
 
