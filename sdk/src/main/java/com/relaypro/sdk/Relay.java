@@ -260,6 +260,24 @@ public class Relay {
         return null;
     }
 
+    public String listen(String sourceUri, String requestId, String[] phrases, boolean transcribe, LanguageType lang, int timeout) {
+        logger.debug("Listening to " + sourceUri);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Listen, sourceUri,
+            entry("request_id", requestId),
+            entry("phrases", phrases),
+            entry("transcribe", transcribe),
+            entry("timeout", timeout),
+            entry("alt_lang", lang.value())
+        );
+        try {
+            MessageWrapper resp = sendRequest(req, true);
+            return resp != null ? (String) resp.parsedJson.get("text") : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error listening", e);
+        }
+        return null;
+    }
+
     public String play(String sourceUri, String filename) {
         return play(sourceUri, filename, false);
     }
@@ -294,6 +312,30 @@ public class Relay {
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error stopping playback", e);
         }
+    }
+
+    public void playUnreadInboxMessages(String sourceUri) {
+        logger.debug("Playing unread messages" );
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlayInboxMessages, sourceUri);
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error playing unread inbox messages", e);
+        }
+    }
+
+    public int getUnreadInboxSize(String sourceUri) {
+        logger.debug("Getting unread inbox size");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.InboxCount, sourceUri);
+
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return resp != null ? Integer.parseInt(resp.parsedJson.get("count").toString()) : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error retrieving inbox count", e);
+        }
+        return -1;
     }
 
     public  void setTimer( TimerType timerType, String name, long timeout, TimeoutType timeoutType) {
@@ -506,13 +548,15 @@ public class Relay {
 
     public String getVar(String name, String defaultValue) {
         logger.debug("Getting variable: " + name + " with default value " +  defaultValue);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetVar,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetVar,
                 entry("name", name),
                 entry("value", defaultValue)
         );
-
         try {
             MessageWrapper resp = sendRequest(req);
+            if((String) resp.parsedJson.get("value") == null){
+                return defaultValue;
+            }
             return (String) resp.parsedJson.get("value");
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error getting variable", e);
