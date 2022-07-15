@@ -584,12 +584,12 @@ public class Relay {
     }
 
     // Creates a target URI object that is needed when sending out notifications to groups
-    private class TargetUri {
-        private String[] uris;
-        public TargetUri(String[] uris) {
-            this.uris = uris;
-        }
-    }
+    // private class TargetUri {
+    //     private String[] uris;
+    //     public TargetUri(String[] uris) {
+    //         this.uris = uris;
+    //     }
+    // }
 
     private void sendNotification(String target, String originator, String type, String text, String name) {
         logger.debug("Sending notification with name: " + name);
