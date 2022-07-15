@@ -23,6 +23,7 @@ enum RequestType {
     SetVar("wf_api_set_var_request"),
     GetVar("wf_api_get_var_request"),
     UnsetVar("wf_api_unset_var_request"),
+    SendNotification("wf_api_notification_request"),
     SetDeviceInfo("wf_api_set_device_info_request"),
     SetDeviceMode("wf_api_set_device_mode_request"),
     SetUserProfile("wf_api_set_user_profile_request"),

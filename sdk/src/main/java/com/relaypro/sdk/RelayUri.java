@@ -36,7 +36,7 @@ public class RelayUri {
 
     public static String groupName(String name) {
         try {
-            return construct(GROUP, ID, URLEncoder.encode(name, "UTF-8").replace("+", "%20"));
+            return construct(GROUP, NAME, URLEncoder.encode(name, "UTF-8").replace("+", "%20"));
         } catch (UnsupportedEncodingException e) {
             logger.debug("Failed to create group name URI", e);
             e.printStackTrace();

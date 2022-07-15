@@ -11,8 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.lang.annotation.Target;
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 import java.util.concurrent.*;
 
 import static java.util.Map.entry;
@@ -575,6 +579,66 @@ public class Relay {
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error unsetting variable", e);
         }
+    }
+
+    // Creates a target URI object that is needed when sending out notifications to groups
+    private class TargetUri {
+        private String[] uris;
+        public TargetUri(String[] uris) {
+            this.uris = uris;
+        }
+    }
+
+    private void sendNotification(String target, String originator, String type, String text, String name) {
+        logger.debug("Sending notification with name: " + name);
+        Map<String, Object> dict = new HashMap<String, Object>();
+
+        // Create a String array that contains the group URNs
+        String[] targets = {target};
+
+        // Make a TargetUri object that contains the group URNs array as a field
+        TargetUri targetUri = new TargetUri(targets);
+
+        // Fill out the request, using the new targetUri object
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SendNotification,
+                entry("_target", targetUri),
+                entry("originator", originator),
+                entry("type", type),
+                entry("name", name),
+                entry("text", text),
+                entry("target", targetUri),
+                entry("push_opts", dict)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error sending notification", e);
+        }
+    }
+
+    public void alert(String target, String originator, String name, String text) {
+        sendNotification(target, originator, "alert", text, name);
+    }
+
+    public void cancelAlert(String target, String name) {
+        sendNotification(target, null, "cancel", null, name);
+    }
+
+    public void broadcast(String target, String originator, String name, String text) {
+        sendNotification(target, originator, "broadcast", text, name);
+    }
+
+    public void cancelBroadcast(String target, String name) {
+        sendNotification(target, null, "cancel", null, name);
+    }
+
+    public void notify(String target, String originator, String name, String text) {
+        sendNotification(target, originator, "notify", text, name);
+    }
+
+    public void cancelNotify(String target, String name) {
+        sendNotification(target, null, "cancel", null, name);
     }
 
     public  String getDeviceName( String sourceUri, boolean refresh) {
