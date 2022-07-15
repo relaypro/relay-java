@@ -465,8 +465,10 @@ public class Relay {
         }
     }
 
+    // TODO: Fix this
     public void switchLedOn( String sourceUri, int index, String color) {
         LedInfo ledInfo = new LedInfo();
+        String idx = Integer.toString(index);
         ledInfo.colors.led8 = color;
         setLeds( sourceUri, LedEffect.STATIC, ledInfo);
     }
@@ -615,6 +617,25 @@ public class Relay {
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error sending notification", e);
         }
+    }
+
+    public boolean isGroupMember(String groupNameUri, String potentialMemberNameUri) {
+        String groupName = RelayUri.parseGroupName(groupNameUri);
+        String deviceName = RelayUri.parseDeviceName(potentialMemberNameUri);
+        String groupUri = RelayUri.groupMember(groupName, deviceName);
+        logger.debug("Checking if  " + potentialMemberNameUri + " is a group member.");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.GroupQuery,
+                entry("query", "is_member"),
+                entry("group_uri", groupUri)
+        );
+
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return resp != null ? (Boolean) resp.parsedJson.get("is_member") : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error checking if group member", e);
+        }
+        return false;
     }
 
     public void alert(String target, String originator, String name, String text) {

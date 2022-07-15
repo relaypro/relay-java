@@ -19,6 +19,7 @@ enum RequestType {
     InboxCount("wf_api_inbox_count_request"),
     StopPlayback("wf_api_stop_playback_request"),
     Vibrate("wf_api_vibrate_request"),
+    GroupQuery("wf_api_group_query_request"),
     GetDeviceInfo("wf_api_get_device_info_request"),
     SetVar("wf_api_set_var_request"),
     GetVar("wf_api_get_var_request"),
