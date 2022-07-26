@@ -5,18 +5,16 @@ package com.relaypro.sdk;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.relaypro.sdk.types.*;
+
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.lang.annotation.Target;
-import java.util.Dictionary;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 import java.util.concurrent.*;
 
 import static java.util.Map.entry;
@@ -264,6 +262,10 @@ public class Relay {
         return null;
     }
 
+    public String listen(String sourceUri, String requestId) {
+        return null;
+    }
+
     public String listen(String sourceUri, String requestId, String[] phrases, boolean transcribe, LanguageType lang, int timeout) {
         logger.debug("Listening to " + sourceUri);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Listen, sourceUri,
@@ -465,53 +467,50 @@ public class Relay {
         }
     }
 
-    // TODO: Fix this
     public void switchLedOn( String sourceUri, int index, String color) {
         LedInfo ledInfo = new LedInfo();
-        String idx = Integer.toString(index);
-        ledInfo.colors.led8 = color;
-        setLeds( sourceUri, LedEffect.STATIC, ledInfo);
+        ledInfo.setColor(Integer.toString(index), color);
+        setLeds( sourceUri, LedEffect.STATIC, ledInfo.ledMap);
     }
 
     public void switchAllLedOn( String sourceUri, String color) {
         LedInfo ledInfo = new LedInfo();
-        ledInfo.colors.ring = color;
-        setLeds( sourceUri, LedEffect.STATIC, ledInfo);
+        ledInfo.setColor("ring", color);
+        setLeds( sourceUri, LedEffect.STATIC, ledInfo.ledMap);
     }
 
     public  void switchAllLedOff( String sourceUri) {
         LedInfo ledInfo = new LedInfo();
-        setLeds( sourceUri, LedEffect.OFF, ledInfo);
+        setLeds( sourceUri, LedEffect.OFF, ledInfo.ledMap);
     }
 
     public  void rainbow( String sourceUri, int rotations) {
         LedInfo ledInfo = new LedInfo();
-        ledInfo.rotations = rotations;
-        setLeds( sourceUri, LedEffect.RAINBOW, ledInfo);
+        ledInfo.setRotations(rotations);
+        setLeds( sourceUri, LedEffect.RAINBOW, ledInfo.ledMap);
     }
 
     public  void rotate( String sourceUri, String color) {
         LedInfo ledInfo = new LedInfo();
-        ledInfo.rotations = -1;
-        ledInfo.colors.led1 = color;
-        setLeds( sourceUri, LedEffect.ROTATE, ledInfo);
+        ledInfo.setRotations(-1);
+        ledInfo.setColor("1", color);
+        setLeds( sourceUri, LedEffect.ROTATE, ledInfo.ledMap);
     }
 
     public  void flash( String sourceUri, String color, int count) {
         LedInfo ledInfo = new LedInfo();
-        ledInfo.count = count;
-        ledInfo.colors.ring = color;
-        setLeds( sourceUri, LedEffect.FLASH, ledInfo);
+        ledInfo.setCount(count);
+        ledInfo.setColor("ring", color);
+        setLeds( sourceUri, LedEffect.FLASH, ledInfo.ledMap);
     }
 
     public  void breathe( String sourceUri, String color) {
         LedInfo ledInfo = new LedInfo();
-        ledInfo.count = -1;
-        ledInfo.colors.ring = color;
-        setLeds( sourceUri, LedEffect.BREATHE, ledInfo);
+        ledInfo.setColor("ring", color);
+        setLeds( sourceUri, LedEffect.BREATHE, ledInfo.ledMap);
     }
 
-    public  void setLeds( String sourceUri, LedEffect effect, LedInfo args) {
+    public  void setLeds( String sourceUri, LedEffect effect, Map<String, Object> args) {
         logger.debug("Setting leds: " + effect.value() + " " + args);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetLeds, sourceUri,
                 entry("effect", effect.value()),

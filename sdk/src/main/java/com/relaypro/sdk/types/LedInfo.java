@@ -2,14 +2,36 @@
 
 package com.relaypro.sdk.types;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class LedInfo {
-    
-    public int rotations = -1;
-    public int count = -1;
-    public int duration;
-    public int repeat_delay;
-    public int pattern_repeats;
-    
-    public LedColors colors = new LedColors();
-    
+
+    public Map<String, Object> ledMap = new LinkedHashMap<>();
+
+    public void setRotations(int rotations) {
+        ledMap.put("rotations", rotations);
+    }
+
+    public void setCount(int count) {
+        ledMap.put("count", count);
+    }
+
+    public void setDuration(int duration) {
+        ledMap.put("duration", duration);
+    }
+
+    public void setRepeatDelay(int repaeatDelay) {
+        ledMap.put("repeat_delay", repaeatDelay);
+    }
+
+    public void setPatterRepeats(int patternRepeats) {
+        ledMap.put("pattern_repeats", patternRepeats);
+    }
+
+    public void setColor(String index, String color) {
+        Map<String, Object> colors = new LinkedHashMap<String, Object>();
+        colors.put(index, color);
+        ledMap.put("colors", colors); 
+    }
 }

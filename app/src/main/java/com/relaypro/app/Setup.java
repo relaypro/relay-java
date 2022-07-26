@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public class Setup {
     
-    private static final int PORT = 3000;
+    private static final int PORT = 8080;
 
     private static Logger logger = LoggerFactory.getLogger(Setup.class);
     

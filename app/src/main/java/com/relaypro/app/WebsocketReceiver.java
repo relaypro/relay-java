@@ -11,7 +11,7 @@ import jakarta.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@ServerEndpoint(value="/ws/{workflowname}")
+@ServerEndpoint(value="/{workflowname}")
 public class WebsocketReceiver {
 
     private static Logger logger = LoggerFactory.getLogger(WebsocketReceiver.class);
