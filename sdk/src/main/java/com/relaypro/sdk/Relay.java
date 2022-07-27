@@ -1,21 +1,21 @@
 // Copyright © 2022 Relay Inc.
-
 package com.relaypro.sdk;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.relaypro.sdk.types.*;
-
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
+
+import static java.util.Map.entry;
+
 
 import static java.util.Map.entry;
 
@@ -194,6 +194,9 @@ public class Relay {
                 // need to wait for prompt end, save the response to return then
                 resp = response;
             }
+            if (response.eventOrResponse.equals("speech")) {
+                return resp;
+            }
         }
     }
 
@@ -263,7 +266,8 @@ public class Relay {
     }
 
     public String listen(String sourceUri, String requestId) {
-        return null;
+        String[] phrases = {};
+        return listen(sourceUri, requestId, phrases, false, LanguageType.English, 30);
     }
 
     public String listen(String sourceUri, String requestId, String[] phrases, boolean transcribe, LanguageType lang, int timeout) {
@@ -282,6 +286,10 @@ public class Relay {
             logger.error("Error listening", e);
         }
         return null;
+    }
+
+    public void WaitForListenSpeech(String id, int timeout) {
+
     }
 
     public String play(String sourceUri, String filename) {
@@ -510,7 +518,7 @@ public class Relay {
         setLeds( sourceUri, LedEffect.BREATHE, ledInfo.ledMap);
     }
 
-    public  void setLeds( String sourceUri, LedEffect effect, Map<String, Object> args) {
+    private  void setLeds( String sourceUri, LedEffect effect, Map<String, Object> args) {
         logger.debug("Setting leds: " + effect.value() + " " + args);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetLeds, sourceUri,
                 entry("effect", effect.value()),
@@ -567,6 +575,10 @@ public class Relay {
             logger.error("Error getting variable", e);
         }
         return null;
+    }
+
+    public int getNumberVar(String name, int defaultValue) {
+        return Integer.parseInt(this.getVar(name, Integer.toString(defaultValue)));
     }
 
     public void unsetVar(String name) {
@@ -637,7 +649,7 @@ public class Relay {
         sendNotification(target, null, "cancel", null, name);
     }
 
-    public void broadcast(String target, String originator, String name, String text) {
+    public void broadcast (String target, String originator, String name, String text) {
         sendNotification(target, originator, "broadcast", text, name);
     }
 
@@ -669,8 +681,21 @@ public class Relay {
     }
 
     public  double[] getDeviceLatLong( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LatLong, refresh);
-        return resp != null ? resp.latlong : null;
+        // DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LatLong, refresh);
+        // return resp != null ? resp.latlong : null;
+        logger.debug("getting the device lat and long");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetDeviceInfo, sourceUri,
+            entry("query", DeviceInfoQueryType.LatLong.value()),
+            entry("refresh", refresh)
+        );
+        try {
+            MessageWrapper resp = sendRequest(req);
+            // System.out.println(resp);
+            return resp != null ? (double[]) resp.parsedJson.get("latlong") : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error retrieving lat long coordinates.");
+        }
+        return null;
     }
 
     public  String getDeviceIndoorLocation( String sourceUri, boolean refresh) {
@@ -716,18 +741,20 @@ public class Relay {
         return null;
     }
 
-    public  void setDeviceMode( String sourceUri, DeviceMode mode) {
-        logger.debug("Setting device mode: " + mode.value());
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceMode, sourceUri,
-                entry("mode", mode.value())
-        );
+    // setDeviceMode is currently not supported
 
-        try {
-            sendRequest(req);
-        } catch (EncodeException | IOException | InterruptedException e) {
-            logger.error("Error setting device mode", e);
-        }
-    }
+    // public  void setDeviceMode( String sourceUri, DeviceMode mode) {
+    //     logger.debug("Setting device mode: " + mode.value());
+    //     Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceMode, sourceUri,
+    //             entry("mode", mode.value())
+    //     );
+
+    //     try {
+    //         sendRequest(req);
+    //     } catch (EncodeException | IOException | InterruptedException e) {
+    //         logger.error("Error setting device mode", e);
+    //     }
+    // }
 
     public  void setDeviceName( String sourceUri, String name) {
         setDeviceInfo( sourceUri, DeviceField.Label, name);
@@ -741,13 +768,15 @@ public class Relay {
         setLocationEnabled(sourceUri, false);
     }
 
-    public  void setLocationEnabled( String sourceUri, boolean enabled) {
+    private void setLocationEnabled( String sourceUri, boolean enabled) {
         setDeviceInfo( sourceUri, DeviceField.LocationEnabled, String.valueOf(enabled));
     }
 
-    public void setDeviceChannel(String sourceUri, String channel) {
-        setDeviceInfo( sourceUri, DeviceField.Channel, channel);
-    }
+    // setDeviceChannel is currently not supported
+
+    // public void setDeviceChannel(String sourceUri, String channel) {
+    //     setDeviceInfo( sourceUri, DeviceField.Channel, channel);
+    // }
 
     public  void setChannel( String sourceUri, String channelName, boolean suppressTTS, boolean disableHomeChannel) {
         logger.debug("Setting channel: " + channelName + ": supresstts:" + suppressTTS + " disableHomeChannel:" + disableHomeChannel);
@@ -813,38 +842,40 @@ public class Relay {
         }
     }
 
-    public  void restartDevice( String sourceUri) {
-        logger.debug("Restarting device: " + sourceUri);
-        powerDownDevice( sourceUri, true);
-    }
+    // restart/powering down device is currently not supported
 
-    public  void powerDownDevice( String sourceUri) {
-        logger.debug("Powering down device: " + sourceUri);
-        powerDownDevice( sourceUri, true);
-    }
+    // public  void restartDevice( String sourceUri) {
+    //     logger.debug("Restarting device: " + sourceUri);
+    //     powerDownDevice( sourceUri, true);
+    // }
 
-    private  void powerDownDevice( String sourceUri, boolean restart) {
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.PowerOff, sourceUri,
-                entry("restart", restart)
-        );
+    // public  void powerDownDevice( String sourceUri) {
+    //     logger.debug("Powering down device: " + sourceUri);
+    //     powerDownDevice( sourceUri, true);
+    // }
 
-        try {
-            sendRequest(req);
-        } catch (EncodeException | IOException | InterruptedException e) {
-            logger.error("Error powering down device", e);
-        }
-    }
+    // private  void powerDownDevice( String sourceUri, boolean restart) {
+    //     Map<String, Object> req = RelayUtils.buildRequest(RequestType.PowerOff, sourceUri,
+    //             entry("restart", restart)
+    //     );
+
+    //     try {
+    //         sendRequest(req);
+    //     } catch (EncodeException | IOException | InterruptedException e) {
+    //         logger.error("Error powering down device", e);
+    //     }
+    // }
 
     public  void terminate() {
         logger.debug("Terminating workflow");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Terminate);
-
 //        WorkflowWrapper wrapper = runningWorkflowsByWorkflow.get(workflow);
         try {
             sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error terminating workflow", e);
         }
+
     }
 
     // HELPER FUNCTIONS ##############
