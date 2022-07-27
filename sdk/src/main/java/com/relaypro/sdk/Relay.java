@@ -681,21 +681,21 @@ public class Relay {
     }
 
     public  double[] getDeviceLatLong( String sourceUri, boolean refresh) {
-        // DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LatLong, refresh);
-        // return resp != null ? resp.latlong : null;
-        logger.debug("getting the device lat and long");
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetDeviceInfo, sourceUri,
-            entry("query", DeviceInfoQueryType.LatLong.value()),
-            entry("refresh", refresh)
-        );
-        try {
-            MessageWrapper resp = sendRequest(req);
-            // System.out.println(resp);
-            return resp != null ? (double[]) resp.parsedJson.get("latlong") : null;
-        } catch (EncodeException | IOException | InterruptedException e) {
-            logger.error("Error retrieving lat long coordinates.");
-        }
-        return null;
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LatLong, refresh);
+        return resp != null ? resp.latlong : null;
+        // logger.debug("getting the device lat and long");
+        // Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetDeviceInfo, sourceUri,
+        //     entry("query", DeviceInfoQueryType.LatLong.value()),
+        //     entry("refresh", refresh)
+        // );
+        // try {
+        //     MessageWrapper resp = sendRequest(req);
+        //     // System.out.println(resp);
+        //     return resp != null ? (double[]) resp.parsedJson.get("latlong") : null;
+        // } catch (EncodeException | IOException | InterruptedException e) {
+        //     logger.error("Error retrieving lat long coordinates.");
+        // }
+        // return null;
     }
 
     public  String getDeviceIndoorLocation( String sourceUri, boolean refresh) {
@@ -723,7 +723,7 @@ public class Relay {
         return resp != null ? resp.location_enabled : null;
     }
 
-    private  DeviceInfoResponse getDeviceInfo( String sourceUri, DeviceInfoQueryType query, boolean refresh) {
+    public  DeviceInfoResponse getDeviceInfo( String sourceUri, DeviceInfoQueryType query, boolean refresh) {
         logger.debug("Getting device info: " + query + " refresh: " + refresh);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetDeviceInfo, sourceUri,
                 entry("query", query.value()),
@@ -768,7 +768,7 @@ public class Relay {
         setLocationEnabled(sourceUri, false);
     }
 
-    private void setLocationEnabled( String sourceUri, boolean enabled) {
+    public void setLocationEnabled( String sourceUri, boolean enabled) {
         setDeviceInfo( sourceUri, DeviceField.LocationEnabled, String.valueOf(enabled));
     }
 
