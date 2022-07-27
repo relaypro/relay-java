@@ -38,9 +38,12 @@ class MessageWrapper {
     private static void parseMessage(MessageWrapper wrapper) {
         // pass through both regexes, see which matches
         Gson gson = new Gson();
-        wrapper.parsedJson = RelayUtils.sanitize(gson.fromJson(wrapper.messageJson, new TypeToken<Map<String, Object>>() {}.getType()));
-        wrapper.messageJson = gson.toJson(wrapper.parsedJson);                  // reencode the parsed and sanitized map so we can re-decode it as an object :(
-        String type = (String)wrapper.parsedJson.get("_type");
+        // wrapper.parsedJson = RelayUtils.sanitize(gson.fromJson(wrapper.messageJson, new TypeToken<Map<String, Object>>() {}.getType()));
+        // wrapper.messageJson = gson.toJson(wrapper.parsedJson);                  // reencode the parsed and sanitized map so we can re-decode it as an object :(
+        // String type = (String)wrapper.parsedJson.get("_type");
+        Map<String, Object> msgJson = gson.fromJson(wrapper.messageJson, new TypeToken<Map<String, Object>>() {}.getType());
+        wrapper.parsedJson = RelayUtils.sanitize(msgJson);
+        String type = (String)msgJson.get("_type");
         wrapper._type = type;
 
         Matcher m = eventPattern.matcher(type);
