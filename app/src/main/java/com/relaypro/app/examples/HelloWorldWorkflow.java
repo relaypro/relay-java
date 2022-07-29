@@ -35,9 +35,10 @@ public class HelloWorldWorkflow extends Workflow {
         this.sourceUri = (String)lifecycleEvent.sourceUri;
         
         if (type.equals("started")) {
-            relay.sayAndWait( sourceUri, "What is your name?");
+            String deviceName = relay.getDeviceName(sourceUri, false);
+            relay.say( sourceUri, "What is your name?");
             String returned = relay.listen(sourceUri, "request-1");
-            relay.say(sourceUri, "Hello " + returned );
+            relay.say(sourceUri, "Hello " + returned + " you are currently using " + deviceName);
             relay.endInteraction(sourceUri, "interaction name");
         }
         if (type.equals("ended")) {
