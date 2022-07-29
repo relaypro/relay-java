@@ -9,8 +9,6 @@ import com.relaypro.sdk.types.StartEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
-
 public class HelloWorldWorkflow extends Workflow {
 
     private static Logger logger = LoggerFactory.getLogger(HelloWorldWorkflow.class);
@@ -37,7 +35,9 @@ public class HelloWorldWorkflow extends Workflow {
         this.sourceUri = (String)lifecycleEvent.sourceUri;
         
         if (type.equals("started")) {
-            relay.sayAndWait( sourceUri, "hello world");
+            relay.sayAndWait( sourceUri, "What is your name?");
+            String returned = relay.listen(sourceUri, "request-1");
+            relay.say(sourceUri, "Hello " + returned );
             relay.endInteraction(sourceUri, "interaction name");
         }
         if (type.equals("ended")) {

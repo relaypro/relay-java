@@ -105,8 +105,8 @@ public class Relay {
         MessageWrapper msgWrapper = MessageWrapper.parseMessage(message);
 
         if (msgWrapper.eventOrResponse == "event") {
-            // prompt and progress events need to be sent to the matching calls as well as to event callbacks
-            if (msgWrapper.type.equals("prompt") || msgWrapper.type.equals("progress")) {
+            // prompt, progress, and speech events need to be sent to the matching calls as well as to event callbacks
+            if (msgWrapper.type.equals("prompt") || msgWrapper.type.equals("progress") || msgWrapper.type.equals("speech")) {
                 handleResponse(msgWrapper, wfWrapper);
             }
 
@@ -125,13 +125,14 @@ public class Relay {
         }
 
     }
-
     private static void handleResponse(MessageWrapper msgWrapper, Relay wfWrapper) {
         String id = null;
         if (msgWrapper.parsedJson.containsKey("_id")) {
             id = (String) msgWrapper.parsedJson.get("_id");
         } else if (msgWrapper.parsedJson.containsKey("id")) {
             id = (String) msgWrapper.parsedJson.get("id");
+        } else if (msgWrapper.parsedJson.containsKey("request_id")) {
+            id = (String) msgWrapper.parsedJson.get("request_id");
         }
         if (id == null) {
             return;
@@ -146,7 +147,7 @@ public class Relay {
 
     private MessageWrapper sendRequest(Map<String, Object> message, boolean waitForPromptEnd) throws EncodeException, IOException, InterruptedException {
 //        Relay wrapper = runningWorkflowsByWorkflow.get(workflow);
-
+    
         String id = (String) message.get("_id");
         String msgJson = gson.toJson(message);
 
@@ -164,9 +165,14 @@ public class Relay {
         // else store the response, and wait until a prompt end is seen, then return the response message
         // in either case, progress events reset the listen timeout
         MessageWrapper resp = null;
+        boolean receivedSpeechEvent = false;
         while (true) {
+            
             // TODO set timeout for listen
             MessageWrapper response = call.responseQueue.poll(RESPONSE_TIMEOUT_SECS, TimeUnit.SECONDS);
+            if(receivedSpeechEvent) {
+                return response;
+            }
             if (response == null) {
                 logger.error("Timed out waiting for response");
                 return null;
@@ -186,19 +192,19 @@ public class Relay {
                 // if an error was returned, then no response will be, so return null
                 logger.error("Error returned for call: " + response.messageJson);
                 return null;
-            } else if (response.eventOrResponse.equals("response")) {
+            } else if (response.eventOrResponse.equals("response") || response.eventOrResponse.equals("event")) {
                 // matching response
                 if (!waitForPromptEnd) {
                     return response;
                 }
                 // need to wait for prompt end, save the response to return then
                 resp = response;
-            }
-            if (response.eventOrResponse.equals("speech")) {
-                return resp;
+                // for listen, notify that we received a speech event
+                receivedSpeechEvent = true;
             }
         }
     }
+
 
     // ##### API ################################################
 
@@ -272,6 +278,7 @@ public class Relay {
 
     public String listen(String sourceUri, String requestId, String[] phrases, boolean transcribe, LanguageType lang, int timeout) {
         logger.debug("Listening to " + sourceUri);
+        
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Listen, sourceUri,
             entry("request_id", requestId),
             entry("phrases", phrases),
@@ -286,10 +293,6 @@ public class Relay {
             logger.error("Error listening", e);
         }
         return null;
-    }
-
-    public void WaitForListenSpeech(String id, int timeout) {
-
     }
 
     public String play(String sourceUri, String filename) {
