@@ -150,6 +150,10 @@ public class Relay {
     
         String id = (String) message.get("_id");
         String msgJson = gson.toJson(message);
+        // gson.toJson encodes "=" to a unicharacter, encode it back to "="
+        if(msgJson.contains("\\u003d")) {
+            msgJson = msgJson.replace("\\u003d", "=");
+        }
 
         // store a call for this request that all incoming response/prompt/progress messages can be passed back to us through
         Call call = new Call();

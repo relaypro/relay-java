@@ -36,7 +36,10 @@ public class WebsocketReceiver {
 
     @OnError
     public void onError(Session session, Throwable throwable) {
-        logger.error("Error occurred: ", throwable);
+        // ibot closes the connection on terminate(); this is expected
+        if(!throwable.getClass().getName().equals("java.nio.channels.ClosedChannelException")){
+            logger.error("Error occurred: ", throwable);
+        }
     }
     
     @OnClose
