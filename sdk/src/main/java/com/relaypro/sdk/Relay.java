@@ -1,45 +1,27 @@
 // Copyright © 2022 Relay Inc.
 package com.relaypro.sdk;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.relaypro.sdk.types.*;
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.lang.reflect.Type;
-// import com.google.gson.reflect.TypeToken;
-// import java.net.URI;
-// import java.net.http.HttpClient;
-// import java.net.http.HttpRequest;
-// import java.net.http.HttpResponse;
+
+import java.net.HttpRetryException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.security.spec.EncodedKeySpec;
 import java.time.Duration;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.*;
-
-
-import com.google.gson.Gson;
-// import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
 import static java.util.Map.entry;
 
 public class Relay {
@@ -916,44 +898,9 @@ public class Relay {
     String version = "relay-sdk-java/2.0.0";
     String auth_hostname = "auth.relaygo.info";
 
-    private String updateAccessToken(String refreshToken, String clientId) {
-        String grantUrl = "https://" + auth_hostname + "/oauth2/token";
-        // Map<String, String> grantHeaders = new LinkedHashMap<String, String>();
-        // grantHeaders.put("User-Agent", version);
-
-        Map<String, String> grantPayload = new LinkedHashMap<String, String>();
-        grantPayload.put("client_id", clientId);
-        grantPayload.put("grant_type", "refresh_token");
-        grantPayload.put("refresh_token", refreshToken);
-        Gson gson = new Gson();
-        // Type gsonType = new TypeToken<LinkedHashMap>(){}.getType();
-        // String gsonString = gson.toJson(payload.gsonType);
-        String jsonStr = gson.toJson(grantPayload);
-        logger.debug("JSON STRING: " + jsonStr);
-        logger.debug("HTTPBODY: " + HttpRequest.BodyPublishers.ofString(jsonStr));
-        HttpClient httpClient = HttpClient.newBuilder()
-                    .version(HttpClient.Version.HTTP_1_1)
-                    .build();
-        HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .POST(formEncodedContent(grantPayload))
-                    .uri(URI.create(grantUrl))
-                    .setHeader("User-Agent", version)
-                    .setHeader("Content-Type", "application/json")
-                    .build();
-        try {
-            var response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-            logger.debug("RESPONSE BODY: " + response.body());
-            String[] responseArray = response.body().split("\":\"|\",\"");
-            logger.debug("THIS: " + responseArray[1]);
-            return responseArray[1];
-        } catch (IOException | InterruptedException e) {
-            logger.debug("Received exception when trying to update access token: ", e);
-        } 
-        return null;
-    }
-
-    private static HttpRequest.BodyPublisher formEncodedContent(Map<String, String> data) {
+    private static String encodeQueryParams(Map<String, String> data) {
         var encodeData = new StringBuilder();
+        encodeData.append("?");
         for(Map.Entry<String, String> entry : data.entrySet()) {
             if(encodeData.length() > 0) {
                 encodeData.append("&");
@@ -963,20 +910,45 @@ public class Relay {
             encodeData.append("=");
             encodeData.append(URLEncoder.encode((entry.getValue().toString()), StandardCharsets.UTF_8));
         }
+        return encodeData.toString();
+    }
 
-        return HttpRequest.BodyPublishers.ofString(encodeData.toString());
+    private String updateAccessToken(String refreshToken, String clientId) {
+        String grantUrl = "https://" + auth_hostname + "/oauth2/token";
+        
+        Map<String, String> grantPayload = new LinkedHashMap<String, String>();
+        grantPayload.put("client_id", clientId);
+        grantPayload.put("grant_type", "refresh_token");
+        grantPayload.put("refresh_token", refreshToken);
+        
+        HttpClient httpClient = HttpClient.newBuilder()
+                    .version(HttpClient.Version.HTTP_1_1)
+                    .build();
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .POST(HttpRequest.BodyPublishers.ofString(encodeQueryParams(grantPayload)))
+                    .uri(URI.create(grantUrl))
+                    .setHeader("User-Agent", version)
+                    .setHeader("Content-Type", "application/json")
+                    .build();
+        try {
+            var response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("Failed to retrieve access token with status code " + response.statusCode());
+            }
+            return response.body().split("\":\"|\",\"")[1];
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Received exception when trying to update access token: ", e);
+        } 
     }
 
     public Map<String, String> triggerWorkflow(String accessToken, String refreshToken, String clientId, String workflowId, String subscriberId, String userId, String[] targets, Map<String, String> actionArgs) {
-        String url = "https://" + serverHostname + "/ibot/workflow/" + workflowId + "?subscriber_id=" + subscriberId
-                        + "&user_id=" + userId;
-        // var queryParams = new LinkedHashMap<String, String>(); 
-        // queryParams.put("subscriber_id", subscriberId);
-        // queryParams.put("user_id", userId);
+        Map<String, String> queryParams = new LinkedHashMap<String, String>();
+        queryParams.put("subscriber_id", subscriberId);
+        queryParams.put("user_id", userId);
 
-        Map<String, String> payload = new LinkedHashMap<String, String>();
-        // var json = new JSON
-        
+        String url = "https://" + serverHostname + "/ibot/workflow/" + workflowId + encodeQueryParams(queryParams);
+
+        Map<String, String> payload = new LinkedHashMap<String, String>();     
         payload.put("action", "invoke");
 
         if (actionArgs != null) {
@@ -988,8 +960,6 @@ public class Relay {
         }
 
         Gson gson = new Gson();
-        // Type gsonType = new TypeToken<LinkedHashMap>(){}.getType();
-        // String gsonString = gson.toJson(payload.gsonType);
         String jsonStr = gson.toJson(payload);
         HttpClient httpClient = HttpClient.newBuilder()
                     .version(HttpClient.Version.HTTP_2)
@@ -1006,10 +976,6 @@ public class Relay {
             if (response.statusCode() == 401) {
                 logger.debug("Got 401, retrieving a new access token");
                 accessToken = updateAccessToken(refreshToken, clientId);
-                logger.debug("NEW ACCESS TOKEN: " + accessToken);
-                httpClient = HttpClient.newBuilder()
-                    .version(HttpClient.Version.HTTP_2)
-                    .build();
 
                 httpRequest = HttpRequest.newBuilder()
                     .POST(HttpRequest.BodyPublishers.ofString(jsonStr))
@@ -1025,16 +991,16 @@ public class Relay {
             returnVal.put("accessToken", accessToken);
             return returnVal;
         } catch (IOException | InterruptedException e) {
-            logger.error("Received error when sending request: ", e);
+            throw new RuntimeException("Received exception when attempting to trigger workflow: ", e);
         } 
-        return null;
     }
 
     public Map<String, String> fetchDevice(String accessToken, String refreshToken, String clientId, String subscriberId, String userId) {
-        String url = "https://" + serverHostname + "/relaypro/api/v1/device/" + userId + "?subscriber_id=" + subscriberId;
-        // String url = "https://" + serverHostname + "/relaypro/api/v1/device/" + userId;
-        // var queryParams = new LinkedHashMap<String, String>();
-        // queryParams.put("subscriber_id", subscriberId);
+        Map<String, String> queryParams = new LinkedHashMap<String, String>();
+        queryParams.put("subscriber_id", subscriberId);
+
+        String url = "https://" + serverHostname + "/relaypro/api/v1/device/" + userId + encodeQueryParams(queryParams);
+
         HttpClient httpClient = HttpClient.newBuilder()
                     .version(HttpClient.Version.HTTP_2)
                     .connectTimeout(Duration.ofSeconds(10))
@@ -1051,11 +1017,6 @@ public class Relay {
             if (response.statusCode() == 401) {
                 logger.debug("Got 401, retrieving a new access token");
                 accessToken = updateAccessToken(refreshToken, clientId);
-                logger.debug("new access token: " + accessToken);
-                httpClient = HttpClient.newBuilder()
-                        .version(HttpClient.Version.HTTP_2)
-                        .connectTimeout(Duration.ofSeconds(10))
-                        .build();
 
                 httpRequest = HttpRequest.newBuilder()
                         .GET()
@@ -1063,6 +1024,7 @@ public class Relay {
                         .setHeader("User-Agent", version)
                         .setHeader("Authorization", "Bearer " + accessToken)
                         .build();
+
                 response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             }
             Map<String, String> returnVal = new LinkedHashMap<>();
@@ -1070,9 +1032,8 @@ public class Relay {
             returnVal.put("accessToken", accessToken);
             return returnVal;
         } catch (IOException | InterruptedException e) {
-            logger.error("Received exception when retrieving device information", e);
+            throw new RuntimeException("Received exception when retrieving device information", e);
         } 
-        return null;
     }
 
 }
