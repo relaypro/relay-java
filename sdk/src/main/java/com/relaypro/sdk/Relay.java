@@ -884,9 +884,9 @@ public class Relay {
     }
 
 
-    String serverHostname = "all-main-qa-ibot.nocell.io";
+    String serverHostname = "all-main-pro-ibot.relaysvr.com";
     String version = "relay-sdk-java/2.0.0";
-    String auth_hostname = "auth.relaygo.info";
+    String auth_hostname = "auth.relaygo.com";
 
 
     private static String encodeQueryParams(Map<String, String> queryParams) {
