@@ -3,28 +3,22 @@ package com.relaypro.sdk;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonToken;
 import com.relaypro.sdk.types.*;
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.net.HttpRetryException;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.*;
-
-import javax.management.RuntimeErrorException;
 
 import static java.util.Map.entry;
 
@@ -53,7 +47,6 @@ public class Relay {
         // start a thread that handles running the workflow code
         this.workflowFuture = executor.submit(new Worker(this));
         runningWorkflowsBySession.put(session, this);
-//        runningWorkflowsByWorkflow.put(workflow, this);
     }
 
 
@@ -503,38 +496,39 @@ public class Relay {
         setLeds( sourceUri, LedEffect.STATIC, ledInfo.ledMap);
     }
 
-    public  void switchAllLedOff( String sourceUri) {
+    public void switchAllLedOff( String sourceUri) {
         LedInfo ledInfo = new LedInfo();
         setLeds( sourceUri, LedEffect.OFF, ledInfo.ledMap);
     }
 
-    public  void rainbow( String sourceUri, int rotations) {
+    public void rainbow( String sourceUri, int rotations) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setRotations(rotations);
         setLeds( sourceUri, LedEffect.RAINBOW, ledInfo.ledMap);
     }
 
-    public  void rotate( String sourceUri, String color) {
+    public void rotate( String sourceUri, String color, int rotations) {
         LedInfo ledInfo = new LedInfo();
-        ledInfo.setRotations(-1);
+        ledInfo.setRotations(rotations);
         ledInfo.setColor("1", color);
         setLeds( sourceUri, LedEffect.ROTATE, ledInfo.ledMap);
     }
 
-    public  void flash( String sourceUri, String color, int count) {
+    public void flash( String sourceUri, String color, int count) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setCount(count);
         ledInfo.setColor("ring", color);
         setLeds( sourceUri, LedEffect.FLASH, ledInfo.ledMap);
     }
 
-    public  void breathe( String sourceUri, String color) {
+    public void breathe( String sourceUri, String color, int count) {
         LedInfo ledInfo = new LedInfo();
+        ledInfo.setCount(count);
         ledInfo.setColor("ring", color);
         setLeds( sourceUri, LedEffect.BREATHE, ledInfo.ledMap);
     }
 
-    private  void setLeds( String sourceUri, LedEffect effect, Map<String, Object> args) {
+    private void setLeds( String sourceUri, LedEffect effect, Map<String, Object> args) {
         logger.debug("Setting leds: " + effect.value() + " " + args);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetLeds, sourceUri,
                 entry("effect", effect.value()),
@@ -548,7 +542,7 @@ public class Relay {
         }
     }
 
-    public  void vibrate( String sourceUri, long[] pattern) {
+    public void vibrate( String sourceUri, int[] pattern) {
         logger.debug("Vibrating: " + pattern);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Vibrate, sourceUri,
                 entry("pattern", pattern)
@@ -673,14 +667,6 @@ public class Relay {
         sendNotification(target, null, "cancel", null, name);
     }
 
-    public void notify(String target, String originator, String name, String text) {
-        sendNotification(target, originator, "notify", text, name);
-    }
-
-    public void cancelNotify(String target, String name) {
-        sendNotification(target, null, "cancel", null, name);
-    }
-
     public  String getDeviceName( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Name, refresh);
         return resp != null ? resp.name : null;
@@ -767,7 +753,7 @@ public class Relay {
     //     }
     // }
 
-    public  void setDeviceName( String sourceUri, String name) {
+    public void setDeviceName( String sourceUri, String name) {
         setDeviceInfo( sourceUri, DeviceField.Label, name);
     }
 
