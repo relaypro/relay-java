@@ -3,6 +3,7 @@ package com.relaypro.sdk;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonToken;
 import com.relaypro.sdk.types.*;
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Session;
@@ -22,6 +23,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.*;
+
+import javax.management.RuntimeErrorException;
+
 import static java.util.Map.entry;
 
 public class Relay {
@@ -898,31 +902,36 @@ public class Relay {
     String version = "relay-sdk-java/2.0.0";
     String auth_hostname = "auth.relaygo.info";
 
-    private static String encodeQueryParams(Map<String, String> data) {
+
+    private static String encodeQueryParams(Map<String, String> queryParams) {
+        // Create a new string builder and for each query parameter in queryParams, 
+        // add it to encodeData.  When all query parameters are added, return the encoded parameters.
         var encodeData = new StringBuilder();
         encodeData.append("?");
-        for(Map.Entry<String, String> entry : data.entrySet()) {
+        for(Map.Entry<String, String> param : queryParams.entrySet()) {
             if(encodeData.length() > 0) {
                 encodeData.append("&");
             }
-
-            encodeData.append(URLEncoder.encode(entry.getKey().toString(), StandardCharsets.UTF_8));
+            encodeData.append(param.getKey());
             encodeData.append("=");
-            encodeData.append(URLEncoder.encode((entry.getValue().toString()), StandardCharsets.UTF_8));
+            encodeData.append(param.getValue());
         }
         return encodeData.toString();
     }
 
     private String updateAccessToken(String refreshToken, String clientId) {
+        // Create the URL String
         String grantUrl = "https://" + auth_hostname + "/oauth2/token";
         
+        // Create a Map that contains the payload to be sent with the request
         Map<String, String> grantPayload = new LinkedHashMap<String, String>();
         grantPayload.put("client_id", clientId);
         grantPayload.put("grant_type", "refresh_token");
         grantPayload.put("refresh_token", refreshToken);
         
+        // Create a new HttpClient and HttpRequest, and add the headers and URL to the request
         HttpClient httpClient = HttpClient.newBuilder()
-                    .version(HttpClient.Version.HTTP_1_1)
+                    .version(HttpClient.Version.HTTP_2)
                     .build();
         HttpRequest httpRequest = HttpRequest.newBuilder()
                     .POST(HttpRequest.BodyPublishers.ofString(encodeQueryParams(grantPayload)))
@@ -930,27 +939,38 @@ public class Relay {
                     .setHeader("User-Agent", version)
                     .setHeader("Content-Type", "application/json")
                     .build();
+        
+        // Try to send the request, if you don't receive a status code of 200, throw an exception back to the client
         try {
             var response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() != 200) {
-                throw new RuntimeException("Failed to retrieve access token with status code " + response.statusCode());
+                throw new HttpRetryException("Failed to retrieve access token with status code ", response.statusCode());
             }
-            return response.body().split("\":\"|\",\"")[1];
+
+            // Create a Map so that we can easily retrieve the access token from the response body, and return the access token 
+            // back to the caller.
+            Gson gson = new Gson();
+            Map<String, String> responseMap = gson.fromJson(response.body(), LinkedHashMap.class);
+            return responseMap.get("access_token").toString();
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Received exception when trying to update access token: ", e);
         } 
     }
 
     public Map<String, String> triggerWorkflow(String accessToken, String refreshToken, String clientId, String workflowId, String subscriberId, String userId, String[] targets, Map<String, String> actionArgs) {
+        // Create a Map containing the query parameters
         Map<String, String> queryParams = new LinkedHashMap<String, String>();
         queryParams.put("subscriber_id", subscriberId);
         queryParams.put("user_id", userId);
 
+        // Create the URL and append the encoded query paremeters to the URL
         String url = "https://" + serverHostname + "/ibot/workflow/" + workflowId + encodeQueryParams(queryParams);
 
+        // Create a map containing the payload you would like to send with the request
         Map<String, String> payload = new LinkedHashMap<String, String>();     
         payload.put("action", "invoke");
 
+        // If the actionArgs or targets parameters are not null, add them to the payload
         if (actionArgs != null) {
             payload.put("action_args", actionArgs.toString());
         }
@@ -959,18 +979,19 @@ public class Relay {
             payload.put("target_device_ids", targets.toString());
         }
 
+        // Create a new HttpClient and HttpRequest, and add the headers and URL to the request
         Gson gson = new Gson();
-        String jsonStr = gson.toJson(payload);
         HttpClient httpClient = HttpClient.newBuilder()
                     .version(HttpClient.Version.HTTP_2)
                     .build();
         HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .POST(HttpRequest.BodyPublishers.ofString(jsonStr))
+                    .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(payload)))
                     .uri(URI.create(url))
                     .setHeader("User-Agent", version)
-                    .header("Authorization", "Bearer " + accessToken)
+                    .setHeader("Authorization", "Bearer " + accessToken)
                     .build();
         
+        // Try to send the request.  If you receive a status code of 401, try to retrieve a new access token and retry the request
         try {
             var response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 401) {
@@ -978,7 +999,7 @@ public class Relay {
                 accessToken = updateAccessToken(refreshToken, clientId);
 
                 httpRequest = HttpRequest.newBuilder()
-                    .POST(HttpRequest.BodyPublishers.ofString(jsonStr))
+                    .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(payload)))
                     .uri(URI.create(url))
                     .setHeader("User-Agent", version)
                     .header("Authorization", "Bearer " + accessToken)
@@ -986,9 +1007,11 @@ public class Relay {
                 
                 response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             }
+
+            // Create a Map that will hold the response body and access token, then return the Map to the client
             Map<String, String> returnVal = new LinkedHashMap<String, String>();
             returnVal.put("response", response.body());
-            returnVal.put("accessToken", accessToken);
+            returnVal.put("access_token", accessToken);
             return returnVal;
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Received exception when attempting to trigger workflow: ", e);
@@ -996,22 +1019,27 @@ public class Relay {
     }
 
     public Map<String, String> fetchDevice(String accessToken, String refreshToken, String clientId, String subscriberId, String userId) {
+        // Create a Map containgin the query parameters
         Map<String, String> queryParams = new LinkedHashMap<String, String>();
         queryParams.put("subscriber_id", subscriberId);
 
+        // Create a URL and append the encoded query parameters to the URL
         String url = "https://" + serverHostname + "/relaypro/api/v1/device/" + userId + encodeQueryParams(queryParams);
 
+        // Create a new HttpClient and HttpRequest, and add the ehaders and URL to the request
         HttpClient httpClient = HttpClient.newBuilder()
                     .version(HttpClient.Version.HTTP_2)
                     .connectTimeout(Duration.ofSeconds(10))
                     .build();
 
         HttpRequest httpRequest = HttpRequest.newBuilder()
-                        .GET()
-                        .uri(URI.create(url))
-                        .setHeader("User-Agent", version)
-                        .setHeader("Authorization", "Bearer " + accessToken)
-                        .build();
+                    .GET()
+                    .uri(URI.create(url))
+                    .setHeader("User-Agent", version)
+                    .setHeader("Authorization", "Bearer " + accessToken)
+                    .build();
+        
+        // Try to send the request.  If you receive a status code of 401, try to retrieve a new access token and retry the request
         try {
             HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 401) {
@@ -1027,9 +1055,11 @@ public class Relay {
 
                 response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
             }
+
+            // Create a Map that will hold the response body and access token, then return the Map to the client
             Map<String, String> returnVal = new LinkedHashMap<>();
             returnVal.put("response", response.body());
-            returnVal.put("accessToken", accessToken);
+            returnVal.put("access_token", accessToken);
             return returnVal;
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Received exception when retrieving device information", e);
