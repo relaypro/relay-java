@@ -185,97 +185,116 @@ implements java.lang.Cloneable</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onAudio()">onAudio</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onButton(com.relaypro.sdk.Relay,com.relaypro.sdk.types.ButtonEvent)">onButton</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+        <a href="types/ButtonEvent.html" title="class in com.relaypro.sdk.types">ButtonEvent</a>&nbsp;buttonEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onButton(java.util.Map)">onButton</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;buttonEvent)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallConnected(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallConnectedEvent)">onCallConnected</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+               <a href="types/CallConnectedEvent.html" title="class in com.relaypro.sdk.types">CallConnectedEvent</a>&nbsp;callConnectedEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallConnected()">onCallConnected</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallDisconnected(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallDisconnectedEvent)">onCallDisconnected</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                  <a href="types/CallDisconnectedEvent.html" title="class in com.relaypro.sdk.types">CallDisconnectedEvent</a>&nbsp;callDisconnectedEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallDisconnected()">onCallDisconnected</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallFailed(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallFailedEvent)">onCallFailed</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+            <a href="types/CallFailedEvent.html" title="class in com.relaypro.sdk.types">CallFailedEvent</a>&nbsp;callFailedEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallFailed()">onCallFailed</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallProgressing(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallProgressingEvent)">onCallProgressing</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                 <a href="types/CallProgressingEvent.html" title="class in com.relaypro.sdk.types">CallProgressingEvent</a>&nbsp;callProgressingEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallProgressing()">onCallProgressing</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallReceived(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallReceivedEvent)">onCallReceived</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+              <a href="types/CallReceivedEvent.html" title="class in com.relaypro.sdk.types">CallReceivedEvent</a>&nbsp;callReceivedEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallReceived()">onCallReceived</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallRinging(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallRingingEvent)">onCallRinging</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+             <a href="types/CallRingingEvent.html" title="class in com.relaypro.sdk.types">CallRingingEvent</a>&nbsp;callRingingEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallRinging()">onCallRinging</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallStartRequest(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallStartEvent)">onCallStartRequest</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                  <a href="types/CallStartEvent.html" title="class in com.relaypro.sdk.types">CallStartEvent</a>&nbsp;callStartEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallStartRequest()">onCallStartRequest</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onIncident(com.relaypro.sdk.Relay,com.relaypro.sdk.types.IncidentEvent)">onIncident</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+          <a href="types/IncidentEvent.html" title="class in com.relaypro.sdk.types">IncidentEvent</a>&nbsp;incidentEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onIncident()">onIncident</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onInteractionLifecycle(com.relaypro.sdk.Relay,com.relaypro.sdk.types.InteractionLifecycleEvent)">onInteractionLifecycle</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                      <a href="types/InteractionLifecycleEvent.html" title="class in com.relaypro.sdk.types">InteractionLifecycleEvent</a>&nbsp;lifecycleEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onInteractionLifecycle(java.util.Map)">onInteractionLifecycle</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;lifecycleEvent)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onNotification(com.relaypro.sdk.Relay,com.relaypro.sdk.types.NotificationEvent)">onNotification</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+              <a href="types/NotificationEvent.html" title="class in com.relaypro.sdk.types">NotificationEvent</a>&nbsp;notificationEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onNotification()">onNotification</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onPlayInboxMessage(com.relaypro.sdk.Relay,com.relaypro.sdk.types.PlayInboxMessagesEvent)">onPlayInboxMessage</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                  <a href="types/PlayInboxMessagesEvent.html" title="class in com.relaypro.sdk.types">PlayInboxMessagesEvent</a>&nbsp;playInboxMessagesEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onPlayInboxMessage()">onPlayInboxMessage</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onPrompt(com.relaypro.sdk.Relay,com.relaypro.sdk.types.PromptEvent)">onPrompt</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+        <a href="types/PromptEvent.html" title="class in com.relaypro.sdk.types">PromptEvent</a>&nbsp;promptEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onPrompt(java.util.Map)">onPrompt</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;promptEvent)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onSms(com.relaypro.sdk.Relay,com.relaypro.sdk.types.SmsEvent)">onSms</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+     <a href="types/SmsEvent.html" title="class in com.relaypro.sdk.types">SmsEvent</a>&nbsp;smsEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onSms()">onSms</a></span>()</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onSpeech(com.relaypro.sdk.Relay,com.relaypro.sdk.types.SpeechEvent)">onSpeech</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+        <a href="types/SpeechEvent.html" title="class in com.relaypro.sdk.types">SpeechEvent</a>&nbsp;speechEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onStart(java.util.Map)">onStart</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;startEvent)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onStart(com.relaypro.sdk.Relay,com.relaypro.sdk.types.StartEvent)">onStart</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+       <a href="types/StartEvent.html" title="class in com.relaypro.sdk.types">StartEvent</a>&nbsp;startEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onStop(java.util.Map)">onStop</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;stopEvent)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onStop(com.relaypro.sdk.Relay,com.relaypro.sdk.types.StopEvent)">onStop</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+      <a href="types/StopEvent.html" title="class in com.relaypro.sdk.types">StopEvent</a>&nbsp;stopEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onTimer(java.util.Map)">onTimer</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;timerEvent)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onTimer(com.relaypro.sdk.Relay,com.relaypro.sdk.types.TimerEvent)">onTimer</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+       <a href="types/TimerEvent.html" title="class in com.relaypro.sdk.types">TimerEvent</a>&nbsp;timerEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onTimerFired(java.util.Map)">onTimerFired</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;timerFiredEvent)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onTimerFired(com.relaypro.sdk.Relay,com.relaypro.sdk.types.TimerFiredEvent)">onTimerFired</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+            <a href="types/TimerFiredEvent.html" title="class in com.relaypro.sdk.types">TimerFiredEvent</a>&nbsp;timerFiredEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -321,175 +340,194 @@ implements java.lang.Cloneable</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="onStart(java.util.Map)">
+<a id="onStart(com.relaypro.sdk.Relay,com.relaypro.sdk.types.StartEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onStart</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onStart&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;startEvent)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onStart&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                    <a href="types/StartEvent.html" title="class in com.relaypro.sdk.types">StartEvent</a>&nbsp;startEvent)</pre>
 </li>
 </ul>
-<a id="onStop(java.util.Map)">
+<a id="onStop(com.relaypro.sdk.Relay,com.relaypro.sdk.types.StopEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onStop</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onStop&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;stopEvent)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onStop&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                   <a href="types/StopEvent.html" title="class in com.relaypro.sdk.types">StopEvent</a>&nbsp;stopEvent)</pre>
 </li>
 </ul>
-<a id="onInteractionLifecycle(java.util.Map)">
+<a id="onInteractionLifecycle(com.relaypro.sdk.Relay,com.relaypro.sdk.types.InteractionLifecycleEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onInteractionLifecycle</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onInteractionLifecycle&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;lifecycleEvent)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onInteractionLifecycle&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                                   <a href="types/InteractionLifecycleEvent.html" title="class in com.relaypro.sdk.types">InteractionLifecycleEvent</a>&nbsp;lifecycleEvent)</pre>
 </li>
 </ul>
-<a id="onPrompt(java.util.Map)">
+<a id="onPrompt(com.relaypro.sdk.Relay,com.relaypro.sdk.types.PromptEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onPrompt</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onPrompt&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;promptEvent)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onPrompt&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                     <a href="types/PromptEvent.html" title="class in com.relaypro.sdk.types">PromptEvent</a>&nbsp;promptEvent)</pre>
 </li>
 </ul>
-<a id="onTimer(java.util.Map)">
+<a id="onTimer(com.relaypro.sdk.Relay,com.relaypro.sdk.types.TimerEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onTimer</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onTimer&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;timerEvent)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onTimer&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                    <a href="types/TimerEvent.html" title="class in com.relaypro.sdk.types">TimerEvent</a>&nbsp;timerEvent)</pre>
 </li>
 </ul>
-<a id="onTimerFired(java.util.Map)">
+<a id="onTimerFired(com.relaypro.sdk.Relay,com.relaypro.sdk.types.TimerFiredEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onTimerFired</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onTimerFired&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;timerFiredEvent)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onTimerFired&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                         <a href="types/TimerFiredEvent.html" title="class in com.relaypro.sdk.types">TimerFiredEvent</a>&nbsp;timerFiredEvent)</pre>
 </li>
 </ul>
-<a id="onButton(java.util.Map)">
+<a id="onButton(com.relaypro.sdk.Relay,com.relaypro.sdk.types.ButtonEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onButton</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onButton&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;buttonEvent)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onButton&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                     <a href="types/ButtonEvent.html" title="class in com.relaypro.sdk.types">ButtonEvent</a>&nbsp;buttonEvent)</pre>
 </li>
 </ul>
-<a id="onNotification()">
+<a id="onNotification(com.relaypro.sdk.Relay,com.relaypro.sdk.types.NotificationEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onNotification</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onNotification()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onNotification&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                           <a href="types/NotificationEvent.html" title="class in com.relaypro.sdk.types">NotificationEvent</a>&nbsp;notificationEvent)</pre>
 </li>
 </ul>
-<a id="onSms()">
+<a id="onSms(com.relaypro.sdk.Relay,com.relaypro.sdk.types.SmsEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onSms</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onSms()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onSms&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                  <a href="types/SmsEvent.html" title="class in com.relaypro.sdk.types">SmsEvent</a>&nbsp;smsEvent)</pre>
 </li>
 </ul>
-<a id="onAudio()">
+<a id="onSpeech(com.relaypro.sdk.Relay,com.relaypro.sdk.types.SpeechEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>onAudio</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onAudio()</pre>
+<h4>onSpeech</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;onSpeech&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                     <a href="types/SpeechEvent.html" title="class in com.relaypro.sdk.types">SpeechEvent</a>&nbsp;speechEvent)</pre>
 </li>
 </ul>
-<a id="onIncident()">
+<a id="onIncident(com.relaypro.sdk.Relay,com.relaypro.sdk.types.IncidentEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onIncident</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onIncident()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onIncident&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                       <a href="types/IncidentEvent.html" title="class in com.relaypro.sdk.types">IncidentEvent</a>&nbsp;incidentEvent)</pre>
 </li>
 </ul>
-<a id="onCallStartRequest()">
+<a id="onCallStartRequest(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallStartEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onCallStartRequest</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onCallStartRequest()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onCallStartRequest&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                               <a href="types/CallStartEvent.html" title="class in com.relaypro.sdk.types">CallStartEvent</a>&nbsp;callStartEvent)</pre>
 </li>
 </ul>
-<a id="onCallReceived()">
+<a id="onCallReceived(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallReceivedEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onCallReceived</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onCallReceived()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onCallReceived&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                           <a href="types/CallReceivedEvent.html" title="class in com.relaypro.sdk.types">CallReceivedEvent</a>&nbsp;callReceivedEvent)</pre>
 </li>
 </ul>
-<a id="onCallRinging()">
+<a id="onCallRinging(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallRingingEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onCallRinging</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onCallRinging()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onCallRinging&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                          <a href="types/CallRingingEvent.html" title="class in com.relaypro.sdk.types">CallRingingEvent</a>&nbsp;callRingingEvent)</pre>
 </li>
 </ul>
-<a id="onCallProgressing()">
+<a id="onCallProgressing(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallProgressingEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onCallProgressing</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onCallProgressing()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onCallProgressing&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                              <a href="types/CallProgressingEvent.html" title="class in com.relaypro.sdk.types">CallProgressingEvent</a>&nbsp;callProgressingEvent)</pre>
 </li>
 </ul>
-<a id="onCallConnected()">
+<a id="onCallConnected(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallConnectedEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onCallConnected</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onCallConnected()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onCallConnected&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                            <a href="types/CallConnectedEvent.html" title="class in com.relaypro.sdk.types">CallConnectedEvent</a>&nbsp;callConnectedEvent)</pre>
 </li>
 </ul>
-<a id="onCallDisconnected()">
+<a id="onCallDisconnected(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallDisconnectedEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onCallDisconnected</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onCallDisconnected()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onCallDisconnected&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                               <a href="types/CallDisconnectedEvent.html" title="class in com.relaypro.sdk.types">CallDisconnectedEvent</a>&nbsp;callDisconnectedEvent)</pre>
 </li>
 </ul>
-<a id="onCallFailed()">
+<a id="onCallFailed(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallFailedEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onCallFailed</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onCallFailed()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onCallFailed&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                         <a href="types/CallFailedEvent.html" title="class in com.relaypro.sdk.types">CallFailedEvent</a>&nbsp;callFailedEvent)</pre>
 </li>
 </ul>
-<a id="onPlayInboxMessage()">
+<a id="onPlayInboxMessage(com.relaypro.sdk.Relay,com.relaypro.sdk.types.PlayInboxMessagesEvent)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>onPlayInboxMessage</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;onPlayInboxMessage()</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;onPlayInboxMessage&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
+                               <a href="types/PlayInboxMessagesEvent.html" title="class in com.relaypro.sdk.types">PlayInboxMessagesEvent</a>&nbsp;playInboxMessagesEvent)</pre>
 </li>
 </ul>
 <a id="clone()">

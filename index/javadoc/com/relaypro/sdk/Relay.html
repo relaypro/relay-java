@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":9,"i19":9,"i20":9,"i21":9,"i22":9,"i23":9,"i24":9,"i25":9,"i26":9,"i27":9,"i28":9,"i29":9,"i30":9,"i31":9,"i32":9,"i33":9,"i34":9,"i35":9,"i36":9,"i37":9,"i38":9,"i39":9,"i40":9,"i41":9};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":9,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":9,"i41":10,"i42":10,"i43":10,"i44":10,"i45":10,"i46":10,"i47":10,"i48":10,"i49":10,"i50":10,"i51":10,"i52":10,"i53":10,"i54":10,"i55":9,"i56":10,"i57":10,"i58":9,"i59":10,"i60":10,"i61":10,"i62":10,"i63":10,"i64":10,"i65":10,"i66":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -89,13 +89,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -138,27 +138,6 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="constructor.summary">
-<!--   -->
-</a>
-<h3>Constructor Summary</h3>
-<table class="memberSummary">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Constructor</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">Relay</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section role="region">
 <ul class="blockList">
@@ -167,7 +146,7 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -180,285 +159,418 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#breathe(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">breathe</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-       java.lang.String&nbsp;sourceUri,
-       java.lang.String&nbsp;color)</code></th>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#alert(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">alert</a></span>&#8203;(java.lang.String&nbsp;target,
+     java.lang.String&nbsp;originator,
+     java.lang.String&nbsp;name,
+     java.lang.String&nbsp;text)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearTimer(com.relaypro.sdk.Workflow,java.lang.String)">clearTimer</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-          java.lang.String&nbsp;name)</code></th>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#breathe(java.lang.String,java.lang.String,int)">breathe</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+       java.lang.String&nbsp;color,
+       int&nbsp;count)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#flash(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,int)">flash</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-     java.lang.String&nbsp;sourceUri,
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#broadcast(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">broadcast</a></span>&#8203;(java.lang.String&nbsp;target,
+         java.lang.String&nbsp;originator,
+         java.lang.String&nbsp;name,
+         java.lang.String&nbsp;text)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cancelAlert(java.lang.String,java.lang.String)">cancelAlert</a></span>&#8203;(java.lang.String&nbsp;target,
+           java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cancelBroadcast(java.lang.String,java.lang.String)">cancelBroadcast</a></span>&#8203;(java.lang.String&nbsp;target,
+               java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearTimer(java.lang.String)">clearTimer</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createIncident(java.lang.String,java.lang.String)">createIncident</a></span>&#8203;(java.lang.String&nbsp;originator,
+              java.lang.String&nbsp;itype)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#disableHomeChannel(java.lang.String)">disableHomeChannel</a></span>&#8203;(java.lang.String&nbsp;target)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#disableLocation(java.lang.String)">disableLocation</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#enableHomeChannel(java.lang.String)">enableHomeChannel</a></span>&#8203;(java.lang.String&nbsp;target)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#enableLocation(java.lang.String)">enableLocation</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#endInteraction(java.lang.String,java.lang.String)">endInteraction</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+              java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchDevice(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)">fetchDevice</a></span>&#8203;(java.lang.String&nbsp;accessToken,
+           java.lang.String&nbsp;refreshToken,
+           java.lang.String&nbsp;clientId,
+           java.lang.String&nbsp;subscriberId,
+           java.lang.String&nbsp;userId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#flash(java.lang.String,java.lang.String,int)">flash</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
      java.lang.String&nbsp;color,
      int&nbsp;count)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getButtonEventButton(java.util.Map)">getButtonEventButton</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;buttonEvent)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getButtonEventTaps(java.util.Map)">getButtonEventTaps</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;buttonEvent)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceAddress(com.relaypro.sdk.Workflow,java.lang.String,boolean)">getDeviceAddress</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                java.lang.String&nbsp;sourceUri,
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceAddress(java.lang.String,boolean)">getDeviceAddress</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                 boolean&nbsp;refresh)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><code>static java.lang.Integer</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceBattery(com.relaypro.sdk.Workflow,java.lang.String,boolean)">getDeviceBattery</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                java.lang.String&nbsp;sourceUri,
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceBattery(java.lang.String,boolean)">getDeviceBattery</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                 boolean&nbsp;refresh)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceId(com.relaypro.sdk.Workflow,java.lang.String,boolean)">getDeviceId</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-           java.lang.String&nbsp;sourceUri,
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>double[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceCoordinates(java.lang.String,boolean)">getDeviceCoordinates</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+                    boolean&nbsp;refresh)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceId(java.lang.String,boolean)">getDeviceId</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
            boolean&nbsp;refresh)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceIndoorLocation(com.relaypro.sdk.Workflow,java.lang.String,boolean)">getDeviceIndoorLocation</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                       java.lang.String&nbsp;sourceUri,
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceIndoorLocation(java.lang.String,boolean)">getDeviceIndoorLocation</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                        boolean&nbsp;refresh)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
-<td class="colFirst"><code>static double[]</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceLatLong(com.relaypro.sdk.Workflow,java.lang.String,boolean)">getDeviceLatLong</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                java.lang.String&nbsp;sourceUri,
+<tr id="i20" class="altColor">
+<td class="colFirst"><code><a href="types/DeviceInfoResponse.html" title="class in com.relaypro.sdk.types">DeviceInfoResponse</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceInfo(java.lang.String,com.relaypro.sdk.types.DeviceInfoQueryType,boolean)">getDeviceInfo</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+             <a href="types/DeviceInfoQueryType.html" title="enum in com.relaypro.sdk.types">DeviceInfoQueryType</a>&nbsp;query,
+             boolean&nbsp;refresh)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>double[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceLatLong(java.lang.String,boolean)">getDeviceLatLong</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                 boolean&nbsp;refresh)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
-<td class="colFirst"><code>static java.lang.Boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceLocationEnabled(com.relaypro.sdk.Workflow,java.lang.String,boolean)">getDeviceLocationEnabled</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                        java.lang.String&nbsp;sourceUri,
-                        boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i12" class="altColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceName(com.relaypro.sdk.Workflow,java.lang.String,boolean)">getDeviceName</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-             java.lang.String&nbsp;sourceUri,
-             boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i13" class="rowColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceType(com.relaypro.sdk.Workflow,java.lang.String,boolean)">getDeviceType</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-             java.lang.String&nbsp;sourceUri,
-             boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i14" class="altColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceUsername(com.relaypro.sdk.Workflow,java.lang.String,boolean)">getDeviceUsername</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                 java.lang.String&nbsp;sourceUri,
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceLocation(java.lang.String,boolean)">getDeviceLocation</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                  boolean&nbsp;refresh)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>java.lang.Boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceLocationEnabled(java.lang.String,boolean)">getDeviceLocationEnabled</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+                        boolean&nbsp;refresh)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceName(java.lang.String,boolean)">getDeviceName</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+             boolean&nbsp;refresh)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceType(java.lang.String,boolean)">getDeviceType</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+             boolean&nbsp;refresh)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceUsername(java.lang.String,boolean)">getDeviceUsername</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+                 boolean&nbsp;refresh)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNumberVar(java.lang.String,int)">getNumberVar</a></span>&#8203;(java.lang.String&nbsp;name,
+            int&nbsp;defaultValue)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getStartEventSourceUri(java.util.Map)">getStartEventSourceUri</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;startEvent)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i16" class="altColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#play(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">play</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-    java.lang.String&nbsp;sourceUri,
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUnreadInboxSize(java.lang.String)">getUnreadInboxSize</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVar(java.lang.String,java.lang.String)">getVar</a></span>&#8203;(java.lang.String&nbsp;name,
+      java.lang.String&nbsp;defaultValue)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i31" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isGroupMember(java.lang.String,java.lang.String)">isGroupMember</a></span>&#8203;(java.lang.String&nbsp;groupNameUri,
+             java.lang.String&nbsp;potentialMemberNameUri)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i32" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listen(java.lang.String,java.lang.String)">listen</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+      java.lang.String&nbsp;requestId)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i33" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listen(java.lang.String,java.lang.String,java.lang.String%5B%5D,boolean,com.relaypro.sdk.types.LanguageType,int)">listen</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+      java.lang.String&nbsp;requestId,
+      java.lang.String[]&nbsp;phrases,
+      boolean&nbsp;transcribe,
+      <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang,
+      int&nbsp;timeout)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i34" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#logMessage(java.lang.String,java.lang.String)">logMessage</a></span>&#8203;(java.lang.String&nbsp;message,
+          java.lang.String&nbsp;category)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i35" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#logUserMessage(java.lang.String,java.lang.String,java.lang.String)">logUserMessage</a></span>&#8203;(java.lang.String&nbsp;message,
+              java.lang.String&nbsp;deviceUri,
+              java.lang.String&nbsp;category)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i36" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#play(java.lang.String,java.lang.String)">play</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
     java.lang.String&nbsp;filename)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i17" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playAndWait(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">playAndWait</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-           java.lang.String&nbsp;sourceUri,
+<tr id="i37" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playAndWait(java.lang.String,java.lang.String)">playAndWait</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
            java.lang.String&nbsp;filename)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i18" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#powerDownDevice(com.relaypro.sdk.Workflow,java.lang.String)">powerDownDevice</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-               java.lang.String&nbsp;sourceUri)</code></th>
+<tr id="i38" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playUnreadInboxMessages(java.lang.String)">playUnreadInboxMessages</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i19" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rainbow(com.relaypro.sdk.Workflow,java.lang.String,int)">rainbow</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-       java.lang.String&nbsp;sourceUri,
+<tr id="i39" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rainbow(java.lang.String,int)">rainbow</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
        int&nbsp;rotations)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i40" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#receiveMessage(jakarta.websocket.Session,java.lang.String)">receiveMessage</a></span>&#8203;(jakarta.websocket.Session&nbsp;session,
               java.lang.String&nbsp;message)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i21" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#restartDevice(com.relaypro.sdk.Workflow,java.lang.String)">restartDevice</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-             java.lang.String&nbsp;sourceUri)</code></th>
+<tr id="i41" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resolveIncident(java.lang.String,java.lang.String)">resolveIncident</a></span>&#8203;(java.lang.String&nbsp;incidentId,
+               java.lang.String&nbsp;reason)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i22" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotate(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">rotate</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-      java.lang.String&nbsp;sourceUri,
-      java.lang.String&nbsp;color)</code></th>
+<tr id="i42" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotate(java.lang.String,java.lang.String,int)">rotate</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+      java.lang.String&nbsp;color,
+      int&nbsp;rotations)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i23" class="rowColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#say(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">say</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-   java.lang.String&nbsp;sourceUri,
+<tr id="i43" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#say(java.lang.String,java.lang.String)">say</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
    java.lang.String&nbsp;text)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i24" class="altColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#say(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">say</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-   java.lang.String&nbsp;sourceUri,
+<tr id="i44" class="altColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#say(java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">say</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
    java.lang.String&nbsp;text,
    <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i25" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sayAndWait(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">sayAndWait</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-          java.lang.String&nbsp;sourceUri,
+<tr id="i45" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sayAndWait(java.lang.String,java.lang.String)">sayAndWait</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
           java.lang.String&nbsp;text)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i26" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sayAndWait(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">sayAndWait</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-          java.lang.String&nbsp;sourceUri,
+<tr id="i46" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sayAndWait(java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">sayAndWait</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
           java.lang.String&nbsp;text,
           <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i27" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChannel(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,boolean,boolean)">setChannel</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-          java.lang.String&nbsp;sourceUri,
+<tr id="i47" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChannel(java.lang.String,java.lang.String,boolean,boolean)">setChannel</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
           java.lang.String&nbsp;channelName,
           boolean&nbsp;suppressTTS,
           boolean&nbsp;disableHomeChannel)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i28" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeviceMode(com.relaypro.sdk.Workflow,java.lang.String,com.relaypro.sdk.types.DeviceMode)">setDeviceMode</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-             java.lang.String&nbsp;sourceUri,
-             <a href="types/DeviceMode.html" title="enum in com.relaypro.sdk.types">DeviceMode</a>&nbsp;mode)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i29" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeviceName(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">setDeviceName</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-             java.lang.String&nbsp;sourceUri,
+<tr id="i48" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeviceName(java.lang.String,java.lang.String)">setDeviceName</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
              java.lang.String&nbsp;name)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i30" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLeds(com.relaypro.sdk.Workflow,java.lang.String,com.relaypro.sdk.types.LedEffect,com.relaypro.sdk.types.LedInfo)">setLeds</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-       java.lang.String&nbsp;sourceUri,
-       <a href="types/LedEffect.html" title="enum in com.relaypro.sdk.types">LedEffect</a>&nbsp;effect,
-       <a href="types/LedInfo.html" title="class in com.relaypro.sdk.types">LedInfo</a>&nbsp;args)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i31" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLocationEnabled(com.relaypro.sdk.Workflow,java.lang.String,boolean)">setLocationEnabled</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                  java.lang.String&nbsp;sourceUri,
+<tr id="i49" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLocationEnabled(java.lang.String,boolean)">setLocationEnabled</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                   boolean&nbsp;enabled)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i32" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTimer(com.relaypro.sdk.Workflow,com.relaypro.sdk.types.TimerType,java.lang.String,long,com.relaypro.sdk.types.TimeoutType)">setTimer</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-        <a href="types/TimerType.html" title="enum in com.relaypro.sdk.types">TimerType</a>&nbsp;timerType,
+<tr id="i50" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTimer(com.relaypro.sdk.types.TimerType,java.lang.String,long,com.relaypro.sdk.types.TimeoutType)">setTimer</a></span>&#8203;(<a href="types/TimerType.html" title="enum in com.relaypro.sdk.types">TimerType</a>&nbsp;timerType,
         java.lang.String&nbsp;name,
         long&nbsp;timeout,
         <a href="types/TimeoutType.html" title="enum in com.relaypro.sdk.types">TimeoutType</a>&nbsp;timeoutType)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i33" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUserProfile(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,boolean)">setUserProfile</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-              java.lang.String&nbsp;sourceUri,
+<tr id="i51" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUserProfile(java.lang.String,java.lang.String,boolean)">setUserProfile</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
               java.lang.String&nbsp;username,
               boolean&nbsp;force)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i34" class="altColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startInteraction(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,java.lang.Object)">startInteraction</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                java.lang.String&nbsp;sourceUri,
+<tr id="i52" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setVar(java.lang.String,java.lang.String)">setVar</a></span>&#8203;(java.lang.String&nbsp;name,
+      java.lang.String&nbsp;value)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i53" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startInteraction(java.lang.String,java.lang.String,java.lang.Object)">startInteraction</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                 java.lang.String&nbsp;name,
                 java.lang.Object&nbsp;options)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i35" class="rowColor">
+<tr id="i54" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startTimer(int)">startTimer</a></span>&#8203;(int&nbsp;timeout)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i55" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startWorkflow(jakarta.websocket.Session,java.lang.String)">startWorkflow</a></span>&#8203;(jakarta.websocket.Session&nbsp;session,
              java.lang.String&nbsp;workflowName)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i36" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopPlayback(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String%5B%5D)">stopPlayback</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-            java.lang.String&nbsp;sourceUri,
+<tr id="i56" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopPlayback(java.lang.String,java.lang.String%5B%5D)">stopPlayback</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
             java.lang.String[]&nbsp;ids)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i37" class="rowColor">
+<tr id="i57" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopTimer()">stopTimer</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i58" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopWorkflow(jakarta.websocket.Session,java.lang.String)">stopWorkflow</a></span>&#8203;(jakarta.websocket.Session&nbsp;session,
             java.lang.String&nbsp;reason)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i38" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#switchAllLedOff(com.relaypro.sdk.Workflow,java.lang.String)">switchAllLedOff</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-               java.lang.String&nbsp;sourceUri)</code></th>
+<tr id="i59" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#switchAllLedOff(java.lang.String)">switchAllLedOff</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i39" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#switchAllLedOn(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">switchAllLedOn</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-              java.lang.String&nbsp;sourceUri,
+<tr id="i60" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#switchAllLedOn(java.lang.String,java.lang.String)">switchAllLedOn</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
               java.lang.String&nbsp;color)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i40" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#terminate(com.relaypro.sdk.Workflow)">terminate</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow)</code></th>
+<tr id="i61" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#switchLedOn(java.lang.String,int,java.lang.String)">switchLedOn</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+           int&nbsp;index,
+           java.lang.String&nbsp;color)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i41" class="rowColor">
-<td class="colFirst"><code>static void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vibrate(com.relaypro.sdk.Workflow,java.lang.String,long%5B%5D)">vibrate</a></span>&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-       java.lang.String&nbsp;sourceUri,
-       long[]&nbsp;pattern)</code></th>
+<tr id="i62" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#terminate()">terminate</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i63" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#translate(java.lang.String,com.relaypro.sdk.types.LanguageType,com.relaypro.sdk.types.LanguageType)">translate</a></span>&#8203;(java.lang.String&nbsp;text,
+         <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;from,
+         <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;to)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i64" class="altColor">
+<td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#triggerWorkflow(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String%5B%5D,java.util.Map)">triggerWorkflow</a></span>&#8203;(java.lang.String&nbsp;accessToken,
+               java.lang.String&nbsp;refreshToken,
+               java.lang.String&nbsp;clientId,
+               java.lang.String&nbsp;workflowId,
+               java.lang.String&nbsp;subscriberId,
+               java.lang.String&nbsp;userId,
+               java.lang.String[]&nbsp;targets,
+               java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;actionArgs)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i65" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unsetVar(java.lang.String)">unsetVar</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i66" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vibrate(java.lang.String,int%5B%5D)">vibrate</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+       int[]&nbsp;pattern)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -478,25 +590,6 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="constructor.detail">
-<!--   -->
-</a>
-<h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>Relay</h4>
-<pre>public&nbsp;Relay()</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ============ METHOD DETAIL ========== -->
 <section role="region">
 <ul class="blockList">
@@ -544,393 +637,615 @@ extends java.lang.Object</pre>
                                   java.lang.String&nbsp;message)</pre>
 </li>
 </ul>
-<a id="startInteraction(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,java.lang.Object)">
+<a id="startInteraction(java.lang.String,java.lang.String,java.lang.Object)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>startInteraction</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;startInteraction&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                                java.lang.String&nbsp;sourceUri,
-                                                java.lang.String&nbsp;name,
-                                                java.lang.Object&nbsp;options)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;startInteraction&#8203;(java.lang.String&nbsp;sourceUri,
+                                         java.lang.String&nbsp;name,
+                                         java.lang.Object&nbsp;options)</pre>
 </li>
 </ul>
-<a id="say(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">
+<a id="endInteraction(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>endInteraction</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;endInteraction&#8203;(java.lang.String&nbsp;sourceUri,
+                                       java.lang.String&nbsp;name)</pre>
+</li>
+</ul>
+<a id="say(java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>say</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;say&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                   java.lang.String&nbsp;sourceUri,
-                                   java.lang.String&nbsp;text)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;say&#8203;(java.lang.String&nbsp;sourceUri,
+                            java.lang.String&nbsp;text)</pre>
 </li>
 </ul>
-<a id="say(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">
+<a id="say(java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>say</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;say&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                   java.lang.String&nbsp;sourceUri,
-                                   java.lang.String&nbsp;text,
-                                   <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;say&#8203;(java.lang.String&nbsp;sourceUri,
+                            java.lang.String&nbsp;text,
+                            <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</pre>
 </li>
 </ul>
-<a id="sayAndWait(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">
+<a id="sayAndWait(java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>sayAndWait</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;sayAndWait&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                              java.lang.String&nbsp;sourceUri,
-                              java.lang.String&nbsp;text)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;sayAndWait&#8203;(java.lang.String&nbsp;sourceUri,
+                       java.lang.String&nbsp;text)</pre>
 </li>
 </ul>
-<a id="sayAndWait(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">
+<a id="sayAndWait(java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>sayAndWait</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;sayAndWait&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                              java.lang.String&nbsp;sourceUri,
-                              java.lang.String&nbsp;text,
-                              <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;sayAndWait&#8203;(java.lang.String&nbsp;sourceUri,
+                       java.lang.String&nbsp;text,
+                       <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</pre>
 </li>
 </ul>
-<a id="play(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">
+<a id="listen(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listen</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;listen&#8203;(java.lang.String&nbsp;sourceUri,
+                               java.lang.String&nbsp;requestId)</pre>
+</li>
+</ul>
+<a id="listen(java.lang.String,java.lang.String,java.lang.String[],boolean,com.relaypro.sdk.types.LanguageType,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>listen</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;listen&#8203;(java.lang.String&nbsp;sourceUri,
+                               java.lang.String&nbsp;requestId,
+                               java.lang.String[]&nbsp;phrases,
+                               boolean&nbsp;transcribe,
+                               <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang,
+                               int&nbsp;timeout)</pre>
+</li>
+</ul>
+<a id="play(java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>play</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;play&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                    java.lang.String&nbsp;sourceUri,
-                                    java.lang.String&nbsp;filename)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;play&#8203;(java.lang.String&nbsp;sourceUri,
+                             java.lang.String&nbsp;filename)</pre>
 </li>
 </ul>
-<a id="playAndWait(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">
+<a id="playAndWait(java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>playAndWait</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;playAndWait&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                               java.lang.String&nbsp;sourceUri,
-                               java.lang.String&nbsp;filename)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;playAndWait&#8203;(java.lang.String&nbsp;sourceUri,
+                        java.lang.String&nbsp;filename)</pre>
 </li>
 </ul>
-<a id="stopPlayback(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String[])">
+<a id="stopPlayback(java.lang.String,java.lang.String[])">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>stopPlayback</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;stopPlayback&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                java.lang.String&nbsp;sourceUri,
-                                java.lang.String[]&nbsp;ids)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;stopPlayback&#8203;(java.lang.String&nbsp;sourceUri,
+                         java.lang.String[]&nbsp;ids)</pre>
 </li>
 </ul>
-<a id="setTimer(com.relaypro.sdk.Workflow,com.relaypro.sdk.types.TimerType,java.lang.String,long,com.relaypro.sdk.types.TimeoutType)">
+<a id="playUnreadInboxMessages(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>playUnreadInboxMessages</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;playUnreadInboxMessages&#8203;(java.lang.String&nbsp;sourceUri)</pre>
+</li>
+</ul>
+<a id="getUnreadInboxSize(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getUnreadInboxSize</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getUnreadInboxSize&#8203;(java.lang.String&nbsp;sourceUri)</pre>
+</li>
+</ul>
+<a id="setTimer(com.relaypro.sdk.types.TimerType,java.lang.String,long,com.relaypro.sdk.types.TimeoutType)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setTimer</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;setTimer&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                            <a href="types/TimerType.html" title="enum in com.relaypro.sdk.types">TimerType</a>&nbsp;timerType,
-                            java.lang.String&nbsp;name,
-                            long&nbsp;timeout,
-                            <a href="types/TimeoutType.html" title="enum in com.relaypro.sdk.types">TimeoutType</a>&nbsp;timeoutType)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;setTimer&#8203;(<a href="types/TimerType.html" title="enum in com.relaypro.sdk.types">TimerType</a>&nbsp;timerType,
+                     java.lang.String&nbsp;name,
+                     long&nbsp;timeout,
+                     <a href="types/TimeoutType.html" title="enum in com.relaypro.sdk.types">TimeoutType</a>&nbsp;timeoutType)</pre>
 </li>
 </ul>
-<a id="clearTimer(com.relaypro.sdk.Workflow,java.lang.String)">
+<a id="clearTimer(java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>clearTimer</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;clearTimer&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                              java.lang.String&nbsp;name)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;clearTimer&#8203;(java.lang.String&nbsp;name)</pre>
 </li>
 </ul>
-<a id="switchAllLedOn(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">
+<a id="startTimer(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>startTimer</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;startTimer&#8203;(int&nbsp;timeout)</pre>
+</li>
+</ul>
+<a id="stopTimer()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>stopTimer</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;stopTimer()</pre>
+</li>
+</ul>
+<a id="translate(java.lang.String,com.relaypro.sdk.types.LanguageType,com.relaypro.sdk.types.LanguageType)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>translate</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;translate&#8203;(java.lang.String&nbsp;text,
+                                  <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;from,
+                                  <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;to)</pre>
+</li>
+</ul>
+<a id="createIncident(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createIncident</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;createIncident&#8203;(java.lang.String&nbsp;originator,
+                           java.lang.String&nbsp;itype)</pre>
+</li>
+</ul>
+<a id="resolveIncident(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resolveIncident</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;resolveIncident&#8203;(java.lang.String&nbsp;incidentId,
+                            java.lang.String&nbsp;reason)</pre>
+</li>
+</ul>
+<a id="logUserMessage(java.lang.String,java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>logUserMessage</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;logUserMessage&#8203;(java.lang.String&nbsp;message,
+                           java.lang.String&nbsp;deviceUri,
+                           java.lang.String&nbsp;category)</pre>
+</li>
+</ul>
+<a id="logMessage(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>logMessage</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;logMessage&#8203;(java.lang.String&nbsp;message,
+                       java.lang.String&nbsp;category)</pre>
+</li>
+</ul>
+<a id="switchLedOn(java.lang.String,int,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>switchLedOn</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;switchLedOn&#8203;(java.lang.String&nbsp;sourceUri,
+                        int&nbsp;index,
+                        java.lang.String&nbsp;color)</pre>
+</li>
+</ul>
+<a id="switchAllLedOn(java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>switchAllLedOn</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;switchAllLedOn&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                  java.lang.String&nbsp;sourceUri,
-                                  java.lang.String&nbsp;color)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;switchAllLedOn&#8203;(java.lang.String&nbsp;sourceUri,
+                           java.lang.String&nbsp;color)</pre>
 </li>
 </ul>
-<a id="switchAllLedOff(com.relaypro.sdk.Workflow,java.lang.String)">
+<a id="switchAllLedOff(java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>switchAllLedOff</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;switchAllLedOff&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                   java.lang.String&nbsp;sourceUri)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;switchAllLedOff&#8203;(java.lang.String&nbsp;sourceUri)</pre>
 </li>
 </ul>
-<a id="rainbow(com.relaypro.sdk.Workflow,java.lang.String,int)">
+<a id="rainbow(java.lang.String,int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>rainbow</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;rainbow&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                           java.lang.String&nbsp;sourceUri,
-                           int&nbsp;rotations)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;rainbow&#8203;(java.lang.String&nbsp;sourceUri,
+                    int&nbsp;rotations)</pre>
 </li>
 </ul>
-<a id="rotate(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">
+<a id="rotate(java.lang.String,java.lang.String,int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>rotate</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;rotate&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                          java.lang.String&nbsp;sourceUri,
-                          java.lang.String&nbsp;color)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;rotate&#8203;(java.lang.String&nbsp;sourceUri,
+                   java.lang.String&nbsp;color,
+                   int&nbsp;rotations)</pre>
 </li>
 </ul>
-<a id="flash(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,int)">
+<a id="flash(java.lang.String,java.lang.String,int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>flash</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;flash&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                         java.lang.String&nbsp;sourceUri,
-                         java.lang.String&nbsp;color,
-                         int&nbsp;count)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;flash&#8203;(java.lang.String&nbsp;sourceUri,
+                  java.lang.String&nbsp;color,
+                  int&nbsp;count)</pre>
 </li>
 </ul>
-<a id="breathe(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">
+<a id="breathe(java.lang.String,java.lang.String,int)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>breathe</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;breathe&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                           java.lang.String&nbsp;sourceUri,
-                           java.lang.String&nbsp;color)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;breathe&#8203;(java.lang.String&nbsp;sourceUri,
+                    java.lang.String&nbsp;color,
+                    int&nbsp;count)</pre>
 </li>
 </ul>
-<a id="setLeds(com.relaypro.sdk.Workflow,java.lang.String,com.relaypro.sdk.types.LedEffect,com.relaypro.sdk.types.LedInfo)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setLeds</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;setLeds&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                           java.lang.String&nbsp;sourceUri,
-                           <a href="types/LedEffect.html" title="enum in com.relaypro.sdk.types">LedEffect</a>&nbsp;effect,
-                           <a href="types/LedInfo.html" title="class in com.relaypro.sdk.types">LedInfo</a>&nbsp;args)</pre>
-</li>
-</ul>
-<a id="vibrate(com.relaypro.sdk.Workflow,java.lang.String,long[])">
+<a id="vibrate(java.lang.String,int[])">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>vibrate</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;vibrate&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                           java.lang.String&nbsp;sourceUri,
-                           long[]&nbsp;pattern)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;vibrate&#8203;(java.lang.String&nbsp;sourceUri,
+                    int[]&nbsp;pattern)</pre>
 </li>
 </ul>
-<a id="getDeviceName(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="setVar(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setVar</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setVar&#8203;(java.lang.String&nbsp;name,
+                   java.lang.String&nbsp;value)</pre>
+</li>
+</ul>
+<a id="getVar(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getVar</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getVar&#8203;(java.lang.String&nbsp;name,
+                               java.lang.String&nbsp;defaultValue)</pre>
+</li>
+</ul>
+<a id="getNumberVar(java.lang.String,int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getNumberVar</h4>
+<pre class="methodSignature">public&nbsp;int&nbsp;getNumberVar&#8203;(java.lang.String&nbsp;name,
+                        int&nbsp;defaultValue)</pre>
+</li>
+</ul>
+<a id="unsetVar(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>unsetVar</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;unsetVar&#8203;(java.lang.String&nbsp;name)</pre>
+</li>
+</ul>
+<a id="isGroupMember(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isGroupMember</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;isGroupMember&#8203;(java.lang.String&nbsp;groupNameUri,
+                             java.lang.String&nbsp;potentialMemberNameUri)</pre>
+</li>
+</ul>
+<a id="alert(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>alert</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;alert&#8203;(java.lang.String&nbsp;target,
+                  java.lang.String&nbsp;originator,
+                  java.lang.String&nbsp;name,
+                  java.lang.String&nbsp;text)</pre>
+</li>
+</ul>
+<a id="cancelAlert(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>cancelAlert</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;cancelAlert&#8203;(java.lang.String&nbsp;target,
+                        java.lang.String&nbsp;name)</pre>
+</li>
+</ul>
+<a id="broadcast(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>broadcast</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;broadcast&#8203;(java.lang.String&nbsp;target,
+                      java.lang.String&nbsp;originator,
+                      java.lang.String&nbsp;name,
+                      java.lang.String&nbsp;text)</pre>
+</li>
+</ul>
+<a id="cancelBroadcast(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>cancelBroadcast</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;cancelBroadcast&#8203;(java.lang.String&nbsp;target,
+                            java.lang.String&nbsp;name)</pre>
+</li>
+</ul>
+<a id="getDeviceName(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceName</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getDeviceName&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                             java.lang.String&nbsp;sourceUri,
-                                             boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceName&#8203;(java.lang.String&nbsp;sourceUri,
+                                      boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="getDeviceId(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="getDeviceId(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceId</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getDeviceId&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                           java.lang.String&nbsp;sourceUri,
-                                           boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceId&#8203;(java.lang.String&nbsp;sourceUri,
+                                    boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="getDeviceAddress(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="getDeviceLocation(java.lang.String,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDeviceLocation</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceLocation&#8203;(java.lang.String&nbsp;sourceUri,
+                                          boolean&nbsp;refresh)</pre>
+</li>
+</ul>
+<a id="getDeviceAddress(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceAddress</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getDeviceAddress&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                                java.lang.String&nbsp;sourceUri,
-                                                boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceAddress&#8203;(java.lang.String&nbsp;sourceUri,
+                                         boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="getDeviceLatLong(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="getDeviceCoordinates(java.lang.String,boolean)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getDeviceCoordinates</h4>
+<pre class="methodSignature">public&nbsp;double[]&nbsp;getDeviceCoordinates&#8203;(java.lang.String&nbsp;sourceUri,
+                                     boolean&nbsp;refresh)</pre>
+</li>
+</ul>
+<a id="getDeviceLatLong(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceLatLong</h4>
-<pre class="methodSignature">public static&nbsp;double[]&nbsp;getDeviceLatLong&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                        java.lang.String&nbsp;sourceUri,
-                                        boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;double[]&nbsp;getDeviceLatLong&#8203;(java.lang.String&nbsp;sourceUri,
+                                 boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="getDeviceIndoorLocation(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="getDeviceIndoorLocation(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceIndoorLocation</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getDeviceIndoorLocation&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                                       java.lang.String&nbsp;sourceUri,
-                                                       boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceIndoorLocation&#8203;(java.lang.String&nbsp;sourceUri,
+                                                boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="getDeviceBattery(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="getDeviceBattery(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceBattery</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.Integer&nbsp;getDeviceBattery&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                                 java.lang.String&nbsp;sourceUri,
-                                                 boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.Integer&nbsp;getDeviceBattery&#8203;(java.lang.String&nbsp;sourceUri,
+                                          boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="getDeviceType(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="getDeviceType(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceType</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getDeviceType&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                             java.lang.String&nbsp;sourceUri,
-                                             boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceType&#8203;(java.lang.String&nbsp;sourceUri,
+                                      boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="getDeviceUsername(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="getDeviceUsername(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceUsername</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getDeviceUsername&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                                 java.lang.String&nbsp;sourceUri,
-                                                 boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceUsername&#8203;(java.lang.String&nbsp;sourceUri,
+                                          boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="getDeviceLocationEnabled(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="getDeviceLocationEnabled(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceLocationEnabled</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.Boolean&nbsp;getDeviceLocationEnabled&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                                         java.lang.String&nbsp;sourceUri,
-                                                         boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.Boolean&nbsp;getDeviceLocationEnabled&#8203;(java.lang.String&nbsp;sourceUri,
+                                                  boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="setDeviceMode(com.relaypro.sdk.Workflow,java.lang.String,com.relaypro.sdk.types.DeviceMode)">
+<a id="getDeviceInfo(java.lang.String,com.relaypro.sdk.types.DeviceInfoQueryType,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setDeviceMode</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;setDeviceMode&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                 java.lang.String&nbsp;sourceUri,
-                                 <a href="types/DeviceMode.html" title="enum in com.relaypro.sdk.types">DeviceMode</a>&nbsp;mode)</pre>
+<h4>getDeviceInfo</h4>
+<pre class="methodSignature">public&nbsp;<a href="types/DeviceInfoResponse.html" title="class in com.relaypro.sdk.types">DeviceInfoResponse</a>&nbsp;getDeviceInfo&#8203;(java.lang.String&nbsp;sourceUri,
+                                        <a href="types/DeviceInfoQueryType.html" title="enum in com.relaypro.sdk.types">DeviceInfoQueryType</a>&nbsp;query,
+                                        boolean&nbsp;refresh)</pre>
 </li>
 </ul>
-<a id="setDeviceName(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String)">
+<a id="setDeviceName(java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setDeviceName</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;setDeviceName&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                 java.lang.String&nbsp;sourceUri,
-                                 java.lang.String&nbsp;name)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;setDeviceName&#8203;(java.lang.String&nbsp;sourceUri,
+                          java.lang.String&nbsp;name)</pre>
 </li>
 </ul>
-<a id="setLocationEnabled(com.relaypro.sdk.Workflow,java.lang.String,boolean)">
+<a id="enableLocation(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>enableLocation</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;enableLocation&#8203;(java.lang.String&nbsp;sourceUri)</pre>
+</li>
+</ul>
+<a id="disableLocation(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>disableLocation</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;disableLocation&#8203;(java.lang.String&nbsp;sourceUri)</pre>
+</li>
+</ul>
+<a id="setLocationEnabled(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setLocationEnabled</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;setLocationEnabled&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                      java.lang.String&nbsp;sourceUri,
-                                      boolean&nbsp;enabled)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;setLocationEnabled&#8203;(java.lang.String&nbsp;sourceUri,
+                               boolean&nbsp;enabled)</pre>
 </li>
 </ul>
-<a id="setUserProfile(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,boolean)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setUserProfile</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;setUserProfile&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                  java.lang.String&nbsp;sourceUri,
-                                  java.lang.String&nbsp;username,
-                                  boolean&nbsp;force)</pre>
-</li>
-</ul>
-<a id="setChannel(com.relaypro.sdk.Workflow,java.lang.String,java.lang.String,boolean,boolean)">
+<a id="setChannel(java.lang.String,java.lang.String,boolean,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setChannel</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;setChannel&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                              java.lang.String&nbsp;sourceUri,
-                              java.lang.String&nbsp;channelName,
-                              boolean&nbsp;suppressTTS,
-                              boolean&nbsp;disableHomeChannel)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;setChannel&#8203;(java.lang.String&nbsp;sourceUri,
+                       java.lang.String&nbsp;channelName,
+                       boolean&nbsp;suppressTTS,
+                       boolean&nbsp;disableHomeChannel)</pre>
 </li>
 </ul>
-<a id="restartDevice(com.relaypro.sdk.Workflow,java.lang.String)">
+<a id="setUserProfile(java.lang.String,java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>restartDevice</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;restartDevice&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                 java.lang.String&nbsp;sourceUri)</pre>
+<h4>setUserProfile</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;setUserProfile&#8203;(java.lang.String&nbsp;sourceUri,
+                           java.lang.String&nbsp;username,
+                           boolean&nbsp;force)</pre>
 </li>
 </ul>
-<a id="powerDownDevice(com.relaypro.sdk.Workflow,java.lang.String)">
+<a id="enableHomeChannel(java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>powerDownDevice</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;powerDownDevice&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow,
-                                   java.lang.String&nbsp;sourceUri)</pre>
+<h4>enableHomeChannel</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;enableHomeChannel&#8203;(java.lang.String&nbsp;target)</pre>
 </li>
 </ul>
-<a id="terminate(com.relaypro.sdk.Workflow)">
+<a id="disableHomeChannel(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>disableHomeChannel</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;disableHomeChannel&#8203;(java.lang.String&nbsp;target)</pre>
+</li>
+</ul>
+<a id="terminate()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>terminate</h4>
-<pre class="methodSignature">public static&nbsp;void&nbsp;terminate&#8203;(<a href="Workflow.html" title="class in com.relaypro.sdk">Workflow</a>&nbsp;workflow)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;terminate()</pre>
 </li>
 </ul>
 <a id="getStartEventSourceUri(java.util.Map)">
@@ -942,22 +1257,33 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getStartEventSourceUri&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;startEvent)</pre>
 </li>
 </ul>
-<a id="getButtonEventButton(java.util.Map)">
+<a id="triggerWorkflow(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String[],java.util.Map)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getButtonEventButton</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getButtonEventButton&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;buttonEvent)</pre>
+<h4>triggerWorkflow</h4>
+<pre class="methodSignature">public&nbsp;java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;triggerWorkflow&#8203;(java.lang.String&nbsp;accessToken,
+                                                                              java.lang.String&nbsp;refreshToken,
+                                                                              java.lang.String&nbsp;clientId,
+                                                                              java.lang.String&nbsp;workflowId,
+                                                                              java.lang.String&nbsp;subscriberId,
+                                                                              java.lang.String&nbsp;userId,
+                                                                              java.lang.String[]&nbsp;targets,
+                                                                              java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;actionArgs)</pre>
 </li>
 </ul>
-<a id="getButtonEventTaps(java.util.Map)">
+<a id="fetchDevice(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>getButtonEventTaps</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getButtonEventTaps&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Object&gt;&nbsp;buttonEvent)</pre>
+<h4>fetchDevice</h4>
+<pre class="methodSignature">public&nbsp;java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;fetchDevice&#8203;(java.lang.String&nbsp;accessToken,
+                                                                          java.lang.String&nbsp;refreshToken,
+                                                                          java.lang.String&nbsp;clientId,
+                                                                          java.lang.String&nbsp;subscriberId,
+                                                                          java.lang.String&nbsp;userId)</pre>
 </li>
 </ul>
 </li>
@@ -1013,13 +1339,13 @@ extends java.lang.Object</pre>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
