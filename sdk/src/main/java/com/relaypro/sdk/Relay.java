@@ -22,6 +22,7 @@ import java.util.concurrent.*;
 
 import static java.util.Map.entry;
 
+@SuppressWarnings("unchecked")
 public class Relay {
 
     private static final Map<String, Workflow> WORKFLOWS = new HashMap<>();
@@ -147,11 +148,10 @@ public class Relay {
         return sendRequest(message, false);
     }
 
-    private MessageWrapper sendRequest(Map<String, Object> message, boolean waitForPromptEnd) throws EncodeException, IOException, InterruptedException {
-//        Relay wrapper = runningWorkflowsByWorkflow.get(workflow);
-    
+    private MessageWrapper sendRequest(Map<String, Object> message, boolean waitForPromptEnd) throws EncodeException, IOException, InterruptedException {    
         String id = (String) message.get("_id");
         String msgJson = gson.toJson(message);
+        
         // gson.toJson encodes "=" to a unicharacter, encode it back to "="
         if(msgJson.contains("\\u003d")) {
             msgJson = msgJson.replace("\\u003d", "=");
@@ -866,7 +866,6 @@ public class Relay {
     public  void terminate() {
         logger.debug("Terminating workflow");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Terminate);
-//        WorkflowWrapper wrapper = runningWorkflowsByWorkflow.get(workflow);
         try {
             sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
@@ -878,8 +877,8 @@ public class Relay {
     // HELPER FUNCTIONS ##############
 
     public static String getStartEventSourceUri(Map<String, Object> startEvent) {
-        Map trigger = (Map) startEvent.get("trigger");
-        Map args = (Map) trigger.get("args");
+        Map<String, Object> trigger = (Map<String, Object>) startEvent.get("trigger");
+        Map<String, Object> args = (Map<String, Object>) trigger.get("args");
         return (String) args.get("source_uri");
     }
 

@@ -4,8 +4,6 @@ package com.relaypro.sdk;
 
 import com.relaypro.sdk.types.*;
 
-import java.util.Map;
-
 public abstract class Workflow implements Cloneable {
 
     public void onStart(Relay relay, StartEvent startEvent) {

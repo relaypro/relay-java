@@ -8,8 +8,6 @@ import com.relaypro.sdk.types.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
-
 /**
  * Cycles through various led settings on timers
  */
@@ -55,7 +53,7 @@ public class LedsWorkflow extends Workflow {
             return;
         }
         if (timerName.equals("rotate")) {
-            relay.rotate(sourceUri, "00ff00");
+            relay.rotate(sourceUri, "00ff00", 3);
             relay.sayAndWait(sourceUri, "rotate");
             relay.setTimer(TimerType.TIMEOUT, "flash", 3, TimeoutType.SECS);
             return;
@@ -67,14 +65,14 @@ public class LedsWorkflow extends Workflow {
             return;
         }
         if (timerName.equals("breathe")) {
-            relay.breathe(sourceUri, "ff00ff");
+            relay.breathe(sourceUri, "ff00ff", 3);
             relay.sayAndWait(sourceUri, "breathe");
             relay.setTimer(TimerType.TIMEOUT, "vibrate", 3, TimeoutType.SECS);
             return;
         }
         if (timerName.equals("vibrate")) {
             relay.switchAllLedOff(sourceUri);
-            relay.vibrate(sourceUri, new long[]{100, 500, 500, 500, 500, 500});
+            relay.vibrate(sourceUri, new int[]{100, 500, 500, 500, 500, 500});
             relay.sayAndWait(sourceUri, "vibrate");
             relay.setTimer(TimerType.TIMEOUT, "finish", 3, TimeoutType.SECS);
             return;

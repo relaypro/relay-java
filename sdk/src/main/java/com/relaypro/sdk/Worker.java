@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Callable;
 
-class Worker implements Callable {
+class Worker implements Callable<String> {
 
     private Relay wrapper;
     

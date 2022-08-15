@@ -20,7 +20,6 @@ class RelayUtils {
         String methodName = "on" + toCamelCase(messageWrapper.type);
         try {
             Method method = Workflow.class.getMethod(methodName, Relay.class, messageWrapper.eventObject.getClass());
-//            logger.debug("invoking method " + method);
             method.invoke(relay.workflow, relay, messageWrapper.eventObject);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             logger.error("Error invoking event callback for " + methodName, e);
@@ -70,6 +69,7 @@ class RelayUtils {
         return map;
     }
 
+    @SuppressWarnings("unchecked")
     static Map<String, Object> sanitize(Map<String, Object> map) {
         map.keySet().forEach(k -> {
             Object v = map.get(k);

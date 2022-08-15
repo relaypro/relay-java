@@ -7,8 +7,6 @@ import com.relaypro.sdk.Workflow;
 import com.relaypro.sdk.types.InteractionLifecycleEvent;
 import com.relaypro.sdk.types.StartEvent;
 
-import java.util.Map;
-
 public class DeviceInfoWorkflow extends Workflow {
 
     @Override

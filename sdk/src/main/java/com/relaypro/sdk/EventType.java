@@ -2,6 +2,7 @@ package com.relaypro.sdk;
 
 import com.relaypro.sdk.types.*;
 
+@SuppressWarnings("rawtypes")
 enum EventType {
     Start("wf_api_start_event", StartEvent.class),
     Stop("wf_api_stop_event", StopEvent.class),
