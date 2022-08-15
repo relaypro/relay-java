@@ -2,11 +2,11 @@
 
 A Java SDK for [Relay Workflows](https://developer.relaypro.com).
 
-# Guides Documentation
+## Guides Documentation
 
 The higher-level guides are available at https://developer.relaypro.com/docs
 
-# API Reference Documentation
+## API Reference Documentation
 
 The generated javadoc documentation is available at https://relaypro.github.io/relay-java/
 
