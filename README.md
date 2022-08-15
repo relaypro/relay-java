@@ -74,7 +74,6 @@ public class HelloWorldWorkflow extends Workflow {
 Start the demo workflow server:
 
     bash
-    cd relay-java/app/src/main/java/com/relaypro/app/examples/
     make run
 
 Code is split into two applications: `sdk` and `app`.
