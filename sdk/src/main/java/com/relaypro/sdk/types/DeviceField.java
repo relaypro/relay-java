@@ -5,7 +5,8 @@ package com.relaypro.sdk.types;
 public enum DeviceField {
     
     Label("label"), 
-    LocationEnabled("location_enabled");
+    LocationEnabled("location_enabled"),
+    Channel("channel");
     
     private final String value;
     public String value() {

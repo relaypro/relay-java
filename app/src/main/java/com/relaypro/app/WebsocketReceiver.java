@@ -11,7 +11,7 @@ import jakarta.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@ServerEndpoint(value="/ws/{workflowname}")
+@ServerEndpoint(value="/{workflowname}")
 public class WebsocketReceiver {
 
     private static Logger logger = LoggerFactory.getLogger(WebsocketReceiver.class);
@@ -36,7 +36,10 @@ public class WebsocketReceiver {
 
     @OnError
     public void onError(Session session, Throwable throwable) {
-        logger.error("Error occurred: ", throwable);
+        // ibot closes the connection on terminate(); this is expected
+        if(!throwable.getClass().getName().equals("java.nio.channels.ClosedChannelException")){
+            logger.error("Error occurred: ", throwable);
+        }
     }
     
     @OnClose

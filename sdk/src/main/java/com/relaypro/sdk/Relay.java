@@ -1,5 +1,4 @@
 // Copyright © 2022 Relay Inc.
-
 package com.relaypro.sdk;
 
 import com.google.gson.Gson;
@@ -9,9 +8,15 @@ import jakarta.websocket.EncodeException;
 import jakarta.websocket.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.net.HttpRetryException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -20,22 +25,39 @@ import static java.util.Map.entry;
 public class Relay {
 
     private static final Map<String, Workflow> WORKFLOWS = new HashMap<>();
-    private static final Map<Session, WorkflowWrapper> runningWorkflowsBySession = new ConcurrentHashMap<>();
-    private static final Map<Workflow, WorkflowWrapper> runningWorkflowsByWorkflow = new ConcurrentHashMap<>();
+    private static final Map<Session, Relay> runningWorkflowsBySession = new ConcurrentHashMap<>();
 
     static final Gson gson = new GsonBuilder().serializeNulls().create();
     private static Logger logger = LoggerFactory.getLogger(Relay.class);
-    
+
     private static final int RESPONSE_TIMEOUT_SECS = 10;
-    
+
+
+    // holds the Workflow clone, and the session
+    Workflow workflow;
+    private Session session;
+    private Future<String> workflowFuture;      // long running future that runs the workflow logic
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    BlockingQueue<MessageWrapper> messageQueue = new LinkedBlockingDeque<>();
+    private Map<String, Call> pendingRequests = new ConcurrentHashMap<>();
+
+    private Relay(Workflow workflow, Session session) {
+        this.workflow = workflow;
+        this.session = session;
+        // start a thread that handles running the workflow code
+        this.workflowFuture = executor.submit(new Worker(this));
+        runningWorkflowsBySession.put(session, this);
+    }
+
+
     public static void addWorkflow(String name, Workflow wf) {
         logger.debug("Adding workflow with name: " + name);
         WORKFLOWS.put(name, wf);
     }
- 
+
     public static void startWorkflow(Session session, String workflowName) {
         // TODO make a clone of the workflow object, and create a container for that clone and the websocket session 
-        
+
         Workflow wf = WORKFLOWS.get(workflowName);
         if (wf == null) {
             logger.error("No workflow registered with name " + workflowName);
@@ -43,11 +65,11 @@ public class Relay {
             stopWorkflow(session, "invalid_workflow_name");
             return;
         }
-        
+
         // create a clone of the workflow object
         Workflow wfClone = null;
         try {
-            wfClone = (Workflow)wf.clone();
+            wfClone = (Workflow) wf.clone();
         } catch (CloneNotSupportedException e) {
             logger.error("Error cloning workflow", e);
             // stop ws connection
@@ -55,17 +77,9 @@ public class Relay {
             return;
         }
 
-        WorkflowWrapper wrapper = new WorkflowWrapper();
-        wrapper.workflow = wfClone;
-        wrapper.session = session;
-        
+        Relay wrapper = new Relay(wfClone, session);
+
         logger.debug("Websocket connected to workflow " + workflowName + " " + wrapper);
-        
-        // here, start a thread that handles running the workflow code
-        wrapper.workflowFuture = wrapper.executor.submit(new Worker(wrapper));
-        
-        runningWorkflowsBySession.put(session, wrapper);
-        runningWorkflowsByWorkflow.put(wfClone, wrapper);
     }
 
     public static void stopWorkflow(Session session, String reason) {
@@ -75,51 +89,52 @@ public class Relay {
         } catch (IOException e) {
             logger.error("Error when shutting down workflow", e);
         }
-        
+
         // shut down worker, if running, by sending poison pill to it's message queue and call queues
-        WorkflowWrapper wfWrapper = runningWorkflowsBySession.get(session);
+        Relay wfWrapper = runningWorkflowsBySession.get(session);
         if (wfWrapper != null) {
             wfWrapper.pendingRequests.forEach((id, call) -> {
                 call.responseQueue.add(MessageWrapper.stopMessage());
             });
             wfWrapper.messageQueue.add(MessageWrapper.stopMessage());
         }
-    } 
-    
+    }
+
     // Called on websocket thread, 
     public static void receiveMessage(Session session, String message) {
         // decode what message type it is, event/response, get the running wf, call the appropriate callback
-        WorkflowWrapper wfWrapper = runningWorkflowsBySession.get(session);
+        Relay wfWrapper = runningWorkflowsBySession.get(session);
         MessageWrapper msgWrapper = MessageWrapper.parseMessage(message);
 
         if (msgWrapper.eventOrResponse == "event") {
-            // prompt, progress, and error events need to be sent to the matching calls as well as to event callbacks
-            if (msgWrapper.type.equals("prompt") || msgWrapper.type.equals("progress") || msgWrapper.type.equals("error")) {
-                handleResponse(msgWrapper, wfWrapper);    
+            // prompt, progress, and speech events need to be sent to the matching calls as well as to event callbacks
+            if (msgWrapper.type.equals("prompt") || msgWrapper.type.equals("progress") || msgWrapper.type.equals("speech")) {
+                handleResponse(msgWrapper, wfWrapper);
             }
-            
+
             // send this through the message queue to the worker thread
             wfWrapper.messageQueue.add(msgWrapper);
-            
+
             // if this is a stop event, need to shut everything down after we just called the onStop callback
             if (msgWrapper.type.equals("stop")) {
-                stopWorkflow(session, (String)msgWrapper.parsedJson.get("reason"));
+                StopEvent stopEvent = (StopEvent)msgWrapper.eventObject;
+                stopWorkflow(session, stopEvent.reason);
             }
         }
         // if response, match to request
         else if (msgWrapper.eventOrResponse == "response") {
             handleResponse(msgWrapper, wfWrapper);
         }
-        
+
     }
-    
-    private static void handleResponse(MessageWrapper msgWrapper, WorkflowWrapper wfWrapper) {
+    private static void handleResponse(MessageWrapper msgWrapper, Relay wfWrapper) {
         String id = null;
         if (msgWrapper.parsedJson.containsKey("_id")) {
-            id = (String)msgWrapper.parsedJson.get("_id");
-        }
-        else if (msgWrapper.parsedJson.containsKey("id")) {
-            id = (String)msgWrapper.parsedJson.get("id");
+            id = (String) msgWrapper.parsedJson.get("_id");
+        } else if (msgWrapper.parsedJson.containsKey("id")) {
+            id = (String) msgWrapper.parsedJson.get("id");
+        } else if (msgWrapper.parsedJson.containsKey("request_id")) {
+            id = (String) msgWrapper.parsedJson.get("request_id");
         }
         if (id == null) {
             return;
@@ -127,34 +142,43 @@ public class Relay {
         Call matchingCall = wfWrapper.pendingRequests.get(id);
         matchingCall.responseQueue.add(msgWrapper);
     }
-    
-    private static MessageWrapper sendRequest(Map<String, Object> message, Workflow workflow) throws EncodeException, IOException, InterruptedException {
-        return sendRequest(message, workflow, false);
+
+    private MessageWrapper sendRequest(Map<String, Object> message) throws EncodeException, IOException, InterruptedException {
+        return sendRequest(message, false);
     }
+
+    private MessageWrapper sendRequest(Map<String, Object> message, boolean waitForPromptEnd) throws EncodeException, IOException, InterruptedException {
+//        Relay wrapper = runningWorkflowsByWorkflow.get(workflow);
     
-    private static MessageWrapper sendRequest(Map<String, Object> message, Workflow workflow, boolean waitForPromptEnd) throws EncodeException, IOException, InterruptedException {
-        WorkflowWrapper wrapper = runningWorkflowsByWorkflow.get(workflow);
-        
-        String id = (String)message.get("_id");
+        String id = (String) message.get("_id");
         String msgJson = gson.toJson(message);
-        
+        // gson.toJson encodes "=" to a unicharacter, encode it back to "="
+        if(msgJson.contains("\\u003d")) {
+            msgJson = msgJson.replace("\\u003d", "=");
+        }
+
         // store a call for this request that all incoming response/prompt/progress messages can be passed back to us through
         Call call = new Call();
-        wrapper.pendingRequests.put(id, call);
-        
+        this.pendingRequests.put(id, call);
+
         // send the request
-        wrapper.session.getBasicRemote().sendObject(msgJson);
+        this.session.getBasicRemote().sendObject(msgJson);
 
         logger.debug("--> Message sent: " + msgJson);
-        
+
         // block to listen for matching response
         // if waitForPromptEnd is true, return the matching response as soon as it is received
         // else store the response, and wait until a prompt end is seen, then return the response message
         // in either case, progress events reset the listen timeout
         MessageWrapper resp = null;
+        boolean receivedSpeechEvent = false;
         while (true) {
+            
             // TODO set timeout for listen
             MessageWrapper response = call.responseQueue.poll(RESPONSE_TIMEOUT_SECS, TimeUnit.SECONDS);
+            if(receivedSpeechEvent) {
+                return response;
+            }
             if (response == null) {
                 logger.error("Timed out waiting for response");
                 return null;
@@ -174,53 +198,70 @@ public class Relay {
                 // if an error was returned, then no response will be, so return null
                 logger.error("Error returned for call: " + response.messageJson);
                 return null;
-            } else if (response.eventOrResponse.equals("response")) {
+            } else if (response.eventOrResponse.equals("response") || response.eventOrResponse.equals("event")) {
                 // matching response
                 if (!waitForPromptEnd) {
                     return response;
                 }
                 // need to wait for prompt end, save the response to return then
                 resp = response;
+                // for listen, notify that we received a speech event
+                receivedSpeechEvent = true;
             }
         }
     }
-    
+
+
     // ##### API ################################################
-    
+
     // Returns error if any, null otherwise
-    public static String startInteraction(Workflow workflow, String sourceUri, String name, Object options) {
+    public String startInteraction(String sourceUri, String name, Object options) {
         logger.debug("Starting Interaction for source uri " + sourceUri);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StartInteraction, sourceUri, 
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StartInteraction, sourceUri,
                 entry("name", name),
                 entry("options", options == null ? new Object() : options)
         );
-        
+
         try {
-            MessageWrapper resp = sendRequest(req, workflow);
-            return (String)resp.parsedJson.get("error");
+            MessageWrapper resp = sendRequest(req);
+            return (String) resp.parsedJson.get("error");
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error starting interaction", e);
         }
         return null;
     }
 
-    public static String say(Workflow workflow, String sourceUri, String text) {
-        return say(workflow, sourceUri, text, LanguageType.English);
-    }
-    
-    public static String say(Workflow workflow, String sourceUri, String text, LanguageType lang) {
-        return say(workflow, sourceUri, text, lang, false);
-    }
-
-    public static void sayAndWait(Workflow workflow, String sourceUri, String text) {
-        sayAndWait(workflow, sourceUri, text, LanguageType.English);
-    }
-    
-    public static void sayAndWait(Workflow workflow, String sourceUri, String text, LanguageType lang) {
-        say(workflow, sourceUri, text, lang, true);
+    public String endInteraction(String sourceUri, String name) {
+        logger.debug("Ending Interaction for source uri " + sourceUri);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.EndInteraction, sourceUri,
+            entry("name", name)
+        );
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return (String) resp.parsedJson.get("error");
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error ending interaction", e);
+        }
+        return null;
     }
 
-    private static String say(Workflow workflow, String sourceUri, String text, LanguageType lang, boolean wait) {
+    public String say(String sourceUri, String text) {
+        return say(sourceUri, text, LanguageType.English);
+    }
+
+    public String say(String sourceUri, String text, LanguageType lang) {
+        return say(sourceUri, text, lang, false);
+    }
+
+    public void sayAndWait(String sourceUri, String text) {
+        sayAndWait(sourceUri, text, LanguageType.English);
+    }
+
+    public void sayAndWait(String sourceUri, String text, LanguageType lang) {
+        say(sourceUri, text, lang, true);
+    }
+
+    private String say(String sourceUri, String text, LanguageType lang, boolean wait) {
         logger.debug("Saying " + text + " in " + lang.value() + " to " + sourceUri);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Say, sourceUri,
                 entry("text", text),
@@ -228,118 +269,266 @@ public class Relay {
         );
 
         try {
-            MessageWrapper resp = sendRequest(req, workflow, wait);
-            return resp != null ? (String)resp.parsedJson.get("id") : null;
+            MessageWrapper resp = sendRequest(req, wait);
+            return resp != null ? (String) resp.parsedJson.get("id") : null;
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error saying text", e);
         }
         return null;
     }
-    
-    public static String play(Workflow workflow, String sourceUri, String filename) {
-        return play(workflow, sourceUri, filename, false);
+
+    public String listen(String sourceUri, String requestId) {
+        String[] phrases = {};
+        return listen(sourceUri, requestId, phrases, false, LanguageType.English, 30);
     }
 
-    public static void playAndWait(Workflow workflow, String sourceUri, String filename) {
-        play(workflow, sourceUri, filename, true);
+    public String listen(String sourceUri, String requestId, String[] phrases, boolean transcribe, LanguageType lang, int timeout) {
+        logger.debug("Listening to " + sourceUri);
+        
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Listen, sourceUri,
+            entry("request_id", requestId),
+            entry("phrases", phrases),
+            entry("transcribe", transcribe),
+            entry("timeout", timeout),
+            entry("alt_lang", lang.value())
+        );
+        try {
+            MessageWrapper resp = sendRequest(req, true);
+            return resp != null ? (String) resp.parsedJson.get("text") : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error listening", e);
+        }
+        return null;
     }
 
-    private static String play(Workflow workflow, String sourceUri, String filename, boolean wait) {
+    public String play(String sourceUri, String filename) {
+        return play(sourceUri, filename, false);
+    }
+
+    public void playAndWait(String sourceUri, String filename) {
+        play(sourceUri, filename, true);
+    }
+
+    private String play(String sourceUri, String filename, boolean wait) {
         logger.debug("Playing file: " + filename);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Play, sourceUri,
                 entry("filename", filename)
         );
 
         try {
-            MessageWrapper resp = sendRequest(req, workflow, wait);
-            return resp != null ? (String)resp.parsedJson.get("id") : null;
+            MessageWrapper resp = sendRequest(req,  wait);
+            return resp != null ? (String) resp.parsedJson.get("id") : null;
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error playing file", e);
         }
         return null;
     }
-    
-    public static void stopPlayback(Workflow workflow, String  sourceUri , String[] ids) {
+
+    public void stopPlayback( String sourceUri, String[] ids) {
         logger.debug("Stopping playback for: " + ids);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.StopPlayback, sourceUri,
                 entry("ids", ids)
         );
-        
+
         try {
-            sendRequest(req, workflow);
+            sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error stopping playback", e);
         }
     }
 
-    public static void setTimer(Workflow workflow, TimerType timerType, String name, long timeout, TimeoutType timeoutType) {
+    public void playUnreadInboxMessages(String sourceUri) {
+        logger.debug("Playing unread messages" );
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlayInboxMessages, sourceUri);
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error playing unread inbox messages", e);
+        }
+    }
+
+    public int getUnreadInboxSize(String sourceUri) {
+        logger.debug("Getting unread inbox size");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.InboxCount, sourceUri);
+
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return resp != null ? Integer.parseInt(resp.parsedJson.get("count").toString()) : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error retrieving inbox count", e);
+        }
+        return -1;
+    }
+
+    public  void setTimer( TimerType timerType, String name, long timeout, TimeoutType timeoutType) {
         logger.debug("Setting timer " + timerType.value() + " named " + name + " for " + timeout + " " + timeoutType.value());
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetTimer,
-            entry("type", timerType.value()),
-            entry("name", name),
-            entry("timeout", timeout),
-            entry("timeout_type", timeoutType.value())    
+                entry("type", timerType.value()),
+                entry("name", name),
+                entry("timeout", timeout),
+                entry("timeout_type", timeoutType.value())
         );
 
         try {
-            sendRequest(req, workflow);
+            sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error setting timer", e);
         }
     }
-    
-    public static void clearTimer(Workflow workflow, String name) {
+
+    public void clearTimer(String name) {
         logger.debug("Clearing timer named " + name);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.ClearTimer,
                 entry("name", name)
         );
-        
+
         try {
-            sendRequest(req, workflow);
+            sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error ", e);
         }
     }
 
-    public static void switchAllLedOn(Workflow workflow, String sourceUri, String color) {
-        LedInfo ledInfo = new LedInfo();
-        ledInfo.colors.ring = color;
-        setLeds(workflow, sourceUri, LedEffect.STATIC, ledInfo);
+    public void startTimer(int timeout) {
+        logger.debug("Starting timer unnamed ");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StartTimer,
+                entry("timeout", timeout)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error starting timer ", e);
+        }
     }
 
-    public static void switchAllLedOff(Workflow workflow, String sourceUri) {
-        LedInfo ledInfo = new LedInfo();
-        setLeds(workflow, sourceUri, LedEffect.OFF, ledInfo);
+    public void stopTimer() {
+        logger.debug("Stopping timer unnamed ");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StopTimer);
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error stopping timer ", e);
+        }
     }
 
-    public static void rainbow(Workflow workflow, String sourceUri, int rotations) {
-        LedInfo ledInfo = new LedInfo();
-        ledInfo.rotations = rotations;
-        setLeds(workflow, sourceUri, LedEffect.RAINBOW, ledInfo);
+    public String translate(String text, LanguageType from, LanguageType to) {
+        logger.debug("Translating text");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Translate,
+            entry("text", text),
+            entry("from_lang", from.value()),
+            entry("to_lang", to.value())
+        );
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return resp != null ? (String) resp.parsedJson.get("text") : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error translating text", e);
+        }
+        return null;
     }
 
-    public static void rotate(Workflow workflow, String sourceUri, String color) {
-        LedInfo ledInfo = new LedInfo();
-        ledInfo.rotations = -1;
-        ledInfo.colors.led1 = color;
-        setLeds(workflow, sourceUri, LedEffect.ROTATE, ledInfo);
+    public void createIncident( String originator, String itype) {
+        logger.debug("Creating incident");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.CreateIncident, 
+            entry("type", itype),
+            entry("originator_uri", originator)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error creating incident", e);
+        }
     }
 
-    public static void flash(Workflow workflow, String sourceUri, String color, int count) {
-        LedInfo ledInfo = new LedInfo();
-        ledInfo.count = count;
-        ledInfo.colors.ring = color;
-        setLeds(workflow, sourceUri, LedEffect.FLASH, ledInfo);
+    public void resolveIncident( String incidentId, String reason) {
+        logger.debug("Resolving incident");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.ResolveIncident, 
+            entry("incident_id", incidentId),
+            entry("reason", reason)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error resolving incident", e);
+        }
     }
 
-    public static void breathe(Workflow workflow, String sourceUri, String color) {
-        LedInfo ledInfo = new LedInfo();
-        ledInfo.count = -1;
-        ledInfo.colors.ring = color;
-        setLeds(workflow, sourceUri, LedEffect.BREATHE, ledInfo);
+    public void logUserMessage( String message, String deviceUri, String category) {
+        logger.debug("Logging user message");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.LogAnalytics,
+            entry("content", message),
+            entry("content_type", "text/plain"),
+            entry("category", category),
+            entry("device_uri", deviceUri)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error logging user message", e);
+        }
     }
 
-    public static void setLeds(Workflow workflow, String sourceUri, LedEffect effect, LedInfo args) {
+    public void logMessage( String message, String category) {
+        logger.debug("Logging message");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.LogAnalytics,
+            entry("content", message),
+            entry("content_type", "text/plain"),
+            entry("category", category)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error logging message", e);
+        }
+    }
+
+    public void switchLedOn( String sourceUri, int index, String color) {
+        LedInfo ledInfo = new LedInfo();
+        ledInfo.setColor(Integer.toString(index), color);
+        setLeds( sourceUri, LedEffect.STATIC, ledInfo.ledMap);
+    }
+
+    public void switchAllLedOn( String sourceUri, String color) {
+        LedInfo ledInfo = new LedInfo();
+        ledInfo.setColor("ring", color);
+        setLeds( sourceUri, LedEffect.STATIC, ledInfo.ledMap);
+    }
+
+    public void switchAllLedOff( String sourceUri) {
+        LedInfo ledInfo = new LedInfo();
+        setLeds( sourceUri, LedEffect.OFF, ledInfo.ledMap);
+    }
+
+    public void rainbow( String sourceUri, int rotations) {
+        LedInfo ledInfo = new LedInfo();
+        ledInfo.setRotations(rotations);
+        setLeds( sourceUri, LedEffect.RAINBOW, ledInfo.ledMap);
+    }
+
+    public void rotate( String sourceUri, String color, int rotations) {
+        LedInfo ledInfo = new LedInfo();
+        ledInfo.setRotations(rotations);
+        ledInfo.setColor("1", color);
+        setLeds( sourceUri, LedEffect.ROTATE, ledInfo.ledMap);
+    }
+
+    public void flash( String sourceUri, String color, int count) {
+        LedInfo ledInfo = new LedInfo();
+        ledInfo.setCount(count);
+        ledInfo.setColor("ring", color);
+        setLeds( sourceUri, LedEffect.FLASH, ledInfo.ledMap);
+    }
+
+    public void breathe( String sourceUri, String color, int count) {
+        LedInfo ledInfo = new LedInfo();
+        ledInfo.setCount(count);
+        ledInfo.setColor("ring", color);
+        setLeds( sourceUri, LedEffect.BREATHE, ledInfo.ledMap);
+    }
+
+    private void setLeds( String sourceUri, LedEffect effect, Map<String, Object> args) {
         logger.debug("Setting leds: " + effect.value() + " " + args);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetLeds, sourceUri,
                 entry("effect", effect.value()),
@@ -347,71 +536,191 @@ public class Relay {
         );
 
         try {
-            sendRequest(req, workflow);
+            sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error setting leds", e);
         }
     }
 
-    public static void vibrate(Workflow workflow, String sourceUri, long[] pattern) {
+    public void vibrate( String sourceUri, int[] pattern) {
         logger.debug("Vibrating: " + pattern);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Vibrate, sourceUri,
                 entry("pattern", pattern)
         );
 
         try {
-            sendRequest(req, workflow);
+            sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error vibrating", e);
         }
     }
 
-    public static String getDeviceName(Workflow workflow, String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo(workflow, sourceUri, DeviceInfoQueryType.Name, refresh);
+    public void setVar(String name, String value) {
+        logger.debug("Setting variable: " + name + " with value " +  value);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetVar,
+                entry("name", name),
+                entry("value", value)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error setting variable", e);
+        }
+    }
+
+    public String getVar(String name, String defaultValue) {
+        logger.debug("Getting variable: " + name + " with default value " +  defaultValue);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetVar,
+                entry("name", name),
+                entry("value", defaultValue)
+        );
+        try {
+            MessageWrapper resp = sendRequest(req);
+            if((String) resp.parsedJson.get("value") == null){
+                return defaultValue;
+            }
+            return (String) resp.parsedJson.get("value");
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error getting variable", e);
+        }
+        return null;
+    }
+
+    public int getNumberVar(String name, int defaultValue) {
+        return Integer.parseInt(this.getVar(name, Integer.toString(defaultValue)));
+    }
+
+    public void unsetVar(String name) {
+        logger.debug("Unsetting variable: " + name);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.UnsetVar,
+                entry("name", name)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error unsetting variable", e);
+        }
+    }
+
+    private void sendNotification(String target, String originator, String type, String text, String name) {
+        logger.debug("Sending notification with name: " + name);
+        Map<String, Object> dict = new HashMap<String, Object>();
+
+        // Create a String array that contains the group URNs
+        String[] targets = {target};
+
+        // Make a TargetUri object that contains the group URNs array as a field
+        TargetUri targetUri = new TargetUri(targets);
+
+        // Fill out the request, using the new targetUri object
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SendNotification,
+                entry("_target", targetUri),
+                entry("originator", originator),
+                entry("type", type),
+                entry("name", name),
+                entry("text", text),
+                entry("target", targetUri),
+                entry("push_opts", dict)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error sending notification", e);
+        }
+    }
+
+    public boolean isGroupMember(String groupNameUri, String potentialMemberNameUri) {
+        String groupName = RelayUri.parseGroupName(groupNameUri);
+        String deviceName = RelayUri.parseDeviceName(potentialMemberNameUri);
+        String groupUri = RelayUri.groupMember(groupName, deviceName);
+        logger.debug("Checking if  " + potentialMemberNameUri + " is a group member.");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.GroupQuery,
+                entry("query", "is_member"),
+                entry("group_uri", groupUri)
+        );
+
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return resp != null ? (Boolean) resp.parsedJson.get("is_member") : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error checking if group member", e);
+        }
+        return false;
+    }
+
+    public void alert(String target, String originator, String name, String text) {
+        sendNotification(target, originator, "alert", text, name);
+    }
+
+    public void cancelAlert(String target, String name) {
+        sendNotification(target, null, "cancel", null, name);
+    }
+
+    public void broadcast (String target, String originator, String name, String text) {
+        sendNotification(target, originator, "broadcast", text, name);
+    }
+
+    public void cancelBroadcast(String target, String name) {
+        sendNotification(target, null, "cancel", null, name);
+    }
+
+    public  String getDeviceName( String sourceUri, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Name, refresh);
         return resp != null ? resp.name : null;
     }
 
-    public static String getDeviceId(Workflow workflow, String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo(workflow, sourceUri, DeviceInfoQueryType.Id, refresh);
+    public  String getDeviceId( String sourceUri, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Id, refresh);
         return resp != null ? resp.id : null;
     }
 
-    public static String getDeviceAddress(Workflow workflow, String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo(workflow, sourceUri, DeviceInfoQueryType.Address, refresh);
+    public  String getDeviceLocation( String sourceUri, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Address, refresh);
         return resp != null ? resp.address : null;
     }
 
-    public static double[] getDeviceLatLong(Workflow workflow, String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo(workflow, sourceUri, DeviceInfoQueryType.LatLong, refresh);
+    public String getDeviceAddress( String sourceUri, boolean refresh) {
+        return this.getDeviceLocation(sourceUri, refresh);
+    }
+
+    public  double[] getDeviceCoordinates( String sourceUri, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LatLong, refresh);
         return resp != null ? resp.latlong : null;
     }
 
-    public static String getDeviceIndoorLocation(Workflow workflow, String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo(workflow, sourceUri, DeviceInfoQueryType.IndoorLocation, refresh);
+    public double[] getDeviceLatLong( String sourceUri, boolean refresh) {
+        return this.getDeviceCoordinates(sourceUri, refresh);
+    }
+
+    public  String getDeviceIndoorLocation( String sourceUri, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.IndoorLocation, refresh);
         return resp != null ? resp.indoor_location : null;
     }
 
-    public static Integer getDeviceBattery(Workflow workflow, String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo(workflow, sourceUri, DeviceInfoQueryType.Battery, refresh);
+    public  Integer getDeviceBattery( String sourceUri, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Battery, refresh);
         return resp != null ? resp.battery : null;
     }
 
-    public static String getDeviceType(Workflow workflow, String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo(workflow, sourceUri, DeviceInfoQueryType.Type, refresh);
+    public  String getDeviceType( String sourceUri, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Type, refresh);
         return resp != null ? resp.type : null;
     }
 
-    public static String getDeviceUsername(Workflow workflow, String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo(workflow, sourceUri, DeviceInfoQueryType.Username, refresh);
+    public  String getDeviceUsername( String sourceUri, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Username, refresh);
         return resp != null ? resp.username : null;
     }
 
-    public static Boolean getDeviceLocationEnabled(Workflow workflow, String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo(workflow, sourceUri, DeviceInfoQueryType.LocationEnabled, refresh);
+    public  Boolean getDeviceLocationEnabled( String sourceUri, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LocationEnabled, refresh);
         return resp != null ? resp.location_enabled : null;
     }
 
-    private static DeviceInfoResponse getDeviceInfo(Workflow workflow, String sourceUri, DeviceInfoQueryType query, boolean refresh) {
+    public  DeviceInfoResponse getDeviceInfo( String sourceUri, DeviceInfoQueryType query, boolean refresh) {
         logger.debug("Getting device info: " + query + " refresh: " + refresh);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetDeviceInfo, sourceUri,
                 entry("query", query.value()),
@@ -419,7 +728,7 @@ public class Relay {
         );
 
         try {
-            MessageWrapper resp = sendRequest(req, workflow);
+            MessageWrapper resp = sendRequest(req);
             if (resp != null) {
                 return gson.fromJson(resp.messageJson, DeviceInfoResponse.class);
             }
@@ -429,56 +738,44 @@ public class Relay {
         return null;
     }
 
-    public static void setDeviceMode(Workflow workflow, String sourceUri, DeviceMode mode) {
-        logger.debug("Setting device mode: " + mode.value());
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceMode, sourceUri,
-                entry("mode", mode.value())
-        );
+    // setDeviceMode is currently not supported
 
-        try {
-            sendRequest(req, workflow);
-        } catch (EncodeException | IOException | InterruptedException e) {
-            logger.error("Error setting device mode", e);
-        }
+    // public  void setDeviceMode( String sourceUri, DeviceMode mode) {
+    //     logger.debug("Setting device mode: " + mode.value());
+    //     Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceMode, sourceUri,
+    //             entry("mode", mode.value())
+    //     );
+
+    //     try {
+    //         sendRequest(req);
+    //     } catch (EncodeException | IOException | InterruptedException e) {
+    //         logger.error("Error setting device mode", e);
+    //     }
+    // }
+
+    public void setDeviceName( String sourceUri, String name) {
+        setDeviceInfo( sourceUri, DeviceField.Label, name);
     }
 
-    public static void setDeviceName(Workflow workflow, String sourceUri, String name) {
-        setDeviceInfo(workflow, sourceUri, DeviceField.Label, name);
+    public void enableLocation( String sourceUri) {
+        setLocationEnabled(sourceUri, true);
     }
 
-    public static void setLocationEnabled(Workflow workflow, String sourceUri, boolean enabled) {
-        setDeviceInfo(workflow, sourceUri, DeviceField.LocationEnabled, String.valueOf(enabled));
+    public void disableLocation( String sourceUri) {
+        setLocationEnabled(sourceUri, false);
     }
 
-    private static void setDeviceInfo(Workflow workflow, String sourceUri, DeviceField field, String value) {
-        logger.debug("Setting device info: " + field + ": " + value);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceInfo, sourceUri,
-                entry("field", field.value()),
-                entry("value", value)
-        );
-        
-        try {
-            sendRequest(req, workflow);
-        } catch (EncodeException | IOException | InterruptedException e) {
-            logger.error("Error setting device info", e);
-        }
+    public void setLocationEnabled( String sourceUri, boolean enabled) {
+        setDeviceInfo( sourceUri, DeviceField.LocationEnabled, String.valueOf(enabled));
     }
 
-    public static void setUserProfile(Workflow workflow, String sourceUri, String username, boolean force) {
-        logger.debug("Setting user profile: " + username + ": " + force);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetUserProfile, sourceUri,
-                entry("username", username),
-                entry("force", force)
-        );
+    // setDeviceChannel is currently not supported
 
-        try {
-            sendRequest(req, workflow);
-        } catch (EncodeException | IOException | InterruptedException e) {
-            logger.error("Error setting user profile", e);
-        }
-    }
+    // public void setDeviceChannel(String sourceUri, String channel) {
+    //     setDeviceInfo( sourceUri, DeviceField.Channel, channel);
+    // }
 
-    public static void setChannel(Workflow workflow, String sourceUri, String channelName, boolean suppressTTS, boolean disableHomeChannel) {
+    public  void setChannel( String sourceUri, String channelName, boolean suppressTTS, boolean disableHomeChannel) {
         logger.debug("Setting channel: " + channelName + ": supresstts:" + suppressTTS + " disableHomeChannel:" + disableHomeChannel);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetChannel, sourceUri,
                 entry("channel_name", channelName),
@@ -487,60 +784,272 @@ public class Relay {
         );
 
         try {
-            sendRequest(req, workflow);
+            sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error setting channel", e);
         }
     }
 
-    public static void restartDevice(Workflow workflow, String sourceUri) {
-        logger.debug("Restarting device: " + sourceUri);
-        powerDownDevice(workflow, sourceUri, true);
-    }
-
-    public static void powerDownDevice(Workflow workflow, String sourceUri) {
-        logger.debug("Powering down device: " + sourceUri);
-        powerDownDevice(workflow, sourceUri, true);
-    }
-
-    private static void powerDownDevice(Workflow workflow, String sourceUri, boolean restart) {
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.PowerOff, sourceUri,
-                entry("restart", restart)
+    private  void setDeviceInfo( String sourceUri, DeviceField field, String value) {
+        logger.debug("Setting device info: " + field + ": " + value);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceInfo, sourceUri,
+                entry("field", field.value()),
+                entry("value", value)
         );
-        
+
         try {
-            sendRequest(req, workflow);
+            sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
-            logger.error("Error powering down device", e);
+            logger.error("Error setting device info", e);
         }
     }
-    
-    public static void terminate(Workflow workflow) {
+
+    public  void setUserProfile( String sourceUri, String username, boolean force) {
+        logger.debug("Setting user profile: " + username + ": " + force);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetUserProfile, sourceUri,
+                entry("username", username),
+                entry("force", force)
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error setting user profile", e);
+        }
+    }
+
+    public void enableHomeChannel(String target) {
+        setHomeChannelState(target, false);
+    }
+
+    public void disableHomeChannel(String target) {
+        setHomeChannelState(target, false);
+    }
+
+    private void setHomeChannelState(String sourceUri, boolean enabled) {
+        logger.debug("Setting home channel state.");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetHomeChannelState, sourceUri,
+            entry("enabled", enabled)               
+        );
+
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error setting home channel state", e);
+        }
+    }
+
+    // restart/powering down device is currently not supported
+
+    // public  void restartDevice( String sourceUri) {
+    //     logger.debug("Restarting device: " + sourceUri);
+    //     powerDownDevice( sourceUri, true);
+    // }
+
+    // public  void powerDownDevice( String sourceUri) {
+    //     logger.debug("Powering down device: " + sourceUri);
+    //     powerDownDevice( sourceUri, true);
+    // }
+
+    // private  void powerDownDevice( String sourceUri, boolean restart) {
+    //     Map<String, Object> req = RelayUtils.buildRequest(RequestType.PowerOff, sourceUri,
+    //             entry("restart", restart)
+    //     );
+
+    //     try {
+    //         sendRequest(req);
+    //     } catch (EncodeException | IOException | InterruptedException e) {
+    //         logger.error("Error powering down device", e);
+    //     }
+    // }
+
+    public  void terminate() {
         logger.debug("Terminating workflow");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Terminate);
-        
-        WorkflowWrapper wrapper = runningWorkflowsByWorkflow.get(workflow);
+//        WorkflowWrapper wrapper = runningWorkflowsByWorkflow.get(workflow);
         try {
-            sendRequest(req, workflow);
+            sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error terminating workflow", e);
         }
+
     }
 
     // HELPER FUNCTIONS ##############
-    
+
     public static String getStartEventSourceUri(Map<String, Object> startEvent) {
-        Map trigger = (Map)startEvent.get("trigger");
-        Map args = (Map)trigger.get("args");
-        return (String)args.get("source_uri");
+        Map trigger = (Map) startEvent.get("trigger");
+        Map args = (Map) trigger.get("args");
+        return (String) args.get("source_uri");
     }
-    
-    public static String getButtonEventButton(Map<String, Object> buttonEvent) {
-        return (String)buttonEvent.get("button");
+
+
+    String serverHostname = "all-main-pro-ibot.relaysvr.com";
+    String version = "relay-sdk-java/2.0.0";
+    String auth_hostname = "auth.relaygo.com";
+
+
+    private static String encodeQueryParams(Map<String, String> queryParams) {
+        // Create a new string builder and for each query parameter in queryParams, 
+        // add it to encodeData.  When all query parameters are added, return the encoded parameters.
+        var encodeData = new StringBuilder();
+        encodeData.append("?");
+        for(Map.Entry<String, String> param : queryParams.entrySet()) {
+            if(encodeData.length() > 0) {
+                encodeData.append("&");
+            }
+            encodeData.append(param.getKey());
+            encodeData.append("=");
+            encodeData.append(param.getValue());
+        }
+        return encodeData.toString();
     }
-    
-    public static String getButtonEventTaps(Map<String, Object> buttonEvent) {
-        return (String)buttonEvent.get("taps");
+
+    private String updateAccessToken(String refreshToken, String clientId) {
+        // Create the URL String
+        String grantUrl = "https://" + auth_hostname + "/oauth2/token";
+        
+        // Create a Map that contains the payload to be sent with the request
+        Map<String, String> grantPayload = new LinkedHashMap<String, String>();
+        grantPayload.put("client_id", clientId);
+        grantPayload.put("grant_type", "refresh_token");
+        grantPayload.put("refresh_token", refreshToken);
+        
+        // Create a new HttpClient and HttpRequest, and add the headers and URL to the request
+        HttpClient httpClient = HttpClient.newBuilder()
+                    .version(HttpClient.Version.HTTP_2)
+                    .build();
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .POST(HttpRequest.BodyPublishers.ofString(encodeQueryParams(grantPayload)))
+                    .uri(URI.create(grantUrl))
+                    .setHeader("User-Agent", version)
+                    .setHeader("Content-Type", "application/json")
+                    .build();
+        
+        // Try to send the request, if you don't receive a status code of 200, throw an exception back to the client
+        try {
+            var response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) {
+                throw new HttpRetryException("Failed to retrieve access token with status code ", response.statusCode());
+            }
+
+            // Create a Map so that we can easily retrieve the access token from the response body, and return the access token 
+            // back to the caller.
+            Gson gson = new Gson();
+            Map<String, String> responseMap = gson.fromJson(response.body(), LinkedHashMap.class);
+            return responseMap.get("access_token").toString();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Received exception when trying to update access token: ", e);
+        } 
     }
-    
+
+    public Map<String, String> triggerWorkflow(String accessToken, String refreshToken, String clientId, String workflowId, String subscriberId, String userId, String[] targets, Map<String, String> actionArgs) {
+        // Create a Map containing the query parameters
+        Map<String, String> queryParams = new LinkedHashMap<String, String>();
+        queryParams.put("subscriber_id", subscriberId);
+        queryParams.put("user_id", userId);
+
+        // Create the URL and append the encoded query paremeters to the URL
+        String url = "https://" + serverHostname + "/ibot/workflow/" + workflowId + encodeQueryParams(queryParams);
+
+        // Create a map containing the payload you would like to send with the request
+        Map<String, String> payload = new LinkedHashMap<String, String>();     
+        payload.put("action", "invoke");
+
+        // If the actionArgs or targets parameters are not null, add them to the payload
+        if (actionArgs != null) {
+            payload.put("action_args", actionArgs.toString());
+        }
+
+        if (targets != null) {
+            payload.put("target_device_ids", targets.toString());
+        }
+
+        // Create a new HttpClient and HttpRequest, and add the headers and URL to the request
+        Gson gson = new Gson();
+        HttpClient httpClient = HttpClient.newBuilder()
+                    .version(HttpClient.Version.HTTP_2)
+                    .build();
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(payload)))
+                    .uri(URI.create(url))
+                    .setHeader("User-Agent", version)
+                    .setHeader("Authorization", "Bearer " + accessToken)
+                    .build();
+        
+        // Try to send the request.  If you receive a status code of 401, try to retrieve a new access token and retry the request
+        try {
+            var response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 401) {
+                logger.debug("Got 401, retrieving a new access token");
+                accessToken = updateAccessToken(refreshToken, clientId);
+
+                httpRequest = HttpRequest.newBuilder()
+                    .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(payload)))
+                    .uri(URI.create(url))
+                    .setHeader("User-Agent", version)
+                    .header("Authorization", "Bearer " + accessToken)
+                    .build();
+                
+                response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            }
+
+            // Create a Map that will hold the response body and access token, then return the Map to the client
+            Map<String, String> returnVal = new LinkedHashMap<String, String>();
+            returnVal.put("response", response.body());
+            returnVal.put("access_token", accessToken);
+            return returnVal;
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Received exception when attempting to trigger workflow: ", e);
+        } 
+    }
+
+    public Map<String, String> fetchDevice(String accessToken, String refreshToken, String clientId, String subscriberId, String userId) {
+        // Create a Map containgin the query parameters
+        Map<String, String> queryParams = new LinkedHashMap<String, String>();
+        queryParams.put("subscriber_id", subscriberId);
+
+        // Create a URL and append the encoded query parameters to the URL
+        String url = "https://" + serverHostname + "/relaypro/api/v1/device/" + userId + encodeQueryParams(queryParams);
+
+        // Create a new HttpClient and HttpRequest, and add the ehaders and URL to the request
+        HttpClient httpClient = HttpClient.newBuilder()
+                    .version(HttpClient.Version.HTTP_2)
+                    .connectTimeout(Duration.ofSeconds(10))
+                    .build();
+
+        HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .GET()
+                    .uri(URI.create(url))
+                    .setHeader("User-Agent", version)
+                    .setHeader("Authorization", "Bearer " + accessToken)
+                    .build();
+        
+        // Try to send the request.  If you receive a status code of 401, try to retrieve a new access token and retry the request
+        try {
+            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 401) {
+                logger.debug("Got 401, retrieving a new access token");
+                accessToken = updateAccessToken(refreshToken, clientId);
+
+                httpRequest = HttpRequest.newBuilder()
+                        .GET()
+                        .uri(URI.create(url))
+                        .setHeader("User-Agent", version)
+                        .setHeader("Authorization", "Bearer " + accessToken)
+                        .build();
+
+                response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            }
+
+            // Create a Map that will hold the response body and access token, then return the Map to the client
+            Map<String, String> returnVal = new LinkedHashMap<>();
+            returnVal.put("response", response.body());
+            returnVal.put("access_token", accessToken);
+            return returnVal;
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Received exception when retrieving device information", e);
+        } 
+    }
+
 }

@@ -5,7 +5,6 @@ package com.relaypro.app;
 import com.relaypro.app.examples.*;
 import com.relaypro.sdk.Relay;
 
-import com.relaypro.sdk.Workflow;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -16,19 +15,20 @@ import org.slf4j.LoggerFactory;
 
 public class Setup {
     
-    private static final int PORT = 3000;
+    private static final int PORT = 8080;
 
     private static Logger logger = LoggerFactory.getLogger(Setup.class);
     
     public static void main(String... args) {
         
         Relay.addWorkflow("helloworld", new HelloWorldWorkflow());
+        Relay.addWorkflow("javatest", new HelloWorldWorkflow());
         Relay.addWorkflow("timers", new TimerWorkflow());
         Relay.addWorkflow("leds", new LedsWorkflow());
         Relay.addWorkflow("info", new DeviceInfoWorkflow());
         Relay.addWorkflow("buttons", new ButtonCountWorkflow());
         
-        startServer();
+         startServer();
     }
     
     private static void startServer() {

@@ -9,11 +9,11 @@ import java.util.concurrent.Callable;
 
 class Worker implements Callable {
 
-    private WorkflowWrapper wrapper;
+    private Relay wrapper;
     
     private static Logger logger = LoggerFactory.getLogger(Worker.class);
     
-    public Worker(WorkflowWrapper wrapper) {
+    public Worker(Relay wrapper) {
         this.wrapper = wrapper;
     }
     
