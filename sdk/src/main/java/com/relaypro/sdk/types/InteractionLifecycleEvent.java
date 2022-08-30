@@ -15,4 +15,11 @@ public class InteractionLifecycleEvent {
     @SerializedName("source_uri")
     public String sourceUri;
 
+    public boolean isTypeStarted() {
+        return "started".equals(this.type);
+    }
+
+    public boolean isTypeEnded() {
+        return "ended".equals(this.type);
+    }
 }

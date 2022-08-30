@@ -1,6 +1,6 @@
 // Copyright © 2022 Relay Inc.
 
-package com.relaypro.app.examples;
+package com.relaypro.app.examples.multi;
 
 import com.relaypro.sdk.Relay;
 import com.relaypro.sdk.Workflow;
@@ -14,23 +14,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ButtonCountWorkflow extends Workflow {
-    private static Logger logger = LoggerFactory.getLogger(ButtonCountWorkflow.class);
-    
-    String sourceUri = null;
-    
+    private static final Logger logger = LoggerFactory.getLogger(ButtonCountWorkflow.class);
+    private final String INTERACTION_NAME = "button interaction";
+
+    private String interactionUri = null;
+
     Map<String, Map<String, Integer>> counts = new HashMap<>();     // track button clicks by button type, then taps type
 
     @Override
     public void onStart(Relay relay, StartEvent startEvent) {
         super.onStart(relay, startEvent);
-        String sourceUri = (String)startEvent.trigger.args.get("source_uri");
-        relay.startInteraction(sourceUri, "interaction name", null);
+        String sourceUri = Relay.getSourceUri(startEvent);
+        relay.startInteraction(sourceUri, INTERACTION_NAME, null);
     }
 
     @Override
     public void onInteractionLifecycle(Relay relay, InteractionLifecycleEvent lifecycleEvent) {
         super.onInteractionLifecycle( relay, lifecycleEvent);
-        this.sourceUri = lifecycleEvent.sourceUri;
+        this.interactionUri = lifecycleEvent.sourceUri;
     }
 
     @Override
@@ -50,6 +51,6 @@ public class ButtonCountWorkflow extends Workflow {
         buttonMap.put(taps, count);
 
         logger.debug(taps + " clicked " + button + " " + count + " times");
-        relay.sayAndWait(sourceUri, taps + " clicked " + button + " " + count + " times");
+        relay.sayAndWait(this.interactionUri, taps + " clicked " + button + " " + count + " times");
     }
 }

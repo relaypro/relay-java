@@ -1,27 +1,34 @@
 // Copyright © 2022 Relay Inc.
 
-package com.relaypro.app;
+package com.relaypro.sdk;
 
-import com.relaypro.sdk.Relay;
-
-import jakarta.websocket.*;
+import jakarta.websocket.CloseReason;
+import jakarta.websocket.OnClose;
+import jakarta.websocket.OnError;
+import jakarta.websocket.OnMessage;
+import jakarta.websocket.OnOpen;
+import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Map the websocket API (onOpen, handleTextMessage, onError, onClose) to
+ * the Relay methods.
+ */
 @ServerEndpoint(value="/{workflowname}")
-public class WebsocketReceiver {
+public class JakartaWebsocketReceiver {
 
-    private static Logger logger = LoggerFactory.getLogger(WebsocketReceiver.class);
-    
+    private static final Logger logger = LoggerFactory.getLogger(JakartaWebsocketReceiver.class);
+
     @OnOpen
     public void onOpen(Session session, @PathParam("workflowname") String workflowName) {
         logger.debug("Starting workflow " + workflowName);
-        
+
         session.setMaxIdleTimeout(Long.MAX_VALUE);
-        
+
         // notify relay sdk to start workflow
         Relay.startWorkflow(session, workflowName);
     }
@@ -29,7 +36,7 @@ public class WebsocketReceiver {
     @OnMessage
     public void handleTextMessage(Session session, String message) {
         logger.debug("<-- Message Received: " + message);
-        
+
         // pass message to relay sdk
         Relay.receiveMessage(session, message);
     }
@@ -49,6 +56,5 @@ public class WebsocketReceiver {
         // notify relay sdk of close
         Relay.stopWorkflow(session, closeReason.getReasonPhrase());
     }
-    
 
 }
