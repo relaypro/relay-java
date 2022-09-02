@@ -95,9 +95,7 @@ public class Relay {
         // shut down worker, if running, by sending poison pill to its message queue and call queues
         Relay wfWrapper = runningWorkflowsBySession.get(session);
         if (wfWrapper != null) {
-            wfWrapper.pendingRequests.forEach((id, call) -> {
-                call.responseQueue.add(MessageWrapper.stopMessage());
-            });
+            wfWrapper.pendingRequests.forEach((id, call) -> call.responseQueue.add(MessageWrapper.stopMessage()));
             wfWrapper.messageQueue.add(MessageWrapper.stopMessage());
         }
     }
