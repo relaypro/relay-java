@@ -30,7 +30,7 @@ public class HelloWorldWorkflow extends Workflow {
         
         logger.debug("User workflow got interaction lifecycle: " + lifecycleEvent);
         
-        String interactionUri = (String)lifecycleEvent.sourceUri;
+        String interactionUri = lifecycleEvent.sourceUri;
         
         if (lifecycleEvent.isTypeStarted()) {
             String deviceName = relay.getDeviceName(interactionUri, false);

@@ -8,7 +8,7 @@ import java.net.URLEncoder;
 
 public class RelayUri {
 
-    private static Logger logger = LoggerFactory.getLogger(Relay.class);
+    private static final Logger logger = LoggerFactory.getLogger(Relay.class);
 
     public static final String SCHEME = "urn";
     public static final String ROOT = "relay-resource";
@@ -170,17 +170,11 @@ public class RelayUri {
     }
 
     public static boolean isInteractionUri(String uri) {
-        if (uri.contains(INTERACTION_URI_NAME) || uri.contains(INTERACTION_URI_ID)) {
-            return true;
-        }
-        return false;
+        return uri.contains(INTERACTION_URI_NAME) || uri.contains(INTERACTION_URI_ID);
     }
 
     public static boolean isRelayUri(String uri) {
-        if(uri.startsWith(SCHEME + ":" + ROOT)) {
-            return true;
-        }
-        return false;
+        return uri.startsWith(SCHEME + ":" + ROOT);
     }
 
 }

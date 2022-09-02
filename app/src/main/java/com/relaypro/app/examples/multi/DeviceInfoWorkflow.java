@@ -23,7 +23,7 @@ public class DeviceInfoWorkflow extends Workflow {
     public void onInteractionLifecycle(Relay relay, InteractionLifecycleEvent lifecycleEvent) {
         super.onInteractionLifecycle(relay, lifecycleEvent);
 
-        String interactionUri = (String) lifecycleEvent.sourceUri;
+        String interactionUri = lifecycleEvent.sourceUri;
 
         if (lifecycleEvent.isTypeStarted()) {
             relay.setDeviceName(interactionUri, "optimus prime");

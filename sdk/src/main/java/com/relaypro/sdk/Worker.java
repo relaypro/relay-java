@@ -9,16 +9,16 @@ import java.util.concurrent.Callable;
 
 class Worker implements Callable<String> {
 
-    private Relay wrapper;
+    private final Relay wrapper;
     
-    private static Logger logger = LoggerFactory.getLogger(Worker.class);
+    private static final Logger logger = LoggerFactory.getLogger(Worker.class);
     
     public Worker(Relay wrapper) {
         this.wrapper = wrapper;
     }
     
     public String call() {
-        // long running process of listening for events, making associated callbacks, and
+        // long-running process of listening for events, making associated callbacks, and
         // when those callbacks make requests, listening for associated responses/prompts/progress events
         for (;;) {
             try {
@@ -28,7 +28,7 @@ class Worker implements Callable<String> {
                     return null;
                 }
                 else if (msgWrapper.stopped) {
-                    // we've been commanded to shutdown, stop looping
+                    // we've been commanded to shut down, stop looping
                     return null;
                 }
                 RelayUtils.invokeEventCallback(msgWrapper, this.wrapper);

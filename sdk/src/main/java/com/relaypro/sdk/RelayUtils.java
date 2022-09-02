@@ -13,7 +13,7 @@ import static java.util.Map.entry;
 
 class RelayUtils {
     static Random random = new Random();
-    private static Logger logger = LoggerFactory.getLogger(RelayUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(RelayUtils.class);
     
     static void invokeEventCallback(MessageWrapper messageWrapper, Relay relay) {
         // invoke the callback using reflection
@@ -27,12 +27,12 @@ class RelayUtils {
     }
     
     static String makeId() {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (int i=0; i<16; i++) {
             int num = random.nextInt(16);
-            s += Integer.toHexString(num);
+            s.append(Integer.toHexString(num));
         }
-        return s;
+        return s.toString();
     }
 
     static Map<String, Object> makeTarget(String sourceUri) {
@@ -43,13 +43,14 @@ class RelayUtils {
     
     static String toCamelCase(String snakeCase) {
         String[] matches = snakeCase.split("_");
-        String out = "";
+        StringBuilder out = new StringBuilder();
         for(String match : matches) {
-            out += Character.toUpperCase(match.charAt(0)) + match.substring(1);
+            out.append(Character.toUpperCase(match.charAt(0))).append(match.substring(1));
         }
-        return out;
+        return out.toString();
     }
 
+    @SafeVarargs
     static Map<String, Object> buildRequest(RequestType type, Map.Entry<String, Object> ...params) {
         Map<String, Object> map = Map.ofEntries(
                 entry("_id", RelayUtils.makeId()),
@@ -63,25 +64,26 @@ class RelayUtils {
         return ret;
     }
 
+    @SafeVarargs
     static Map<String, Object> buildRequest(RequestType type, String sourceUri, Map.Entry<String, Object> ...params) {
         Map<String, Object> map = buildRequest(type, params);
         map.put("_target", RelayUtils.makeTarget(sourceUri));
         return map;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     static Map<String, Object> sanitize(Map<String, Object> map) {
         map.keySet().forEach(k -> {
             Object v = map.get(k);
             if (v instanceof Map) {
                 map.put(k, sanitize((Map)v));
             }
-            else if (v instanceof ArrayList && ((ArrayList<Double>)v).get(0) instanceof Double) {
-                String s = "";
+            else if (v instanceof ArrayList && ((ArrayList<Double>) v).get(0) != null) {
+                StringBuilder s = new StringBuilder();
                 for (Double d : (ArrayList<Double>)v) {
-                    s += String.valueOf(Character.valueOf((char)d.byteValue()));
+                    s.append(Character.valueOf((char) d.byteValue()));
                 }
-                map.put(k, s);
+                map.put(k, s.toString());
             }
         });
         return map;

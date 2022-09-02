@@ -25,7 +25,7 @@ class MessageWrapper {
     private static final Pattern eventPattern = Pattern.compile("^wf_api_(\\w+)_event$");
     private static final Pattern responsePattern = Pattern.compile("^wf_api_(\\w+)_response$");
     
-    private static Logger logger = LoggerFactory.getLogger(MessageWrapper.class);
+    private static final Logger logger = LoggerFactory.getLogger(MessageWrapper.class);
     
     public static MessageWrapper parseMessage(String message) {
         MessageWrapper wrapper = new MessageWrapper();
