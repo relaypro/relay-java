@@ -355,7 +355,7 @@ public class Relay {
 
         try {
             MessageWrapper resp = sendRequest(req);
-            return resp != null ? Integer.parseInt(resp.parsedJson.get("count").toString()) : 0;
+            return resp != null ? Integer.parseInt(resp.parsedJson.get("count").toString()) : null;
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error retrieving inbox count", e);
         }

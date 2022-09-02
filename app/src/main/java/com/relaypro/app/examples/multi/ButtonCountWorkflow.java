@@ -16,6 +16,8 @@ import java.util.Map;
 public class ButtonCountWorkflow extends Workflow {
     private static final Logger logger = LoggerFactory.getLogger(ButtonCountWorkflow.class);
 
+    private final String INTERACTION_NAME = "button interaction";
+
     private String interactionUri = null;
 
     Map<String, Map<String, Integer>> counts = new HashMap<>();     // track button clicks by button type, then taps type
@@ -24,8 +26,7 @@ public class ButtonCountWorkflow extends Workflow {
     public void onStart(Relay relay, StartEvent startEvent) {
         super.onStart(relay, startEvent);
         String sourceUri = Relay.getSourceUri(startEvent);
-        String interactionName = "button interaction";
-        relay.startInteraction(sourceUri, interactionName, null);
+        relay.startInteraction(sourceUri, INTERACTION_NAME, null);
     }
 
     @Override
