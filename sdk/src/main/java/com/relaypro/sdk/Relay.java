@@ -80,11 +80,11 @@ public class Relay {
 
         Relay wrapper = new Relay(wfClone, session);
 
-        logger.debug("Websocket connected to workflow " + workflowName + " " + wrapper);
+        logger.info("Workflow instance started for {}", workflowName);
     }
 
     public static void stopWorkflow(Session session, String reason) {
-        logger.debug("Shutting down workflow with reason: " + reason);
+        logger.info("Workflow instance terminating, reason: {}", reason);
         try {
             session.close();
         } catch (IOException e) {
@@ -876,10 +876,24 @@ public class Relay {
 
     // HELPER FUNCTIONS ##############
 
-    public static String getStartEventSourceUri(Map<String, Object> startEvent) {
-        Map<String, Object> trigger = (Map<String, Object>) startEvent.get("trigger");
-        Map<String, Object> args = (Map<String, Object>) trigger.get("args");
-        return (String) args.get("source_uri");
+    public static String getSourceUri(StartEvent startEvent) {
+        Trigger trigger = null;
+        Map<String, Object> args = null;
+        Object object = null;
+        String sourceUri = null;
+        if (startEvent != null) {
+            trigger = startEvent.trigger;
+        }
+        if (trigger != null) {
+            args = trigger.args;
+        }
+        if (args != null) {
+            object = args.get("source_uri");
+        }
+        if ((object != null) && (object instanceof String)) {
+            sourceUri = (String) object;
+        }
+        return sourceUri;
     }
 
 

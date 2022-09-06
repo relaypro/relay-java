@@ -1,6 +1,6 @@
 // Copyright © 2022 Relay Inc.
 
-package com.relaypro.app.examples;
+package com.relaypro.app.examples.multi;
 
 import com.relaypro.sdk.Relay;
 import com.relaypro.sdk.Workflow;
@@ -11,29 +11,32 @@ import org.slf4j.LoggerFactory;
 public class TimerWorkflow extends Workflow {
 
     private static Logger logger = LoggerFactory.getLogger(TimerWorkflow.class);
+    private static final String INTERACTION_NAME = "timer interaction";
 
-    String sourceUri = null;
+    private String interactionUri = null;
 
     @Override
     public void onStart(Relay relay, StartEvent startEvent) {
         super.onStart(relay, startEvent);
 
-        String sourceUri = (String) startEvent.trigger.args.get("source_uri");
-
-        relay.startInteraction(sourceUri, "interaction name", null);
+        String sourceUri = Relay.getSourceUri(startEvent);
+        relay.startInteraction(sourceUri, INTERACTION_NAME, null);
     }
 
     @Override
     public void onInteractionLifecycle(Relay relay, InteractionLifecycleEvent lifecycleEvent) {
         super.onInteractionLifecycle(relay, lifecycleEvent);
 
-        String type = lifecycleEvent.type;
-        this.sourceUri = lifecycleEvent.sourceUri;
+        this.interactionUri = lifecycleEvent.sourceUri;
 
-        if (type.equals("started")) {
-            relay.sayAndWait(sourceUri, "setting timers");
+        if (lifecycleEvent.isTypeStarted()) {
+            relay.sayAndWait(this.interactionUri, "setting timers");
             relay.setTimer(TimerType.TIMEOUT, "first timer", 5, TimeoutType.SECS);
+            // we'll cancel the 2nd timer before it fires, just to show how to do that
             relay.setTimer(TimerType.TIMEOUT, "second timer", 10, TimeoutType.SECS);
+        }
+        if (lifecycleEvent.isTypeEnded()) {
+            relay.terminate();
         }
     }
 
@@ -41,12 +44,9 @@ public class TimerWorkflow extends Workflow {
     public void onTimerFired(Relay relay, TimerFiredEvent timerEvent) {
         super.onTimerFired(relay, timerEvent);
         logger.debug("Timer fired: " + timerEvent);
-
-        relay.sayAndWait(this.sourceUri, (String) timerEvent.name + " fired");
-
+        relay.sayAndWait(this.interactionUri, (String) timerEvent.name + " fired");
         relay.clearTimer("second timer");
-
-        relay.terminate();
+        relay.endInteraction(this.interactionUri, INTERACTION_NAME);
     }
 
 }

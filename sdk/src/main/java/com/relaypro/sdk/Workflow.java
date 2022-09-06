@@ -2,7 +2,25 @@
 
 package com.relaypro.sdk;
 
-import com.relaypro.sdk.types.*;
+import com.relaypro.sdk.types.ButtonEvent;
+import com.relaypro.sdk.types.CallConnectedEvent;
+import com.relaypro.sdk.types.CallDisconnectedEvent;
+import com.relaypro.sdk.types.CallFailedEvent;
+import com.relaypro.sdk.types.CallProgressingEvent;
+import com.relaypro.sdk.types.CallReceivedEvent;
+import com.relaypro.sdk.types.CallRingingEvent;
+import com.relaypro.sdk.types.CallStartEvent;
+import com.relaypro.sdk.types.IncidentEvent;
+import com.relaypro.sdk.types.InteractionLifecycleEvent;
+import com.relaypro.sdk.types.NotificationEvent;
+import com.relaypro.sdk.types.PlayInboxMessagesEvent;
+import com.relaypro.sdk.types.PromptEvent;
+import com.relaypro.sdk.types.SmsEvent;
+import com.relaypro.sdk.types.SpeechEvent;
+import com.relaypro.sdk.types.StartEvent;
+import com.relaypro.sdk.types.StopEvent;
+import com.relaypro.sdk.types.TimerEvent;
+import com.relaypro.sdk.types.TimerFiredEvent;
 
 public abstract class Workflow implements Cloneable {
 
@@ -31,49 +49,37 @@ public abstract class Workflow implements Cloneable {
     }
 
     public void onSms(Relay relay, SmsEvent smsEvent) {
-
     }
 
     public void onSpeech(Relay relay, SpeechEvent speechEvent) {
-
     }
 
     public void onIncident(Relay relay, IncidentEvent incidentEvent) {
-
     }
 
     public void onCallStartRequest(Relay relay, CallStartEvent callStartEvent) {
-
     }
 
     public void onCallReceived(Relay relay, CallReceivedEvent callReceivedEvent) {
-
     }
 
     public void onCallRinging(Relay relay, CallRingingEvent callRingingEvent) {
-
     }
 
     public void onCallProgressing(Relay relay, CallProgressingEvent callProgressingEvent) {
-
     }
 
     public void onCallConnected(Relay relay, CallConnectedEvent callConnectedEvent) {
-
     }
 
     public void onCallDisconnected(Relay relay, CallDisconnectedEvent callDisconnectedEvent) {
-
     }
 
     public void onCallFailed(Relay relay, CallFailedEvent callFailedEvent) {
-
     }
 
     public void onPlayInboxMessage(Relay relay, PlayInboxMessagesEvent playInboxMessagesEvent) {
-
     }
-
 
     @Override
     public Object clone() throws CloneNotSupportedException {

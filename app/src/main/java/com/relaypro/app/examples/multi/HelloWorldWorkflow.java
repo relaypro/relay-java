@@ -1,6 +1,6 @@
 // Copyright © 2022 Relay Inc.
 
-package com.relaypro.app.examples;
+package com.relaypro.app.examples.multi;
 
 import com.relaypro.sdk.Relay;
 import com.relaypro.sdk.Workflow;
@@ -11,18 +11,17 @@ import org.slf4j.LoggerFactory;
 
 public class HelloWorldWorkflow extends Workflow {
 
-    private static Logger logger = LoggerFactory.getLogger(HelloWorldWorkflow.class);
-    
-    String sourceUri = null;
-    
+    private static final Logger logger = LoggerFactory.getLogger(HelloWorldWorkflow.class);
+    private static final String INTERACTION_NAME = "hello interaction";
+
     @Override
     public void onStart(Relay relay, StartEvent startEvent) {
         super.onStart(relay, startEvent);
 
-        String sourceUri = (String)startEvent.trigger.args.get("source_uri");
+        String sourceUri = Relay.getSourceUri(startEvent);
         logger.debug("Started hello wf from sourceUri: " + sourceUri + " trigger: " + startEvent.trigger);
 
-        relay.startInteraction( sourceUri, "interaction name", null);
+        relay.startInteraction( sourceUri, INTERACTION_NAME, null);
     }
 
     @Override
@@ -31,17 +30,16 @@ public class HelloWorldWorkflow extends Workflow {
         
         logger.debug("User workflow got interaction lifecycle: " + lifecycleEvent);
         
-        String type = (String)lifecycleEvent.type;
-        this.sourceUri = (String)lifecycleEvent.sourceUri;
+        String interactionUri = (String)lifecycleEvent.sourceUri;
         
-        if (type.equals("started")) {
-            String deviceName = relay.getDeviceName(sourceUri, false);
-            relay.say( sourceUri, "What is your name?");
-            String returned = relay.listen(sourceUri, "request-1");
-            relay.say(sourceUri, "Hello " + returned + " you are currently using " + deviceName);
-            relay.endInteraction(sourceUri, "interaction name");
+        if (lifecycleEvent.isTypeStarted()) {
+            String deviceName = relay.getDeviceName(interactionUri, false);
+            relay.say(interactionUri, "What is your name?");
+            String returned = relay.listen(interactionUri, "request_1");
+            relay.say(interactionUri, "Hello " + returned + ". You are currently using " + deviceName);
+            relay.endInteraction(interactionUri, INTERACTION_NAME);
         }
-        if (type.equals("ended")) {
+        if (lifecycleEvent.isTypeEnded()) {
             relay.terminate();
         }
     }
