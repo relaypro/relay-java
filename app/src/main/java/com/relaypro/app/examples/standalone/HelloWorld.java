@@ -1,3 +1,5 @@
+// Copyright © 2022 Relay Inc.
+
 package com.relaypro.app.examples.standalone;
 
 import com.relaypro.app.examples.util.JettyWebsocketServer;

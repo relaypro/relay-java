@@ -1,3 +1,5 @@
+// Copyright © 2022 Relay Inc.
+
 package com.relaypro.app.examples.util;
 
 import com.relaypro.sdk.JakartaWebsocketReceiver;
