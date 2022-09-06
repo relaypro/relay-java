@@ -15,6 +15,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -29,18 +30,18 @@ public class Relay {
     private static final Map<Session, Relay> runningWorkflowsBySession = new ConcurrentHashMap<>();
 
     static final Gson gson = new GsonBuilder().serializeNulls().create();
-    private static Logger logger = LoggerFactory.getLogger(Relay.class);
+    private static final Logger logger = LoggerFactory.getLogger(Relay.class);
 
     private static final int RESPONSE_TIMEOUT_SECS = 10;
 
 
     // holds the Workflow clone, and the session
     Workflow workflow;
-    private Session session;
-    private Future<String> workflowFuture;      // long running future that runs the workflow logic
-    private ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final Session session;
+    private final Future<String> workflowFuture;      // long-running future that runs the workflow logic
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
     BlockingQueue<MessageWrapper> messageQueue = new LinkedBlockingDeque<>();
-    private Map<String, Call> pendingRequests = new ConcurrentHashMap<>();
+    private final Map<String, Call> pendingRequests = new ConcurrentHashMap<>();
 
     private Relay(Workflow workflow, Session session) {
         this.workflow = workflow;
@@ -68,13 +69,13 @@ public class Relay {
         }
 
         // create a clone of the workflow object
-        Workflow wfClone = null;
+        Workflow wfClone;
         try {
             wfClone = (Workflow) wf.clone();
         } catch (CloneNotSupportedException e) {
             logger.error("Error cloning workflow", e);
             // stop ws connection
-            stopWorkflow(session, "worflow_instantiation_error");
+            stopWorkflow(session, "workflow_instantiation_error");
             return;
         }
 
@@ -91,12 +92,10 @@ public class Relay {
             logger.error("Error when shutting down workflow", e);
         }
 
-        // shut down worker, if running, by sending poison pill to it's message queue and call queues
+        // shut down worker, if running, by sending poison pill to its message queue and call queues
         Relay wfWrapper = runningWorkflowsBySession.get(session);
         if (wfWrapper != null) {
-            wfWrapper.pendingRequests.forEach((id, call) -> {
-                call.responseQueue.add(MessageWrapper.stopMessage());
-            });
+            wfWrapper.pendingRequests.forEach((id, call) -> call.responseQueue.add(MessageWrapper.stopMessage()));
             wfWrapper.messageQueue.add(MessageWrapper.stopMessage());
         }
     }
@@ -107,7 +106,7 @@ public class Relay {
         Relay wfWrapper = runningWorkflowsBySession.get(session);
         MessageWrapper msgWrapper = MessageWrapper.parseMessage(message);
 
-        if (msgWrapper.eventOrResponse == "event") {
+        if (msgWrapper.eventOrResponse.equals("event")) {
             // prompt, progress, and speech events need to be sent to the matching calls as well as to event callbacks
             if (msgWrapper.type.equals("prompt") || msgWrapper.type.equals("progress") || msgWrapper.type.equals("speech")) {
                 handleResponse(msgWrapper, wfWrapper);
@@ -123,7 +122,7 @@ public class Relay {
             }
         }
         // if response, match to request
-        else if (msgWrapper.eventOrResponse == "response") {
+        else if (msgWrapper.eventOrResponse.equals("response")) {
             handleResponse(msgWrapper, wfWrapper);
         }
 
@@ -152,7 +151,7 @@ public class Relay {
         String id = (String) message.get("_id");
         String msgJson = gson.toJson(message);
         
-        // gson.toJson encodes "=" to a unicharacter, encode it back to "="
+        // gson.toJson encodes "=" to unicode, encode it back to "="
         if(msgJson.contains("\\u003d")) {
             msgJson = msgJson.replace("\\u003d", "=");
         }
@@ -325,7 +324,7 @@ public class Relay {
     }
 
     public void stopPlayback( String sourceUri, String[] ids) {
-        logger.debug("Stopping playback for: " + ids);
+        logger.debug("Stopping playback for: " + Arrays.toString(ids));
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.StopPlayback, sourceUri,
                 entry("ids", ids)
         );
@@ -543,7 +542,7 @@ public class Relay {
     }
 
     public void vibrate( String sourceUri, int[] pattern) {
-        logger.debug("Vibrating: " + pattern);
+        logger.debug("Vibrating: " + Arrays.toString(pattern));
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Vibrate, sourceUri,
                 entry("pattern", pattern)
         );
@@ -577,7 +576,7 @@ public class Relay {
         );
         try {
             MessageWrapper resp = sendRequest(req);
-            if((String) resp.parsedJson.get("value") == null){
+            if( resp.parsedJson.get("value") == null){
                 return defaultValue;
             }
             return (String) resp.parsedJson.get("value");
@@ -606,7 +605,7 @@ public class Relay {
 
     private void sendNotification(String target, String originator, String type, String text, String name) {
         logger.debug("Sending notification with name: " + name);
-        Map<String, Object> dict = new HashMap<String, Object>();
+        Map<String, Object> dict = new HashMap<>();
 
         // Create a String array that contains the group URNs
         String[] targets = {target};
@@ -890,7 +889,7 @@ public class Relay {
         if (args != null) {
             object = args.get("source_uri");
         }
-        if ((object != null) && (object instanceof String)) {
+        if (object instanceof String) {
             sourceUri = (String) object;
         }
         return sourceUri;
@@ -923,7 +922,7 @@ public class Relay {
         String grantUrl = "https://" + auth_hostname + "/oauth2/token";
         
         // Create a Map that contains the payload to be sent with the request
-        Map<String, String> grantPayload = new LinkedHashMap<String, String>();
+        Map<String, String> grantPayload = new LinkedHashMap<>();
         grantPayload.put("client_id", clientId);
         grantPayload.put("grant_type", "refresh_token");
         grantPayload.put("refresh_token", refreshToken);
@@ -950,7 +949,7 @@ public class Relay {
             // back to the caller.
             Gson gson = new Gson();
             Map<String, String> responseMap = gson.fromJson(response.body(), LinkedHashMap.class);
-            return responseMap.get("access_token").toString();
+            return responseMap.get("access_token");
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Received exception when trying to update access token: ", e);
         } 
@@ -958,7 +957,7 @@ public class Relay {
 
     public Map<String, String> triggerWorkflow(String accessToken, String refreshToken, String clientId, String workflowId, String subscriberId, String userId, String[] targets, Map<String, String> actionArgs) {
         // Create a Map containing the query parameters
-        Map<String, String> queryParams = new LinkedHashMap<String, String>();
+        Map<String, String> queryParams = new LinkedHashMap<>();
         queryParams.put("subscriber_id", subscriberId);
         queryParams.put("user_id", userId);
 
@@ -966,7 +965,7 @@ public class Relay {
         String url = "https://" + serverHostname + "/ibot/workflow/" + workflowId + encodeQueryParams(queryParams);
 
         // Create a map containing the payload you would like to send with the request
-        Map<String, String> payload = new LinkedHashMap<String, String>();     
+        Map<String, String> payload = new LinkedHashMap<>();
         payload.put("action", "invoke");
 
         // If the actionArgs or targets parameters are not null, add them to the payload
@@ -975,7 +974,7 @@ public class Relay {
         }
 
         if (targets != null) {
-            payload.put("target_device_ids", targets.toString());
+            payload.put("target_device_ids", Arrays.toString(targets));
         }
 
         // Create a new HttpClient and HttpRequest, and add the headers and URL to the request
@@ -1008,7 +1007,7 @@ public class Relay {
             }
 
             // Create a Map that will hold the response body and access token, then return the Map to the client
-            Map<String, String> returnVal = new LinkedHashMap<String, String>();
+            Map<String, String> returnVal = new LinkedHashMap<>();
             returnVal.put("response", response.body());
             returnVal.put("access_token", accessToken);
             return returnVal;
@@ -1019,13 +1018,13 @@ public class Relay {
 
     public Map<String, String> fetchDevice(String accessToken, String refreshToken, String clientId, String subscriberId, String userId) {
         // Create a Map containgin the query parameters
-        Map<String, String> queryParams = new LinkedHashMap<String, String>();
+        Map<String, String> queryParams = new LinkedHashMap<>();
         queryParams.put("subscriber_id", subscriberId);
 
         // Create a URL and append the encoded query parameters to the URL
         String url = "https://" + serverHostname + "/relaypro/api/v1/device/" + userId + encodeQueryParams(queryParams);
 
-        // Create a new HttpClient and HttpRequest, and add the ehaders and URL to the request
+        // Create a new HttpClient and HttpRequest, and add the headers and URL to the request
         HttpClient httpClient = HttpClient.newBuilder()
                     .version(HttpClient.Version.HTTP_2)
                     .connectTimeout(Duration.ofSeconds(10))

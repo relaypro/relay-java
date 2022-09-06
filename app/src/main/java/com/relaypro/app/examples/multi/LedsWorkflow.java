@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * Cycles through various led settings on timers
  */
 public class LedsWorkflow extends Workflow {
-    private static Logger logger = LoggerFactory.getLogger(LedsWorkflow.class);
+    private static final Logger logger = LoggerFactory.getLogger(LedsWorkflow.class);
     private static final String INTERACTION_NAME = "LED interaction";
     private String interactionUri = null;
 
@@ -44,7 +44,7 @@ public class LedsWorkflow extends Workflow {
         super.onTimerFired(relay, timerEvent);
         logger.debug("Timer fired: " + timerEvent);
 
-        String timerName = (String) timerEvent.name;
+        String timerName = timerEvent.name;
         if (timerName.equals("rainbow")) {
             relay.rainbow(this.interactionUri, -1);
             relay.sayAndWait(this.interactionUri, "rainbow");

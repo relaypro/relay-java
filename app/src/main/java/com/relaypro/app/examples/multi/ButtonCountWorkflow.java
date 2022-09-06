@@ -15,6 +15,7 @@ import java.util.Map;
 
 public class ButtonCountWorkflow extends Workflow {
     private static final Logger logger = LoggerFactory.getLogger(ButtonCountWorkflow.class);
+
     private final String INTERACTION_NAME = "button interaction";
 
     private String interactionUri = null;
