@@ -14,16 +14,16 @@ import java.util.Map;
 public class HelloWorld {
 
     public static void main(String... args) {
-
         int port = 8080;
         Map<String, String> env = System.getenv();
-        if (env.containsKey("PORT") && (Integer.parseInt(env.get("PORT")) > 0)) {
-            port = Integer.parseInt("PORT");
+        try {
+            // this is required for Heroku, optional elsewhere
+            if (env.containsKey("PORT") && (Integer.parseInt(env.get("PORT")) > 0)) {
+                port = Integer.parseInt(env.get("PORT"));
+            }
+        } catch (NumberFormatException e) {
+            System.err.println("Unable to parse PORT env value as an integer, ignoring: " + env.get("PORT"));
         }
-        if ((args != null) && (args.length > 0) && (Integer.parseInt(args[0]) > 0)) {
-            port = Integer.parseInt(args[0]);
-        }
-
         Relay.addWorkflow("hellopath", new MyWorkflow());
 
         // Note that this uses the Jetty websocket server implementation in the app's util package.

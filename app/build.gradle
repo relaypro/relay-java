@@ -23,8 +23,8 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    // mainClass = 'com.relaypro.app.examples.standalone.HelloWorld'
-    mainClass = 'com.relaypro.app.examples.multi.Setup'
+    mainClass = 'com.relaypro.app.examples.standalone.HelloWorld'
+    // mainClass = 'com.relaypro.app.examples.multi.Setup'
 }
 
 tasks.named('test') {

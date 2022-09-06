@@ -33,18 +33,8 @@ import java.util.Map;
 public class HelloWorld {
 
     public static void main(String... args) {
-
         int port = 8080;
-        Map<String, String> env = System.getenv();
-        if (env.containsKey("PORT") && (Integer.parseInt(env.get("PORT")) > 0)) {
-            port = Integer.parseInt("PORT");
-        }
-        if ((args != null) && (args.length > 0) && (Integer.parseInt(args[0]) > 0)) {
-            port = Integer.parseInt(args[0]);
-        }
-
         Relay.addWorkflow("hellopath", new MyWorkflow());
-
         // Note that this uses the Jetty websocket server implementation in the util package.
         JettyWebsocketServer.startServer(port);
     }
