@@ -151,7 +151,7 @@ public class Relay {
         String id = (String) message.get("_id");
         String msgJson = gson.toJson(message);
         
-        // gson.toJson encodes "=" to a unicode, encode it back to "="
+        // gson.toJson encodes "=" to unicode, encode it back to "="
         if(msgJson.contains("\\u003d")) {
             msgJson = msgJson.replace("\\u003d", "=");
         }
