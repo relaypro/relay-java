@@ -35,7 +35,7 @@ jobs:
       - name: promote
         run: |
           cd web
-          cp -rp ../src/sdk/build/docs/index/javadoc/* .
+          cp -rp ../src/sdk/build/docs/javadoc/* .
       - uses: EndBug/add-and-commit@v9
         with:
           message: 'publish generated docs'
