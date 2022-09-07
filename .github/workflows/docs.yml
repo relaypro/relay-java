@@ -8,8 +8,6 @@ on:
 
 jobs:
   build:
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     runs-on: ubuntu-latest
 
@@ -35,7 +33,7 @@ jobs:
       - name: promote
         run: |
           cd web
-          cp -rp ../src/sdk/build/docs/javadoc/* .
+          cp -rpv ../src/sdk/build/docs/javadoc/* .
       - uses: EndBug/add-and-commit@v9
         with:
           message: 'publish generated docs'
