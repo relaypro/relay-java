@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.0'
-    implementation group: 'org.slf4j', name: 'slf4j-log4j12', version: '2.0.0'
+    implementation group: 'org.slf4j', name: 'slf4j-reload4j', version: '2.0.0'
 
     implementation 'com.google.guava:guava:30.1.1-jre'
     implementation group: 'jakarta.websocket', name: 'jakarta.websocket-api', version: '2.0.0'

@@ -113,6 +113,10 @@ that the `wss` (WebSocket Secure) protocol is used, this is enforced by
 the Relay server when registering workflows. See the
 [Guide](https://developer.relaypro.com/docs/requirements) on this topic.
 
+The [Eclipse Jetty](https://www.eclipse.org/jetty/) module used for an http server here does support TLS. See
+the [Jetty instructions](https://www.eclipse.org/jetty/documentation/jetty-11/operations-guide/index.html#og-keystore)
+on configuring TLS.
+
 ## Verbose Mode Logging
 
 The SDK is using slf4j and the sample apps are providing a binding to log4j, so
