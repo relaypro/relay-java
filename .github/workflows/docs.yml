@@ -33,7 +33,7 @@ jobs:
       - name: promote
         run: |
           cd web
-          cp -pv ../src/sdk/build/docs/javadoc/* .
+          cp -rpv ../src/sdk/build/docs/javadoc/* .
           cp -pv allpackages-index.html index.html
 
       - uses: EndBug/add-and-commit@v9
