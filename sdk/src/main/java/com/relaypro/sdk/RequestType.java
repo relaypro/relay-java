@@ -7,6 +7,10 @@ enum RequestType {
     StartInteraction("wf_api_start_interaction_request"),
     EndInteraction("wf_api_end_interaction_request"),
     Translate("wf_api_translate_request"),
+
+    PlaceCall("wf_api_call_request"),
+    AnswerCall("wf_api_answer_request"),
+    HangupCall("wf_api_hangup_request"),
     Say("wf_api_say_request"),
     Listen("wf_api_listen_request"),
     SetTimer("wf_api_set_timer_request"),

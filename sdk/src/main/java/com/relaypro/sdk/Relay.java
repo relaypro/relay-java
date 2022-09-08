@@ -467,6 +467,47 @@ public class Relay {
     }
 
     @SuppressWarnings("unused")
+    public String placeCall(String target, String uri) {
+        logger.debug("Placing call");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlaceCall, target,
+                entry("uri", uri)
+        );
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return resp != null ? (String) resp.parsedJson.get("call_id") : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error placing call", e);
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unused")
+    public void answerCall(String target, String call_id) {
+        logger.debug("Answering call");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.AnswerCall, target,
+                entry("call_id", call_id)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error answering call", e);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public void hangupCall(String target, String call_id) {
+        logger.debug("Hanging up call");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.HangupCall, target,
+                entry("call_id", call_id)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error hanging up call", e);
+        }
+    }
+    
+    @SuppressWarnings("unused")
     public void createIncident( String originator, String itype) {
         logger.debug("Creating incident");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.CreateIncident, 
