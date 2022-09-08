@@ -4,9 +4,22 @@ package com.relaypro.sdk;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.relaypro.sdk.types.*;
+import com.relaypro.sdk.types.DeviceField;
+import com.relaypro.sdk.types.DeviceInfoQueryType;
+import com.relaypro.sdk.types.DeviceInfoResponse;
+import com.relaypro.sdk.types.LanguageType;
+import com.relaypro.sdk.types.LedEffect;
+import com.relaypro.sdk.types.LedInfo;
+import com.relaypro.sdk.types.StartEvent;
+import com.relaypro.sdk.types.StopEvent;
+import com.relaypro.sdk.types.TargetUri;
+import com.relaypro.sdk.types.TimeoutType;
+import com.relaypro.sdk.types.TimerType;
+import com.relaypro.sdk.types.Trigger;
+
 import jakarta.websocket.EncodeException;
 import jakarta.websocket.Session;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.net.HttpRetryException;
@@ -20,11 +33,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 import static java.util.Map.entry;
 
-@SuppressWarnings("unchecked")
 public class Relay {
 
     private static final Map<String, Workflow> WORKFLOWS = new HashMap<>();
@@ -35,12 +52,9 @@ public class Relay {
 
     private static final int RESPONSE_TIMEOUT_SECS = 10;
 
-
     // holds the Workflow clone, and the session
     Workflow workflow;
     private final Session session;
-    private final Future<String> workflowFuture;      // long-running future that runs the workflow logic
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
     BlockingQueue<MessageWrapper> messageQueue = new LinkedBlockingDeque<>();
     private final Map<String, Call> pendingRequests = new ConcurrentHashMap<>();
 
@@ -48,10 +62,10 @@ public class Relay {
         this.workflow = workflow;
         this.session = session;
         // start a thread that handles running the workflow code
-        this.workflowFuture = executor.submit(new Worker(this));
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(new Worker(this));
         runningWorkflowsBySession.put(session, this);
     }
-
 
     public static void addWorkflow(String name, Workflow wf) {
         logger.debug("Adding workflow with name: " + name);
@@ -59,12 +73,9 @@ public class Relay {
     }
 
     public static void startWorkflow(Session session, String workflowName) {
-        // TODO make a clone of the workflow object, and create a container for that clone and the websocket session 
-
         Workflow wf = WORKFLOWS.get(workflowName);
         if (wf == null) {
             logger.error("No workflow registered with name " + workflowName);
-            // TODO stop ws connection
             stopWorkflow(session, "invalid_workflow_name");
             return;
         }
@@ -80,7 +91,7 @@ public class Relay {
             return;
         }
 
-        Relay wrapper = new Relay(wfClone, session);
+        new Relay(wfClone, session);
 
         logger.info("Workflow instance started for {}", workflowName);
     }
@@ -126,8 +137,8 @@ public class Relay {
         else if (msgWrapper.eventOrResponse.equals("response")) {
             handleResponse(msgWrapper, wfWrapper);
         }
-
     }
+
     private static void handleResponse(MessageWrapper msgWrapper, Relay wfWrapper) {
         String id = null;
         if (msgWrapper.parsedJson.containsKey("_id")) {
@@ -173,8 +184,6 @@ public class Relay {
         MessageWrapper resp = null;
         boolean receivedSpeechEvent = false;
         while (true) {
-            
-            // TODO set timeout for listen
             MessageWrapper response = call.responseQueue.poll(RESPONSE_TIMEOUT_SECS, TimeUnit.SECONDS);
             if(receivedSpeechEvent) {
                 return response;
@@ -193,7 +202,7 @@ public class Relay {
                 }
                 // otherwise do nothing with it
             } else if (response.type.equals("progress")) {
-                // nothing to do here, will continue listening with a fresh timeout 
+                // nothing to do here, will continue listening with a fresh timeout
             } else if (response.type.equals("error")) {
                 // if an error was returned, then no response will be, so return null
                 logger.error("Error returned for call: " + response.messageJson);
@@ -214,7 +223,13 @@ public class Relay {
 
     // ##### API ################################################
 
+    // Not every public method in the SDK will get used by an application,
+    // so we will mark the optional public methods as @SuppressWarnings("unused").
+    // Similarly, if the SDK method returns an information value that doesn't have
+    // to get used, then mark those @SuppressWarnings("UnusedReturnValue").
+
     // Returns error if any, null otherwise
+    @SuppressWarnings("UnusedReturnValue")
     public String startInteraction(String sourceUri, String name, Object options) {
         logger.debug("Starting Interaction for source uri " + sourceUri);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.StartInteraction, sourceUri,
@@ -231,6 +246,7 @@ public class Relay {
         return null;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public String endInteraction(String sourceUri, String name) {
         logger.debug("Ending Interaction for source uri " + sourceUri);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.EndInteraction, sourceUri,
@@ -245,18 +261,22 @@ public class Relay {
         return null;
     }
 
+    @SuppressWarnings({"unused", "UnusedReturnValue"})
     public String say(String sourceUri, String text) {
         return say(sourceUri, text, LanguageType.English);
     }
 
+    @SuppressWarnings({"unused", "UnusedReturnValue"})
     public String say(String sourceUri, String text, LanguageType lang) {
         return say(sourceUri, text, lang, false);
     }
 
+    @SuppressWarnings("unused")
     public void sayAndWait(String sourceUri, String text) {
         sayAndWait(sourceUri, text, LanguageType.English);
     }
 
+    @SuppressWarnings("unused")
     public void sayAndWait(String sourceUri, String text, LanguageType lang) {
         say(sourceUri, text, lang, true);
     }
@@ -277,11 +297,13 @@ public class Relay {
         return null;
     }
 
+    @SuppressWarnings("unused")
     public String listen(String sourceUri, String requestId) {
         String[] phrases = {};
         return listen(sourceUri, requestId, phrases, false, LanguageType.English, 30);
     }
 
+    @SuppressWarnings("unused")
     public String listen(String sourceUri, String requestId, String[] phrases, boolean transcribe, LanguageType lang, int timeout) {
         logger.debug("Listening to " + sourceUri);
         
@@ -301,10 +323,12 @@ public class Relay {
         return null;
     }
 
+    @SuppressWarnings({"unused", "UnusedReturnValue"})
     public String play(String sourceUri, String filename) {
         return play(sourceUri, filename, false);
     }
 
+    @SuppressWarnings("unused")
     public void playAndWait(String sourceUri, String filename) {
         play(sourceUri, filename, true);
     }
@@ -324,6 +348,7 @@ public class Relay {
         return null;
     }
 
+    @SuppressWarnings("unused")
     public void stopPlayback( String sourceUri, String[] ids) {
         logger.debug("Stopping playback for: " + Arrays.toString(ids));
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.StopPlayback, sourceUri,
@@ -337,6 +362,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void playUnreadInboxMessages(String sourceUri) {
         logger.debug("Playing unread messages" );
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlayInboxMessages, sourceUri);
@@ -348,20 +374,27 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public int getUnreadInboxSize(String sourceUri) {
         logger.debug("Getting unread inbox size");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.InboxCount, sourceUri);
 
         try {
             MessageWrapper resp = sendRequest(req);
-            return resp != null ? Integer.parseInt(resp.parsedJson.get("count").toString()) : null;
+            if (resp != null) {
+                return Integer.parseInt(resp.parsedJson.get("count").toString());
+            } else {
+                logger.error("Error retrieving inbox count: null response");
+                return -1;
+            }
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error retrieving inbox count", e);
         }
         return -1;
     }
 
-    public  void setTimer( TimerType timerType, String name, long timeout, TimeoutType timeoutType) {
+    @SuppressWarnings("unused")
+    public void setTimer(TimerType timerType, String name, long timeout, TimeoutType timeoutType) {
         logger.debug("Setting timer " + timerType.value() + " named " + name + " for " + timeout + " " + timeoutType.value());
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetTimer,
                 entry("type", timerType.value()),
@@ -377,6 +410,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void clearTimer(String name) {
         logger.debug("Clearing timer named " + name);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.ClearTimer,
@@ -390,6 +424,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void startTimer(int timeout) {
         logger.debug("Starting timer unnamed ");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.StartTimer,
@@ -403,6 +438,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void stopTimer() {
         logger.debug("Stopping timer unnamed ");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.StopTimer);
@@ -413,6 +449,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public String translate(String text, LanguageType from, LanguageType to) {
         logger.debug("Translating text");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Translate,
@@ -483,6 +520,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void resolveIncident( String incidentId, String reason) {
         logger.debug("Resolving incident");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.ResolveIncident, 
@@ -496,6 +534,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void logUserMessage( String message, String deviceUri, String category) {
         logger.debug("Logging user message");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.LogAnalytics,
@@ -511,6 +550,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void logMessage( String message, String category) {
         logger.debug("Logging message");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.LogAnalytics,
@@ -525,29 +565,34 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void switchLedOn( String sourceUri, int index, String color) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setColor(Integer.toString(index), color);
         setLeds( sourceUri, LedEffect.STATIC, ledInfo.ledMap);
     }
 
+    @SuppressWarnings("unused")
     public void switchAllLedOn( String sourceUri, String color) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setColor("ring", color);
         setLeds( sourceUri, LedEffect.STATIC, ledInfo.ledMap);
     }
 
+    @SuppressWarnings("unused")
     public void switchAllLedOff( String sourceUri) {
         LedInfo ledInfo = new LedInfo();
         setLeds( sourceUri, LedEffect.OFF, ledInfo.ledMap);
     }
 
+    @SuppressWarnings("unused")
     public void rainbow( String sourceUri, int rotations) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setRotations(rotations);
         setLeds( sourceUri, LedEffect.RAINBOW, ledInfo.ledMap);
     }
 
+    @SuppressWarnings("unused")
     public void rotate( String sourceUri, String color, int rotations) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setRotations(rotations);
@@ -555,6 +600,7 @@ public class Relay {
         setLeds( sourceUri, LedEffect.ROTATE, ledInfo.ledMap);
     }
 
+    @SuppressWarnings("unused")
     public void flash( String sourceUri, String color, int count) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setCount(count);
@@ -562,6 +608,7 @@ public class Relay {
         setLeds( sourceUri, LedEffect.FLASH, ledInfo.ledMap);
     }
 
+    @SuppressWarnings("unused")
     public void breathe( String sourceUri, String color, int count) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setCount(count);
@@ -583,6 +630,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void vibrate( String sourceUri, int[] pattern) {
         logger.debug("Vibrating: " + Arrays.toString(pattern));
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Vibrate, sourceUri,
@@ -596,6 +644,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void setVar(String name, String value) {
         logger.debug("Setting variable: " + name + " with value " +  value);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetVar,
@@ -610,6 +659,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public String getVar(String name, String defaultValue) {
         logger.debug("Getting variable: " + name + " with default value " +  defaultValue);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetVar,
@@ -628,10 +678,12 @@ public class Relay {
         return null;
     }
 
+    @SuppressWarnings("unused")
     public int getNumberVar(String name, int defaultValue) {
         return Integer.parseInt(this.getVar(name, Integer.toString(defaultValue)));
     }
 
+    @SuppressWarnings("unused")
     public void unsetVar(String name) {
         logger.debug("Unsetting variable: " + name);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.UnsetVar,
@@ -647,7 +699,10 @@ public class Relay {
 
     private void sendNotification(String target, String originator, String type, String text, String name) {
         logger.debug("Sending notification with name: " + name);
-        Map<String, Object> dict = new HashMap<>();
+
+        // set up empty pushOpts
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+        Map<String, Object> pushOpts = new HashMap<>();
 
         // Create a String array that contains the group URNs
         String[] targets = {target};
@@ -656,15 +711,25 @@ public class Relay {
         TargetUri targetUri = new TargetUri(targets);
 
         // Fill out the request, using the new targetUri object
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SendNotification,
-                entry("_target", targetUri),
-                entry("originator", originator),
-                entry("type", type),
-                entry("name", name),
-                entry("text", text),
-                entry("target", targetUri),
-                entry("push_opts", dict)
-        );
+        Map<String, Object> req;
+        if ((originator != null) && (text != null)) {
+            req = RelayUtils.buildRequest(RequestType.SendNotification,
+                    entry("_target", targetUri),
+                    entry("originator", originator),
+                    entry("type", type),
+                    entry("name", name),
+                    entry("text", text),
+                    entry("target", targetUri),
+                    entry("push_opts", pushOpts));
+        } else {
+            // Map.Entry will throw an NPE on a null value, so fence for that
+            req = RelayUtils.buildRequest(RequestType.SendNotification,
+                    entry("_target", targetUri),
+                    entry("type", type),
+                    entry("name", name),
+                    entry("target", targetUri),
+                    entry("push_opts", pushOpts));
+        }
 
         try {
             sendRequest(req);
@@ -673,6 +738,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public boolean isGroupMember(String groupNameUri, String potentialMemberNameUri) {
         String groupName = RelayUri.parseGroupName(groupNameUri);
         String deviceName = RelayUri.parseDeviceName(potentialMemberNameUri);
@@ -685,83 +751,103 @@ public class Relay {
 
         try {
             MessageWrapper resp = sendRequest(req);
-            return resp != null ? (Boolean) resp.parsedJson.get("is_member") : null;
+            if (resp != null) {
+                return (Boolean) resp.parsedJson.get("is_member");
+            } else {
+                logger.error("Error checking if group member: null answer");
+            }
         } catch (EncodeException | IOException | InterruptedException e) {
             logger.error("Error checking if group member", e);
         }
         return false;
     }
 
+    @SuppressWarnings("unused")
     public void alert(String target, String originator, String name, String text) {
         sendNotification(target, originator, "alert", text, name);
     }
 
+    @SuppressWarnings("unused")
     public void cancelAlert(String target, String name) {
         sendNotification(target, null, "cancel", null, name);
     }
 
+    @SuppressWarnings("unused")
     public void broadcast (String target, String originator, String name, String text) {
         sendNotification(target, originator, "broadcast", text, name);
     }
 
+    @SuppressWarnings("unused")
     public void cancelBroadcast(String target, String name) {
         sendNotification(target, null, "cancel", null, name);
     }
 
-    public  String getDeviceName( String sourceUri, boolean refresh) {
+    @SuppressWarnings("unused")
+    public String getDeviceName( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Name, refresh);
         return resp != null ? resp.name : null;
     }
 
-    public  String getDeviceId( String sourceUri, boolean refresh) {
+    @SuppressWarnings("unused")
+    public String getDeviceId( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Id, refresh);
         return resp != null ? resp.id : null;
     }
 
-    public  String getDeviceLocation( String sourceUri, boolean refresh) {
+    @SuppressWarnings("unused")
+    public String getDeviceLocation( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Address, refresh);
         return resp != null ? resp.address : null;
     }
 
+    @SuppressWarnings("unused")
     public String getDeviceAddress( String sourceUri, boolean refresh) {
         return this.getDeviceLocation(sourceUri, refresh);
     }
 
-    public  double[] getDeviceCoordinates( String sourceUri, boolean refresh) {
+    @SuppressWarnings("unused")
+    public double[] getDeviceCoordinates( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LatLong, refresh);
         return resp != null ? resp.latlong : null;
     }
 
+    @SuppressWarnings("unused")
     public double[] getDeviceLatLong( String sourceUri, boolean refresh) {
         return this.getDeviceCoordinates(sourceUri, refresh);
     }
 
-    public  String getDeviceIndoorLocation( String sourceUri, boolean refresh) {
+    @SuppressWarnings("unused")
+    public String getDeviceIndoorLocation( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.IndoorLocation, refresh);
         return resp != null ? resp.indoor_location : null;
     }
 
-    public  Integer getDeviceBattery( String sourceUri, boolean refresh) {
+    @SuppressWarnings("unused")
+    public Integer getDeviceBattery( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Battery, refresh);
         return resp != null ? resp.battery : null;
     }
 
-    public  String getDeviceType( String sourceUri, boolean refresh) {
+    @SuppressWarnings("unused")
+    public String getDeviceType( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Type, refresh);
         return resp != null ? resp.type : null;
     }
 
-    public  String getDeviceUsername( String sourceUri, boolean refresh) {
+    @SuppressWarnings("unused")
+    public String getDeviceUsername( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Username, refresh);
         return resp != null ? resp.username : null;
     }
 
-    public  Boolean getDeviceLocationEnabled( String sourceUri, boolean refresh) {
+    @SuppressWarnings("unused")
+    public Boolean getDeviceLocationEnabled( String sourceUri, boolean refresh) {
         DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LocationEnabled, refresh);
         return resp != null ? resp.location_enabled : null;
     }
 
-    public  DeviceInfoResponse getDeviceInfo( String sourceUri, DeviceInfoQueryType query, boolean refresh) {
+    @SuppressWarnings("unused")
+    public DeviceInfoResponse getDeviceInfo( String sourceUri, DeviceInfoQueryType query, boolean refresh) {
         logger.debug("Getting device info: " + query + " refresh: " + refresh);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetDeviceInfo, sourceUri,
                 entry("query", query.value()),
@@ -794,18 +880,22 @@ public class Relay {
     //     }
     // }
 
+    @SuppressWarnings("unused")
     public void setDeviceName( String sourceUri, String name) {
         setDeviceInfo( sourceUri, DeviceField.Label, name);
     }
 
+    @SuppressWarnings("unused")
     public void enableLocation( String sourceUri) {
         setLocationEnabled(sourceUri, true);
     }
 
+    @SuppressWarnings("unused")
     public void disableLocation( String sourceUri) {
         setLocationEnabled(sourceUri, false);
     }
 
+    @SuppressWarnings("unused")
     public void setLocationEnabled( String sourceUri, boolean enabled) {
         setDeviceInfo( sourceUri, DeviceField.LocationEnabled, String.valueOf(enabled));
     }
@@ -816,7 +906,8 @@ public class Relay {
     //     setDeviceInfo( sourceUri, DeviceField.Channel, channel);
     // }
 
-    public  void setChannel( String sourceUri, String channelName, boolean suppressTTS, boolean disableHomeChannel) {
+    @SuppressWarnings("unused")
+    public void setChannel( String sourceUri, String channelName, boolean suppressTTS, boolean disableHomeChannel) {
         logger.debug("Setting channel: " + channelName + ": supresstts:" + suppressTTS + " disableHomeChannel:" + disableHomeChannel);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetChannel, sourceUri,
                 entry("channel_name", channelName),
@@ -831,7 +922,7 @@ public class Relay {
         }
     }
 
-    private  void setDeviceInfo( String sourceUri, DeviceField field, String value) {
+    private void setDeviceInfo( String sourceUri, DeviceField field, String value) {
         logger.debug("Setting device info: " + field + ": " + value);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceInfo, sourceUri,
                 entry("field", field.value()),
@@ -845,7 +936,8 @@ public class Relay {
         }
     }
 
-    public  void setUserProfile( String sourceUri, String username, boolean force) {
+    @SuppressWarnings("unused")
+    public void setUserProfile( String sourceUri, String username, boolean force) {
         logger.debug("Setting user profile: " + username + ": " + force);
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetUserProfile, sourceUri,
                 entry("username", username),
@@ -859,10 +951,12 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void enableHomeChannel(String target) {
-        setHomeChannelState(target, false);
+        setHomeChannelState(target, true);
     }
 
+    @SuppressWarnings("unused")
     public void disableHomeChannel(String target) {
         setHomeChannelState(target, false);
     }
@@ -904,7 +998,7 @@ public class Relay {
     //     }
     // }
 
-    public  void terminate() {
+    public void terminate() {
         logger.debug("Terminating workflow");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.Terminate);
         try {
@@ -917,6 +1011,7 @@ public class Relay {
 
     // HELPER FUNCTIONS ##############
 
+    @SuppressWarnings("unused")
     public static String getSourceUri(StartEvent startEvent) {
         Trigger trigger = null;
         Map<String, Object> args = null;
@@ -937,11 +1032,9 @@ public class Relay {
         return sourceUri;
     }
 
-
     String serverHostname = "all-main-pro-ibot.relaysvr.com";
     String version = "relay-sdk-java/2.0.0";
     String auth_hostname = "auth.relaygo.com";
-
 
     private static String encodeQueryParams(Map<String, String> queryParams) {
         // Create a new string builder and for each query parameter in queryParams, 
@@ -990,14 +1083,18 @@ public class Relay {
             // Create a Map so that we can easily retrieve the access token from the response body, and return the access token 
             // back to the caller.
             Gson gson = new Gson();
-            Map<String, String> responseMap = gson.fromJson(response.body(), LinkedHashMap.class);
-            return responseMap.get("access_token");
+            @SuppressWarnings("rawtypes") LinkedHashMap uncheckedMap = gson.fromJson(response.body(), LinkedHashMap.class);
+            return (String) uncheckedMap.get("access_token");
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException("Received exception when trying to update access token: ", e);
         } 
     }
 
-    public Map<String, String> triggerWorkflow(String accessToken, String refreshToken, String clientId, String workflowId, String subscriberId, String userId, String[] targets, Map<String, String> actionArgs) {
+    @SuppressWarnings({"unused", "UnusedReturnValue"})
+    public Map<String, String> triggerWorkflow(String accessToken, String refreshToken,
+                                               String clientId, String workflowId,
+                                               String subscriberId, String userId,
+                                               String[] targets, Map<String, String> actionArgs) {
         // Create a Map containing the query parameters
         Map<String, String> queryParams = new LinkedHashMap<>();
         queryParams.put("subscriber_id", subscriberId);
@@ -1058,6 +1155,7 @@ public class Relay {
         } 
     }
 
+    @SuppressWarnings("unused")
     public Map<String, String> fetchDevice(String accessToken, String refreshToken, String clientId, String subscriberId, String userId) {
         // Create a Map containgin the query parameters
         Map<String, String> queryParams = new LinkedHashMap<>();
@@ -1105,5 +1203,4 @@ public class Relay {
             throw new RuntimeException("Received exception when retrieving device information", e);
         } 
     }
-
 }
