@@ -506,7 +506,8 @@ public class Relay {
             logger.error("Error hanging up call", e);
         }
     }
-
+    
+    @SuppressWarnings("unused")
     public void createIncident( String originator, String itype) {
         logger.debug("Creating incident");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.CreateIncident, 
