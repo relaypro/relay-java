@@ -429,6 +429,7 @@ public class Relay {
         return null;
     }
 
+    @SuppressWarnings("unused")
     public String placeCall(String target, String call_id) {
         logger.debug("Placing call");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlaceCall, target,
@@ -443,6 +444,7 @@ public class Relay {
         return null;
     }
 
+    @SuppressWarnings("unused")
     public void answerCall(String target, String call_id) {
         logger.debug("Answering call");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.AnswerCall, target,
@@ -455,6 +457,7 @@ public class Relay {
         }
     }
 
+    @SuppressWarnings("unused")
     public void hangupCall(String target, String call_id) {
         logger.debug("Hanging up call");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.HangupCall, target,
