@@ -467,10 +467,10 @@ public class Relay {
     }
 
     @SuppressWarnings("unused")
-    public String placeCall(String target, String call_id) {
+    public String placeCall(String target, String uri) {
         logger.debug("Placing call");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlaceCall, target,
-                entry("uri", call_id)
+                entry("uri", uri)
         );
         try {
             MessageWrapper resp = sendRequest(req);
@@ -485,7 +485,7 @@ public class Relay {
     public void answerCall(String target, String call_id) {
         logger.debug("Answering call");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.AnswerCall, target,
-                entry("uri", call_id)
+                entry("call_id", call_id)
         );
         try {
             sendRequest(req);
@@ -498,7 +498,7 @@ public class Relay {
     public void hangupCall(String target, String call_id) {
         logger.debug("Hanging up call");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.HangupCall, target,
-                entry("uri", call_id)
+                entry("call_id", call_id)
         );
         try {
             sendRequest(req);
