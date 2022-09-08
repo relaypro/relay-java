@@ -429,6 +429,44 @@ public class Relay {
         return null;
     }
 
+    public String placeCall(String target, String call_id) {
+        logger.debug("Placing call");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlaceCall, target,
+                entry("uri", call_id)
+        );
+        try {
+            MessageWrapper resp = sendRequest(req);
+            return resp != null ? (String) resp.parsedJson.get("call_id") : null;
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error placing call", e);
+        }
+        return null;
+    }
+
+    public void answerCall(String target, String call_id) {
+        logger.debug("Answering call");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.AnswerCall, target,
+                entry("uri", call_id)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error answering call", e);
+        }
+    }
+
+    public void hangupCall(String target, String call_id) {
+        logger.debug("Hanging up call");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.HangupCall, target,
+                entry("uri", call_id)
+        );
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error hanging up call", e);
+        }
+    }
+
     public void createIncident( String originator, String itype) {
         logger.debug("Creating incident");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.CreateIncident, 
