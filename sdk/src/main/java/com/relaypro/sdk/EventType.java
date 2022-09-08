@@ -28,11 +28,12 @@ enum EventType {
     
     private final String value;
     private final Class eventClass;
+
     public String value() {
         return value;
     }
-    public Class eventClass() { 
-        return eventClass; 
+    public Class eventClass() {
+        return eventClass;
     }
 
     EventType(String value, Class eventClass) {
