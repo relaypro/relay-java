@@ -27,10 +27,11 @@ public class DeviceInfoWorkflow extends Workflow {
 
         if (lifecycleEvent.isTypeStarted()) {
             relay.setDeviceName(interactionUri, "optimus prime");
-            relay.setLocationEnabled(interactionUri, true);
-            
+
             String name = relay.getDeviceName(interactionUri, true);
             relay.sayAndWait(interactionUri, "Device name is " + name);
+
+            relay.sayAndWait(interactionUri, "Location services are " + (relay.getDeviceLocationEnabled(interactionUri, false) ? "enabled" : "disabled"));
 
             String id = relay.getDeviceId(interactionUri, true);
             relay.sayAndWait(interactionUri, "Device id is " + id);
@@ -66,7 +67,7 @@ public class DeviceInfoWorkflow extends Workflow {
             String deviceType = relay.getDeviceType(interactionUri, true);
             relay.sayAndWait(interactionUri, "Device type is " + deviceType);
 
-            String username = relay.getDeviceUsername(interactionUri, true);
+            String username = relay.getUserProfile(interactionUri, true);
             relay.sayAndWait(interactionUri, "Device username is " + username);
 
             Boolean locEnabled = relay.getDeviceLocationEnabled(interactionUri, true);
