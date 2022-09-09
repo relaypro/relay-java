@@ -31,6 +31,8 @@ public class DeviceInfoWorkflow extends Workflow {
             String name = relay.getDeviceName(interactionUri, true);
             relay.sayAndWait(interactionUri, "Device name is " + name);
 
+            relay.sayAndWait(interactionUri, "Location services are " + (relay.getDeviceLocationEnabled(interactionUri, false) ? "enabled" : "disabled"));
+
             String id = relay.getDeviceId(interactionUri, true);
             relay.sayAndWait(interactionUri, "Device id is " + id);
 

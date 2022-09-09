@@ -1134,7 +1134,7 @@ public class Relay {
     }
 
     /**
-     * Returns the batter of a targeted device.
+     * Returns the battery of a targeted device.
      * @param sourceUri the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the battery.
      * @return the batter of the device as an integer.
@@ -1426,7 +1426,7 @@ public class Relay {
     String version = "relay-sdk-java/2.0.0";
 
     // The auth hostname used in URL when granting a new access token.
-    String auth_hostname = "auth.relayjava.com";
+    String auth_hostname = "auth.relaygo.com";
 
     private static String encodeQueryParams(Map<String, String> queryParams) {
         // Create a new string builder and for each query parameter in queryParams, 
