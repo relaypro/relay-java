@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -238,71 +238,88 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#construct(java.lang.String,java.lang.String,java.lang.String)">construct</a></span>&#8203;(java.lang.String&nbsp;resourceType,
-         java.lang.String&nbsp;idType,
-         java.lang.String&nbsp;idOrName)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deviceId(java.lang.String)">deviceId</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
+<td class="colLast">
+<div class="block">Creates a URN from a device ID.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deviceId(java.lang.String)">deviceId</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deviceName(java.lang.String)">deviceName</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
+<td class="colLast">
+<div class="block">Creates a URN from a device name.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deviceName(java.lang.String)">deviceName</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#groupId(java.lang.String)">groupId</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
+<td class="colLast">
+<div class="block">Creates a URN from a group ID.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#groupId(java.lang.String)">groupId</a></span>&#8203;(java.lang.String&nbsp;id)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#groupMember(java.lang.String,java.lang.String)">groupMember</a></span>&#8203;(java.lang.String&nbsp;group,
+           java.lang.String&nbsp;device)</code></th>
+<td class="colLast">
+<div class="block">Creates a URN for a group member.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#groupMember(java.lang.String,java.lang.String)">groupMember</a></span>&#8203;(java.lang.String&nbsp;group,
-           java.lang.String&nbsp;device)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#groupName(java.lang.String)">groupName</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
+<td class="colLast">
+<div class="block">Creates a URN from a group name.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#groupName(java.lang.String)">groupName</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isInteractionUri(java.lang.String)">isInteractionUri</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
+<td class="colLast">
+<div class="block">Checks if the URN is for an interaction.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isInteractionUri(java.lang.String)">isInteractionUri</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isRelayUri(java.lang.String)">isRelayUri</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
+<td class="colLast">
+<div class="block">Checks if the URN is a Relay URN.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><code>static boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isRelayUri(java.lang.String)">isRelayUri</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseDeviceId(java.lang.String)">parseDeviceId</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
+<td class="colLast">
+<div class="block">Parses out a device ID from a device or interaction URN.</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseDeviceId(java.lang.String)">parseDeviceId</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseDeviceName(java.lang.String)">parseDeviceName</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
+<td class="colLast">
+<div class="block">Parses out a device name from a device or interaction URN.</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseDeviceName(java.lang.String)">parseDeviceName</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseGroupId(java.lang.String)">parseGroupId</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
+<td class="colLast">
+<div class="block">Parses out a group ID from a group URN.</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseGroupId(java.lang.String)">parseGroupId</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseGroupName(java.lang.String)">parseGroupName</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
+<td class="colLast">
+<div class="block">Parses out a group name from a group URN.</div>
+</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseGroupName(java.lang.String)">parseGroupName</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i12" class="altColor">
-<td class="colFirst"><code>static java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#parseInteraction(java.lang.String)">parseInteraction</a></span>&#8203;(java.lang.String&nbsp;uri)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Parses out the name of an interaction from an interaction URN.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -474,17 +491,6 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="construct(java.lang.String,java.lang.String,java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>construct</h4>
-<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;construct&#8203;(java.lang.String&nbsp;resourceType,
-                                         java.lang.String&nbsp;idType,
-                                         java.lang.String&nbsp;idOrName)</pre>
-</li>
-</ul>
 <a id="groupId(java.lang.String)">
 <!--   -->
 </a>
@@ -492,6 +498,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>groupId</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;groupId&#8203;(java.lang.String&nbsp;id)</pre>
+<div class="block">Creates a URN from a group ID.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - the ID of the group.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the newly constructed URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="groupName(java.lang.String)">
@@ -501,6 +514,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>groupName</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;groupName&#8203;(java.lang.String&nbsp;name)</pre>
+<div class="block">Creates a URN from a group name.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - the name of the group.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the newly constructed URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="groupMember(java.lang.String,java.lang.String)">
@@ -511,6 +531,13 @@ extends java.lang.Object</pre>
 <h4>groupMember</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;groupMember&#8203;(java.lang.String&nbsp;group,
                                            java.lang.String&nbsp;device)</pre>
+<div class="block">Creates a URN for a group member.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>group</code> - the name of the group that the device belongs to.</dd>
+<dd><code>device</code> - the newly constructed URN.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
 </li>
 </ul>
 <a id="deviceId(java.lang.String)">
@@ -520,6 +547,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>deviceId</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;deviceId&#8203;(java.lang.String&nbsp;id)</pre>
+<div class="block">Creates a URN from a device ID.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - the ID of the device.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the newly constructed URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="deviceName(java.lang.String)">
@@ -529,6 +563,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>deviceName</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;deviceName&#8203;(java.lang.String&nbsp;name)</pre>
+<div class="block">Creates a URN from a device name.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - the name of the device.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the newly constructed URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="parseGroupName(java.lang.String)">
@@ -538,6 +579,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>parseGroupName</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;parseGroupName&#8203;(java.lang.String&nbsp;uri)</pre>
+<div class="block">Parses out a group name from a group URN.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>uri</code> - the URN that you would like to extract the group name from.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
 </li>
 </ul>
 <a id="parseGroupId(java.lang.String)">
@@ -547,6 +594,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>parseGroupId</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;parseGroupId&#8203;(java.lang.String&nbsp;uri)</pre>
+<div class="block">Parses out a group ID from a group URN.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>uri</code> - the URN that you would like to extract the group ID from.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the group ID.</dd>
+</dl>
 </li>
 </ul>
 <a id="parseDeviceName(java.lang.String)">
@@ -556,6 +610,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>parseDeviceName</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;parseDeviceName&#8203;(java.lang.String&nbsp;uri)</pre>
+<div class="block">Parses out a device name from a device or interaction URN.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>uri</code> - the device or interaction URN that you would liek to extract the device name from.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the device name.</dd>
+</dl>
 </li>
 </ul>
 <a id="parseDeviceId(java.lang.String)">
@@ -565,6 +626,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>parseDeviceId</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;parseDeviceId&#8203;(java.lang.String&nbsp;uri)</pre>
+<div class="block">Parses out a device ID from a device or interaction URN.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>uri</code> - the device or interaction URN that you would like to extract the device ID from.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the device ID.</dd>
+</dl>
 </li>
 </ul>
 <a id="parseInteraction(java.lang.String)">
@@ -574,6 +642,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>parseInteraction</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;parseInteraction&#8203;(java.lang.String&nbsp;uri)</pre>
+<div class="block">Parses out the name of an interaction from an interaction URN.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>uri</code> - the interaction URN that you would like to parse the interaction from.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the name of the interaction.</dd>
+</dl>
 </li>
 </ul>
 <a id="isInteractionUri(java.lang.String)">
@@ -583,6 +658,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>isInteractionUri</h4>
 <pre class="methodSignature">public static&nbsp;boolean&nbsp;isInteractionUri&#8203;(java.lang.String&nbsp;uri)</pre>
+<div class="block">Checks if the URN is for an interaction.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>uri</code> - the device, group, or interaction URN.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the URN is a Relay URN, false otherwise.</dd>
+</dl>
 </li>
 </ul>
 <a id="isRelayUri(java.lang.String)">
@@ -592,6 +674,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>isRelayUri</h4>
 <pre class="methodSignature">public static&nbsp;boolean&nbsp;isRelayUri&#8203;(java.lang.String&nbsp;uri)</pre>
+<div class="block">Checks if the URN is a Relay URN.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>uri</code> - the device, group, or interaction URN.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the URN is a Relay URN, false otherwise.</dd>
+</dl>
 </li>
 </ul>
 </li>

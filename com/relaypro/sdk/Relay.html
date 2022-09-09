@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":9,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":9,"i44":10,"i45":10,"i46":10,"i47":10,"i48":10,"i49":10,"i50":10,"i51":10,"i52":10,"i53":10,"i54":10,"i55":10,"i56":10,"i57":10,"i58":9,"i59":10,"i60":10,"i61":9,"i62":10,"i63":10,"i64":10,"i65":10,"i66":10,"i67":10,"i68":10,"i69":10};
+var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":9,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":9,"i43":10,"i44":10,"i45":10,"i46":10,"i47":10,"i48":10,"i49":10,"i50":10,"i51":10,"i52":10,"i53":10,"i54":10,"i55":10,"i56":9,"i57":10,"i58":10,"i59":9,"i60":10,"i61":10,"i62":10,"i63":10,"i64":10,"i65":10,"i66":10,"i67":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -164,20 +164,27 @@ extends java.lang.Object</pre>
      java.lang.String&nbsp;originator,
      java.lang.String&nbsp;name,
      java.lang.String&nbsp;text)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sends out an alert to the specified group of devices and the Relay Dash.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#answerCall(java.lang.String,java.lang.String)">answerCall</a></span>&#8203;(java.lang.String&nbsp;target,
           java.lang.String&nbsp;call_id)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Answers a call on your device.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#breathe(java.lang.String,java.lang.String,int)">breathe</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
        java.lang.String&nbsp;color,
        int&nbsp;count)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Switches all the LEDs on a device to a certain color and creates a 'breathing' effect,
+ where the LEDs will slowly light up a specified number of times.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -185,56 +192,76 @@ extends java.lang.Object</pre>
          java.lang.String&nbsp;originator,
          java.lang.String&nbsp;name,
          java.lang.String&nbsp;text)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Broadcasts a message to a group of devices.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cancelAlert(java.lang.String,java.lang.String)">cancelAlert</a></span>&#8203;(java.lang.String&nbsp;target,
            java.lang.String&nbsp;name)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Cancels an alert that was sent to a group of devices.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#cancelBroadcast(java.lang.String,java.lang.String)">cancelBroadcast</a></span>&#8203;(java.lang.String&nbsp;target,
                java.lang.String&nbsp;name)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Cancels the broadcast that was sent to a group of devices.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clearTimer(java.lang.String)">clearTimer</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Clears the specified timer.</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createIncident(java.lang.String,java.lang.String)">createIncident</a></span>&#8203;(java.lang.String&nbsp;originator,
               java.lang.String&nbsp;itype)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates an incident that will alert the Relay Dash.</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#disableHomeChannel(java.lang.String)">disableHomeChannel</a></span>&#8203;(java.lang.String&nbsp;target)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Disables the home channel on the device.</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#disableLocation(java.lang.String)">disableLocation</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Disables location services on a device.</div>
+</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#enableHomeChannel(java.lang.String)">enableHomeChannel</a></span>&#8203;(java.lang.String&nbsp;target)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Enables the home channel on the device.</div>
+</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#enableLocation(java.lang.String)">enableLocation</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Enables location services on a device.</div>
+</td>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#endInteraction(java.lang.String,java.lang.String)">endInteraction</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
               java.lang.String&nbsp;name)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Ends an interaction with the user.</div>
+</td>
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;</code></td>
@@ -243,129 +270,165 @@ extends java.lang.Object</pre>
            java.lang.String&nbsp;clientId,
            java.lang.String&nbsp;subscriberId,
            java.lang.String&nbsp;userId)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A convenience method for getting all the details of a device.</div>
+</td>
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#flash(java.lang.String,java.lang.String,int)">flash</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
      java.lang.String&nbsp;color,
      int&nbsp;count)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Switches all the LEDs on a device to a certain color and flashes them
+ a specified number of times.</div>
+</td>
 </tr>
 <tr id="i16" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceAddress(java.lang.String,boolean)">getDeviceAddress</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                 boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the address of a targeted device.</div>
+</td>
 </tr>
 <tr id="i17" class="rowColor">
-<td class="colFirst"><code>java.lang.Integer</code></td>
+<td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceBattery(java.lang.String,boolean)">getDeviceBattery</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                 boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the battery of a targeted device.</div>
+</td>
 </tr>
 <tr id="i18" class="altColor">
 <td class="colFirst"><code>double[]</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceCoordinates(java.lang.String,boolean)">getDeviceCoordinates</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                     boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Retrieves the coordinates of the device's location.</div>
+</td>
 </tr>
 <tr id="i19" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceId(java.lang.String,boolean)">getDeviceId</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
            boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the ID of a targeted device.</div>
+</td>
 </tr>
 <tr id="i20" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceIndoorLocation(java.lang.String,boolean)">getDeviceIndoorLocation</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                        boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the indoor location of a targeted device.</div>
+</td>
 </tr>
 <tr id="i21" class="rowColor">
-<td class="colFirst"><code><a href="types/DeviceInfoResponse.html" title="class in com.relaypro.sdk.types">DeviceInfoResponse</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceInfo(java.lang.String,com.relaypro.sdk.types.DeviceInfoQueryType,boolean)">getDeviceInfo</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
-             <a href="types/DeviceInfoQueryType.html" title="enum in com.relaypro.sdk.types">DeviceInfoQueryType</a>&nbsp;query,
-             boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i22" class="altColor">
 <td class="colFirst"><code>double[]</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceLatLong(java.lang.String,boolean)">getDeviceLatLong</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                 boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the latitude and longitude coordinates of a targeted device.</div>
+</td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceLocation(java.lang.String,boolean)">getDeviceLocation</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                  boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the location of a targeted device.</div>
+</td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>java.lang.Boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceLocationEnabled(java.lang.String,boolean)">getDeviceLocationEnabled</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                         boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns whether the location services on a device are enabled.</div>
+</td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceName(java.lang.String,boolean)">getDeviceName</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
              boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the name of a targeted device.</div>
+</td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceType(java.lang.String,boolean)">getDeviceType</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
              boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the device type of a targeted device, i.e.</div>
+</td>
 </tr>
-<tr id="i27" class="rowColor">
-<td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDeviceUsername(java.lang.String,boolean)">getDeviceUsername</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
-                 boolean&nbsp;refresh)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i28" class="altColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getNumberVar(java.lang.String,int)">getNumberVar</a></span>&#8203;(java.lang.String&nbsp;name,
             int&nbsp;defaultValue)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Retrieves a variable that was set either during workflow registration
+ or through the set_var() function of type integer.</div>
+</td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSourceUri(com.relaypro.sdk.types.StartEvent)">getSourceUri</a></span>&#8203;(<a href="types/StartEvent.html" title="class in com.relaypro.sdk.types">StartEvent</a>&nbsp;startEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Parses out and retrieves the source URN from a Start Event.</div>
+</td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUnreadInboxSize(java.lang.String)">getUnreadInboxSize</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Retrieves the number of messages in a device's inbox.</div>
+</td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getUserProfile(java.lang.String,boolean)">getUserProfile</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+              boolean&nbsp;refresh)</code></th>
+<td class="colLast">
+<div class="block">Returns the user profile of a targeted device.</div>
+</td>
+</tr>
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getVar(java.lang.String,java.lang.String)">getVar</a></span>&#8203;(java.lang.String&nbsp;name,
       java.lang.String&nbsp;defaultValue)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Retrieves a variable that was set either during workflow registration
+ or through the set_var() function.</div>
+</td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hangupCall(java.lang.String,java.lang.String)">hangupCall</a></span>&#8203;(java.lang.String&nbsp;target,
           java.lang.String&nbsp;call_id)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Ends a call on your device.</div>
+</td>
 </tr>
-<tr id="i33" class="rowColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isGroupMember(java.lang.String,java.lang.String)">isGroupMember</a></span>&#8203;(java.lang.String&nbsp;groupNameUri,
              java.lang.String&nbsp;potentialMemberNameUri)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Checks whether a device is a member of a particular group.</div>
+</td>
 </tr>
-<tr id="i34" class="altColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listen(java.lang.String,java.lang.String)">listen</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
       java.lang.String&nbsp;requestId)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Listens for the user to speak into the device.</div>
+</td>
 </tr>
-<tr id="i35" class="rowColor">
+<tr id="i34" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#listen(java.lang.String,java.lang.String,java.lang.String%5B%5D,boolean,com.relaypro.sdk.types.LanguageType,int)">listen</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
       java.lang.String&nbsp;requestId,
@@ -373,202 +436,256 @@ extends java.lang.Object</pre>
       boolean&nbsp;transcribe,
       <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang,
       int&nbsp;timeout)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Listens for the user to speak into the device.</div>
+</td>
 </tr>
-<tr id="i36" class="altColor">
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#logMessage(java.lang.String,java.lang.String)">logMessage</a></span>&#8203;(java.lang.String&nbsp;message,
           java.lang.String&nbsp;category)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Log an analytics event from a workflow with the specified content and
+ under a specified category.</div>
+</td>
 </tr>
-<tr id="i37" class="rowColor">
+<tr id="i36" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#logUserMessage(java.lang.String,java.lang.String,java.lang.String)">logUserMessage</a></span>&#8203;(java.lang.String&nbsp;message,
               java.lang.String&nbsp;deviceUri,
               java.lang.String&nbsp;category)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Log an analytic event from a workflow with the specified content and
+ under a specified category.</div>
+</td>
 </tr>
-<tr id="i38" class="altColor">
+<tr id="i37" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#placeCall(java.lang.String,java.lang.String)">placeCall</a></span>&#8203;(java.lang.String&nbsp;target,
          java.lang.String&nbsp;uri)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Places a call to another device.</div>
+</td>
 </tr>
-<tr id="i39" class="rowColor">
+<tr id="i38" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#play(java.lang.String,java.lang.String)">play</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
     java.lang.String&nbsp;filename)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Plays a custom audio file that was uploaded by the user.</div>
+</td>
+</tr>
+<tr id="i39" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playAndWait(java.lang.String,java.lang.String)">playAndWait</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
+           java.lang.String&nbsp;filename)</code></th>
+<td class="colLast">
+<div class="block">Plays a custom audio file that was uploaded by the user.</div>
+</td>
 </tr>
 <tr id="i40" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playAndWait(java.lang.String,java.lang.String)">playAndWait</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
-           java.lang.String&nbsp;filename)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playUnreadInboxMessages(java.lang.String)">playUnreadInboxMessages</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
+<td class="colLast">
+<div class="block">Play a targeted device's inbox messages.</div>
+</td>
 </tr>
 <tr id="i41" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#playUnreadInboxMessages(java.lang.String)">playUnreadInboxMessages</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i42" class="altColor">
-<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rainbow(java.lang.String,int)">rainbow</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
        int&nbsp;rotations)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Switches all the LEDs on to a configured rainbow pattern and rotates the rainbow
+ a specified number of times.</div>
+</td>
 </tr>
-<tr id="i43" class="rowColor">
+<tr id="i42" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#receiveMessage(jakarta.websocket.Session,java.lang.String)">receiveMessage</a></span>&#8203;(jakarta.websocket.Session&nbsp;session,
               java.lang.String&nbsp;message)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i44" class="altColor">
+<tr id="i43" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resolveIncident(java.lang.String,java.lang.String)">resolveIncident</a></span>&#8203;(java.lang.String&nbsp;incidentId,
                java.lang.String&nbsp;reason)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Resolves an incident that was created.</div>
+</td>
 </tr>
-<tr id="i45" class="rowColor">
+<tr id="i44" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rotate(java.lang.String,java.lang.String,int)">rotate</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
       java.lang.String&nbsp;color,
       int&nbsp;rotations)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Switches all the LEDs on a device to a certain color and rotates them a specified number
+ of times.</div>
+</td>
 </tr>
-<tr id="i46" class="altColor">
+<tr id="i45" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#say(java.lang.String,java.lang.String)">say</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
    java.lang.String&nbsp;text)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Utilizes text to speech capabilities to make the device 'speak' to the user.</div>
+</td>
 </tr>
-<tr id="i47" class="rowColor">
+<tr id="i46" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#say(java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">say</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
    java.lang.String&nbsp;text,
    <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Utilizes text to speech capabilities to make the device 'speak' to the user.</div>
+</td>
 </tr>
-<tr id="i48" class="altColor">
+<tr id="i47" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sayAndWait(java.lang.String,java.lang.String)">sayAndWait</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
           java.lang.String&nbsp;text)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Utilizes text to speech capabilities to make the device 'speak' to the user.</div>
+</td>
 </tr>
-<tr id="i49" class="rowColor">
+<tr id="i48" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sayAndWait(java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">sayAndWait</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
           java.lang.String&nbsp;text,
           <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Utilizes text to speech capabilities to make the device 'speak' to the user.</div>
+</td>
 </tr>
-<tr id="i50" class="altColor">
+<tr id="i49" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setChannel(java.lang.String,java.lang.String,boolean,boolean)">setChannel</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
           java.lang.String&nbsp;channelName,
           boolean&nbsp;suppressTTS,
           boolean&nbsp;disableHomeChannel)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sets the channel that a device is on.</div>
+</td>
 </tr>
-<tr id="i51" class="rowColor">
+<tr id="i50" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDeviceName(java.lang.String,java.lang.String)">setDeviceName</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
              java.lang.String&nbsp;name)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sets the name of a targeted device and updates it on the Relay Dash.</div>
+</td>
 </tr>
-<tr id="i52" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLocationEnabled(java.lang.String,boolean)">setLocationEnabled</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
-                  boolean&nbsp;enabled)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i53" class="rowColor">
+<tr id="i51" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTimer(com.relaypro.sdk.types.TimerType,java.lang.String,long,com.relaypro.sdk.types.TimeoutType)">setTimer</a></span>&#8203;(<a href="types/TimerType.html" title="enum in com.relaypro.sdk.types">TimerType</a>&nbsp;timerType,
         java.lang.String&nbsp;name,
         long&nbsp;timeout,
         <a href="types/TimeoutType.html" title="enum in com.relaypro.sdk.types">TimeoutType</a>&nbsp;timeoutType)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Serves as a named timer that can be either interval or timeout.</div>
+</td>
 </tr>
-<tr id="i54" class="altColor">
+<tr id="i52" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setUserProfile(java.lang.String,java.lang.String,boolean)">setUserProfile</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
               java.lang.String&nbsp;username,
               boolean&nbsp;force)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sets the profile of a user by updating the username.</div>
+</td>
 </tr>
-<tr id="i55" class="rowColor">
+<tr id="i53" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setVar(java.lang.String,java.lang.String)">setVar</a></span>&#8203;(java.lang.String&nbsp;name,
       java.lang.String&nbsp;value)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Sets a variable with the corresponding name and value.</div>
+</td>
 </tr>
-<tr id="i56" class="altColor">
+<tr id="i54" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startInteraction(java.lang.String,java.lang.String,java.lang.Object)">startInteraction</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
                 java.lang.String&nbsp;name,
                 java.lang.Object&nbsp;options)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Starts an interaction with the user.</div>
+</td>
 </tr>
-<tr id="i57" class="rowColor">
+<tr id="i55" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startTimer(int)">startTimer</a></span>&#8203;(int&nbsp;timeout)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Starts an unnamed timer, meaning this will be the only timer on your device.</div>
+</td>
 </tr>
-<tr id="i58" class="altColor">
+<tr id="i56" class="altColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startWorkflow(jakarta.websocket.Session,java.lang.String)">startWorkflow</a></span>&#8203;(jakarta.websocket.Session&nbsp;session,
              java.lang.String&nbsp;workflowName)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i59" class="rowColor">
+<tr id="i57" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopPlayback(java.lang.String,java.lang.String%5B%5D)">stopPlayback</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
             java.lang.String[]&nbsp;ids)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Stops a playback request on the device.</div>
+</td>
 </tr>
-<tr id="i60" class="altColor">
+<tr id="i58" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopTimer()">stopTimer</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Stops an unnamed timer.</div>
+</td>
 </tr>
-<tr id="i61" class="rowColor">
+<tr id="i59" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#stopWorkflow(jakarta.websocket.Session,java.lang.String)">stopWorkflow</a></span>&#8203;(jakarta.websocket.Session&nbsp;session,
             java.lang.String&nbsp;reason)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i62" class="altColor">
+<tr id="i60" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#switchAllLedOff(java.lang.String)">switchAllLedOff</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Switches all of the LEDs on a device off.</div>
+</td>
 </tr>
-<tr id="i63" class="rowColor">
+<tr id="i61" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#switchAllLedOn(java.lang.String,java.lang.String)">switchAllLedOn</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
               java.lang.String&nbsp;color)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Switches all the LEDs on a device on to a specified color.</div>
+</td>
 </tr>
-<tr id="i64" class="altColor">
+<tr id="i62" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#switchLedOn(java.lang.String,int,java.lang.String)">switchLedOn</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
            int&nbsp;index,
            java.lang.String&nbsp;color)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Switches on an LED at a particular index to a specified color.</div>
+</td>
 </tr>
-<tr id="i65" class="rowColor">
+<tr id="i63" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#terminate()">terminate</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Terminates a workflow.</div>
+</td>
 </tr>
-<tr id="i66" class="altColor">
+<tr id="i64" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#translate(java.lang.String,com.relaypro.sdk.types.LanguageType,com.relaypro.sdk.types.LanguageType)">translate</a></span>&#8203;(java.lang.String&nbsp;text,
          <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;from,
          <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;to)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Translates text from one language to another.</div>
+</td>
 </tr>
-<tr id="i67" class="rowColor">
+<tr id="i65" class="rowColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#triggerWorkflow(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String%5B%5D,java.util.Map)">triggerWorkflow</a></span>&#8203;(java.lang.String&nbsp;accessToken,
                java.lang.String&nbsp;refreshToken,
@@ -578,18 +695,24 @@ extends java.lang.Object</pre>
                java.lang.String&nbsp;userId,
                java.lang.String[]&nbsp;targets,
                java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;actionArgs)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A convenience method for sending an HTTP trigger to the Relay server.</div>
+</td>
 </tr>
-<tr id="i68" class="altColor">
+<tr id="i66" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#unsetVar(java.lang.String)">unsetVar</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Unsets the value of a variable.</div>
+</td>
 </tr>
-<tr id="i69" class="rowColor">
+<tr id="i67" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vibrate(java.lang.String,int%5B%5D)">vibrate</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
        int[]&nbsp;pattern)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Makes the device vibrate in a particular pattern.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -664,6 +787,17 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;startInteraction&#8203;(java.lang.String&nbsp;sourceUri,
                                          java.lang.String&nbsp;name,
                                          java.lang.Object&nbsp;options)</pre>
+<div class="block">Starts an interaction with the user.  Triggers an INTERACTION_STARTED event
+ and allows the user to interact with the device via functions that require an
+ interaction URN.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device that you would like to start an interaction with.</dd>
+<dd><code>name</code> - a name for your interaction</dd>
+<dd><code>options</code> - can be color, home channel, or input types. Defaults to none.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>any errors received from the server.</dd>
+</dl>
 </li>
 </ul>
 <a id="endInteraction(java.lang.String,java.lang.String)">
@@ -674,6 +808,15 @@ extends java.lang.Object</pre>
 <h4>endInteraction</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;endInteraction&#8203;(java.lang.String&nbsp;sourceUri,
                                        java.lang.String&nbsp;name)</pre>
+<div class="block">Ends an interaction with the user.  Triggers an INTERACTION_ENDED event to signify
+ that the user is done interacting with the device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device that you would like to end an interaction with.</dd>
+<dd><code>name</code> - the name of the interaction that you would like to end.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>any errors received from the server.</dd>
+</dl>
 </li>
 </ul>
 <a id="say(java.lang.String,java.lang.String)">
@@ -684,6 +827,14 @@ extends java.lang.Object</pre>
 <h4>say</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;say&#8203;(java.lang.String&nbsp;sourceUri,
                             java.lang.String&nbsp;text)</pre>
+<div class="block">Utilizes text to speech capabilities to make the device 'speak' to the user.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>text</code> - what you would like the device to say.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the response ID after the device speaks to the user.</dd>
+</dl>
 </li>
 </ul>
 <a id="say(java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">
@@ -695,6 +846,15 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;say&#8203;(java.lang.String&nbsp;sourceUri,
                             java.lang.String&nbsp;text,
                             <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</pre>
+<div class="block">Utilizes text to speech capabilities to make the device 'speak' to the user.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>text</code> - what you would like te device to say.</dd>
+<dd><code>lang</code> - the language of the text that is being spoken.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the response ID after the device speaks to the user.</dd>
+</dl>
 </li>
 </ul>
 <a id="sayAndWait(java.lang.String,java.lang.String)">
@@ -705,6 +865,13 @@ extends java.lang.Object</pre>
 <h4>sayAndWait</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;sayAndWait&#8203;(java.lang.String&nbsp;sourceUri,
                        java.lang.String&nbsp;text)</pre>
+<div class="block">Utilizes text to speech capabilities to make the device 'speak' to the user.
+ Waits until the text is fully played out on the device before continuing.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>text</code> - what you would like the device to say.</dd>
+</dl>
 </li>
 </ul>
 <a id="sayAndWait(java.lang.String,java.lang.String,com.relaypro.sdk.types.LanguageType)">
@@ -716,6 +883,14 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;sayAndWait&#8203;(java.lang.String&nbsp;sourceUri,
                        java.lang.String&nbsp;text,
                        <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang)</pre>
+<div class="block">Utilizes text to speech capabilities to make the device 'speak' to the user.
+ Waits until the text is fully played out on the device before continuing.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>text</code> - what you would like the device to say.</dd>
+<dd><code>lang</code> - the language of the text that is being spoken.</dd>
+</dl>
 </li>
 </ul>
 <a id="listen(java.lang.String,java.lang.String)">
@@ -726,6 +901,15 @@ extends java.lang.Object</pre>
 <h4>listen</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;listen&#8203;(java.lang.String&nbsp;sourceUri,
                                java.lang.String&nbsp;requestId)</pre>
+<div class="block">Listens for the user to speak into the device.  Utilizes speech to text functionality to interact with
+ the user.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>requestId</code> - the request ID.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the text that the device parsed from what was spoken.</dd>
+</dl>
 </li>
 </ul>
 <a id="listen(java.lang.String,java.lang.String,java.lang.String[],boolean,com.relaypro.sdk.types.LanguageType,int)">
@@ -740,6 +924,19 @@ extends java.lang.Object</pre>
                                boolean&nbsp;transcribe,
                                <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;lang,
                                int&nbsp;timeout)</pre>
+<div class="block">Listens for the user to speak into the device.  Utilizes speech to text functionality to interact with
+ the user.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>requestId</code> - the request ID.</dd>
+<dd><code>phrases</code> - phrases that you would like to limit the user's response to.</dd>
+<dd><code>transcribe</code> - whether you would like to transcribe the user's response.</dd>
+<dd><code>lang</code> - if you would like the device to listen for a response in a specific language.</dd>
+<dd><code>timeout</code> - timeout for how long the device will wait for user's response.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the text that the device parsed from what was spoken.</dd>
+</dl>
 </li>
 </ul>
 <a id="play(java.lang.String,java.lang.String)">
@@ -750,6 +947,14 @@ extends java.lang.Object</pre>
 <h4>play</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;play&#8203;(java.lang.String&nbsp;sourceUri,
                              java.lang.String&nbsp;filename)</pre>
+<div class="block">Plays a custom audio file that was uploaded by the user.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>filename</code> - the name of the audio file.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the response ID after the audio file has been played on the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="playAndWait(java.lang.String,java.lang.String)">
@@ -758,8 +963,18 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>playAndWait</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;playAndWait&#8203;(java.lang.String&nbsp;sourceUri,
-                        java.lang.String&nbsp;filename)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;playAndWait&#8203;(java.lang.String&nbsp;sourceUri,
+                                    java.lang.String&nbsp;filename)</pre>
+<div class="block">Plays a custom audio file that was uploaded by the user.
+ Waits until the audio file has finished playing before continuing through
+ the workflow.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>filename</code> - the name of the audio file.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the response ID after the audio file has been played on the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="stopPlayback(java.lang.String,java.lang.String[])">
@@ -770,6 +985,12 @@ extends java.lang.Object</pre>
 <h4>stopPlayback</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;stopPlayback&#8203;(java.lang.String&nbsp;sourceUri,
                          java.lang.String[]&nbsp;ids)</pre>
+<div class="block">Stops a playback request on the device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device URN.</dd>
+<dd><code>ids</code> - the IDs of the devices who you would like to stop the playback message for.</dd>
+</dl>
 </li>
 </ul>
 <a id="playUnreadInboxMessages(java.lang.String)">
@@ -779,6 +1000,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>playUnreadInboxMessages</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;playUnreadInboxMessages&#8203;(java.lang.String&nbsp;sourceUri)</pre>
+<div class="block">Play a targeted device's inbox messages.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN whose inbox you would like to check.</dd>
+</dl>
 </li>
 </ul>
 <a id="getUnreadInboxSize(java.lang.String)">
@@ -788,6 +1014,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getUnreadInboxSize</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getUnreadInboxSize&#8203;(java.lang.String&nbsp;sourceUri)</pre>
+<div class="block">Retrieves the number of messages in a device's inbox.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN whose inbox you would like to check.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the number of messages in the specified device's inbox.</dd>
+</dl>
 </li>
 </ul>
 <a id="setTimer(com.relaypro.sdk.types.TimerType,java.lang.String,long,com.relaypro.sdk.types.TimeoutType)">
@@ -800,6 +1033,15 @@ extends java.lang.Object</pre>
                      java.lang.String&nbsp;name,
                      long&nbsp;timeout,
                      <a href="types/TimeoutType.html" title="enum in com.relaypro.sdk.types">TimeoutType</a>&nbsp;timeoutType)</pre>
+<div class="block">Serves as a named timer that can be either interval or timeout.  Allows you to specify
+ the unit of time.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>timerType</code> - can be 'timeout' or 'interval'. Defaults to 'timeout'.</dd>
+<dd><code>name</code> - a name for your timer.</dd>
+<dd><code>timeout</code> - an integer representing when you would like your timer to fire.</dd>
+<dd><code>timeoutType</code> - can be 'ms', 'secs', 'mins' or 'hrs'. Defaults to 'secs'.</dd>
+</dl>
 </li>
 </ul>
 <a id="clearTimer(java.lang.String)">
@@ -809,6 +1051,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>clearTimer</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;clearTimer&#8203;(java.lang.String&nbsp;name)</pre>
+<div class="block">Clears the specified timer.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - the name of the timer that you would like to clear.</dd>
+</dl>
 </li>
 </ul>
 <a id="startTimer(int)">
@@ -818,6 +1065,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>startTimer</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;startTimer&#8203;(int&nbsp;timeout)</pre>
+<div class="block">Starts an unnamed timer, meaning this will be the only timer on your device.
+ The timer will fire when it reaches the value of the 'timeout' parameter.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>timeout</code> - the number of seconds you would like to wait until the timer fires.</dd>
+</dl>
 </li>
 </ul>
 <a id="stopTimer()">
@@ -827,6 +1080,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>stopTimer</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;stopTimer()</pre>
+<div class="block">Stops an unnamed timer.</div>
 </li>
 </ul>
 <a id="translate(java.lang.String,com.relaypro.sdk.types.LanguageType,com.relaypro.sdk.types.LanguageType)">
@@ -838,6 +1092,15 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;translate&#8203;(java.lang.String&nbsp;text,
                                   <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;from,
                                   <a href="types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a>&nbsp;to)</pre>
+<div class="block">Translates text from one language to another.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>text</code> - the text that you would like to translate.</dd>
+<dd><code>from</code> - the language that you would like to translate from.</dd>
+<dd><code>to</code> - the language that you would like to translate to.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the translated text.</dd>
+</dl>
 </li>
 </ul>
 <a id="placeCall(java.lang.String,java.lang.String)">
@@ -848,6 +1111,14 @@ extends java.lang.Object</pre>
 <h4>placeCall</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;placeCall&#8203;(java.lang.String&nbsp;target,
                                   java.lang.String&nbsp;uri)</pre>
+<div class="block">Places a call to another device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the device or interaction URN.</dd>
+<dd><code>uri</code> - the URN of the device you would like to call.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the call ID.</dd>
+</dl>
 </li>
 </ul>
 <a id="answerCall(java.lang.String,java.lang.String)">
@@ -858,6 +1129,12 @@ extends java.lang.Object</pre>
 <h4>answerCall</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;answerCall&#8203;(java.lang.String&nbsp;target,
                        java.lang.String&nbsp;call_id)</pre>
+<div class="block">Answers a call on your device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the device or interaction URN.</dd>
+<dd><code>call_id</code> - the call ID.</dd>
+</dl>
 </li>
 </ul>
 <a id="hangupCall(java.lang.String,java.lang.String)">
@@ -868,6 +1145,12 @@ extends java.lang.Object</pre>
 <h4>hangupCall</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;hangupCall&#8203;(java.lang.String&nbsp;target,
                        java.lang.String&nbsp;call_id)</pre>
+<div class="block">Ends a call on your device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the device or interaction URN.</dd>
+<dd><code>call_id</code> - the call ID.</dd>
+</dl>
 </li>
 </ul>
 <a id="createIncident(java.lang.String,java.lang.String)">
@@ -876,8 +1159,14 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>createIncident</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;createIncident&#8203;(java.lang.String&nbsp;originator,
-                           java.lang.String&nbsp;itype)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;createIncident&#8203;(java.lang.String&nbsp;originator,
+                                       java.lang.String&nbsp;itype)</pre>
+<div class="block">Creates an incident that will alert the Relay Dash.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>originator</code> - the device URN that triggered the incident.</dd>
+<dd><code>itype</code> - the type of incident that occurred.</dd>
+</dl>
 </li>
 </ul>
 <a id="resolveIncident(java.lang.String,java.lang.String)">
@@ -888,6 +1177,12 @@ extends java.lang.Object</pre>
 <h4>resolveIncident</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;resolveIncident&#8203;(java.lang.String&nbsp;incidentId,
                             java.lang.String&nbsp;reason)</pre>
+<div class="block">Resolves an incident that was created.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>incidentId</code> - the ID of the incident that you would like to resolve.</dd>
+<dd><code>reason</code> - the reason for resolving the incident.</dd>
+</dl>
 </li>
 </ul>
 <a id="logUserMessage(java.lang.String,java.lang.String,java.lang.String)">
@@ -899,6 +1194,15 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;logUserMessage&#8203;(java.lang.String&nbsp;message,
                            java.lang.String&nbsp;deviceUri,
                            java.lang.String&nbsp;category)</pre>
+<div class="block">Log an analytic event from a workflow with the specified content and
+ under a specified category.  This includes the device who triggered the workflow
+ that called this function.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>message</code> - a description for your analytical event.</dd>
+<dd><code>deviceUri</code> - the URN of the device that triggered this function.</dd>
+<dd><code>category</code> - a category for your analytical event.</dd>
+</dl>
 </li>
 </ul>
 <a id="logMessage(java.lang.String,java.lang.String)">
@@ -909,6 +1213,14 @@ extends java.lang.Object</pre>
 <h4>logMessage</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;logMessage&#8203;(java.lang.String&nbsp;message,
                        java.lang.String&nbsp;category)</pre>
+<div class="block">Log an analytics event from a workflow with the specified content and
+ under a specified category. This does not log the device who
+ triggered the workflow that called this function.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>message</code> - a description for your analytical event.</dd>
+<dd><code>category</code> - a category for your analytical event</dd>
+</dl>
 </li>
 </ul>
 <a id="switchLedOn(java.lang.String,int,java.lang.String)">
@@ -920,6 +1232,13 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;switchLedOn&#8203;(java.lang.String&nbsp;sourceUri,
                         int&nbsp;index,
                         java.lang.String&nbsp;color)</pre>
+<div class="block">Switches on an LED at a particular index to a specified color.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>index</code> - the index of the LED, numbered 1-12.</dd>
+<dd><code>color</code> - the hex color code you would like to turn the LED to.</dd>
+</dl>
 </li>
 </ul>
 <a id="switchAllLedOn(java.lang.String,java.lang.String)">
@@ -930,6 +1249,12 @@ extends java.lang.Object</pre>
 <h4>switchAllLedOn</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;switchAllLedOn&#8203;(java.lang.String&nbsp;sourceUri,
                            java.lang.String&nbsp;color)</pre>
+<div class="block">Switches all the LEDs on a device on to a specified color.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>color</code> - the hex color code you would like the LEDs to be.</dd>
+</dl>
 </li>
 </ul>
 <a id="switchAllLedOff(java.lang.String)">
@@ -939,6 +1264,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>switchAllLedOff</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;switchAllLedOff&#8203;(java.lang.String&nbsp;sourceUri)</pre>
+<div class="block">Switches all of the LEDs on a device off.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="rainbow(java.lang.String,int)">
@@ -949,6 +1279,13 @@ extends java.lang.Object</pre>
 <h4>rainbow</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;rainbow&#8203;(java.lang.String&nbsp;sourceUri,
                     int&nbsp;rotations)</pre>
+<div class="block">Switches all the LEDs on to a configured rainbow pattern and rotates the rainbow
+ a specified number of times.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>rotations</code> - the number of times you would like the rainbow to rotate.</dd>
+</dl>
 </li>
 </ul>
 <a id="rotate(java.lang.String,java.lang.String,int)">
@@ -960,6 +1297,14 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;rotate&#8203;(java.lang.String&nbsp;sourceUri,
                    java.lang.String&nbsp;color,
                    int&nbsp;rotations)</pre>
+<div class="block">Switches all the LEDs on a device to a certain color and rotates them a specified number
+ of times.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>color</code> - the hex color code you would like to turn the LEDs to.</dd>
+<dd><code>rotations</code> - the number of times you would like the LEDs to rotate.</dd>
+</dl>
 </li>
 </ul>
 <a id="flash(java.lang.String,java.lang.String,int)">
@@ -971,6 +1316,14 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;flash&#8203;(java.lang.String&nbsp;sourceUri,
                   java.lang.String&nbsp;color,
                   int&nbsp;count)</pre>
+<div class="block">Switches all the LEDs on a device to a certain color and flashes them
+ a specified number of times.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>color</code> - the hex color code you would like to turn the LEDs to.</dd>
+<dd><code>count</code> - the number of times you would like the LEDs to flash.</dd>
+</dl>
 </li>
 </ul>
 <a id="breathe(java.lang.String,java.lang.String,int)">
@@ -982,6 +1335,14 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;breathe&#8203;(java.lang.String&nbsp;sourceUri,
                     java.lang.String&nbsp;color,
                     int&nbsp;count)</pre>
+<div class="block">Switches all the LEDs on a device to a certain color and creates a 'breathing' effect,
+ where the LEDs will slowly light up a specified number of times.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>color</code> - the hex color code you would like to turn the LEDs to.</dd>
+<dd><code>count</code> - the number of times you would like the LEDs to flash.</dd>
+</dl>
 </li>
 </ul>
 <a id="vibrate(java.lang.String,int[])">
@@ -992,6 +1353,15 @@ extends java.lang.Object</pre>
 <h4>vibrate</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;vibrate&#8203;(java.lang.String&nbsp;sourceUri,
                     int[]&nbsp;pattern)</pre>
+<div class="block">Makes the device vibrate in a particular pattern.  You can specify
+ how many vibrations you would like, the duration of each vibration in
+ milliseconds, and how long you would like the pauses between each vibration to last
+ in milliseconds.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the interaction URN.</dd>
+<dd><code>pattern</code> - an array representing the pattern of your vibration.</dd>
+</dl>
 </li>
 </ul>
 <a id="setVar(java.lang.String,java.lang.String)">
@@ -1002,6 +1372,14 @@ extends java.lang.Object</pre>
 <h4>setVar</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setVar&#8203;(java.lang.String&nbsp;name,
                    java.lang.String&nbsp;value)</pre>
+<div class="block">Sets a variable with the corresponding name and value. Scope of
+ the variable is from start to end of a workflow.  Note that you
+ can only set values of type string.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - name of the variable to be created.</dd>
+<dd><code>value</code> - value that the variable will hold.</dd>
+</dl>
 </li>
 </ul>
 <a id="getVar(java.lang.String,java.lang.String)">
@@ -1012,6 +1390,16 @@ extends java.lang.Object</pre>
 <h4>getVar</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getVar&#8203;(java.lang.String&nbsp;name,
                                java.lang.String&nbsp;defaultValue)</pre>
+<div class="block">Retrieves a variable that was set either during workflow registration
+ or through the set_var() function.  The variable can be retrieved anywhere
+ within the workflow, but is erased after the workflow terminates.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - name of the variable to be retrieved.</dd>
+<dd><code>defaultValue</code> - default value of the variable if it does not exist.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the variable requested as a String.</dd>
+</dl>
 </li>
 </ul>
 <a id="getNumberVar(java.lang.String,int)">
@@ -1022,6 +1410,16 @@ extends java.lang.Object</pre>
 <h4>getNumberVar</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getNumberVar&#8203;(java.lang.String&nbsp;name,
                         int&nbsp;defaultValue)</pre>
+<div class="block">Retrieves a variable that was set either during workflow registration
+ or through the set_var() function of type integer.  The variable can be retrieved anywhere
+ within the workflow, but is erased after the workflow terminates.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - name of the variable to be retrieved.</dd>
+<dd><code>defaultValue</code> - default value of the variable if it does not exist.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the variable requested as an Integer.</dd>
+</dl>
 </li>
 </ul>
 <a id="unsetVar(java.lang.String)">
@@ -1031,6 +1429,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>unsetVar</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;unsetVar&#8203;(java.lang.String&nbsp;name)</pre>
+<div class="block">Unsets the value of a variable.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>name</code> - the name of the variable whose value you would like to unset.</dd>
+</dl>
 </li>
 </ul>
 <a id="isGroupMember(java.lang.String,java.lang.String)">
@@ -1041,6 +1444,14 @@ extends java.lang.Object</pre>
 <h4>isGroupMember</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isGroupMember&#8203;(java.lang.String&nbsp;groupNameUri,
                              java.lang.String&nbsp;potentialMemberNameUri)</pre>
+<div class="block">Checks whether a device is a member of a particular group.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>groupNameUri</code> - the URN of a group.</dd>
+<dd><code>potentialMemberNameUri</code> - the URN of the device name.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the device is a member of the specified group, false otherwise.</dd>
+</dl>
 </li>
 </ul>
 <a id="alert(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
@@ -1053,6 +1464,14 @@ extends java.lang.Object</pre>
                   java.lang.String&nbsp;originator,
                   java.lang.String&nbsp;name,
                   java.lang.String&nbsp;text)</pre>
+<div class="block">Sends out an alert to the specified group of devices and the Relay Dash.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the group URN that you would like to send an alert to.</dd>
+<dd><code>originator</code> - the URN of the device that triggered the alert.</dd>
+<dd><code>name</code> - a name for your alert.</dd>
+<dd><code>text</code> - the text that you would like to be spoken to the group as your alert.</dd>
+</dl>
 </li>
 </ul>
 <a id="cancelAlert(java.lang.String,java.lang.String)">
@@ -1063,6 +1482,13 @@ extends java.lang.Object</pre>
 <h4>cancelAlert</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;cancelAlert&#8203;(java.lang.String&nbsp;target,
                         java.lang.String&nbsp;name)</pre>
+<div class="block">Cancels an alert that was sent to a group of devices.  Particularly useful if you would like to cancel the alert
+ on all devices after one device has acknowledged the alert.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the device URN that has acknowledged the alert.</dd>
+<dd><code>name</code> - the name of the alert.</dd>
+</dl>
 </li>
 </ul>
 <a id="broadcast(java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
@@ -1075,6 +1501,15 @@ extends java.lang.Object</pre>
                       java.lang.String&nbsp;originator,
                       java.lang.String&nbsp;name,
                       java.lang.String&nbsp;text)</pre>
+<div class="block">Broadcasts a message to a group of devices. The message is played out on all devices, as well
+ as sent to the Relay Dash.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the group URN that you would like to broadcast you message to.</dd>
+<dd><code>originator</code> - the device URN that triggered the broadcast.</dd>
+<dd><code>name</code> - a name for your broadcast.</dd>
+<dd><code>text</code> - the text that you would like to broadcast to your group.</dd>
+</dl>
 </li>
 </ul>
 <a id="cancelBroadcast(java.lang.String,java.lang.String)">
@@ -1085,6 +1520,12 @@ extends java.lang.Object</pre>
 <h4>cancelBroadcast</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;cancelBroadcast&#8203;(java.lang.String&nbsp;target,
                             java.lang.String&nbsp;name)</pre>
+<div class="block">Cancels the broadcast that was sent to a group of devices.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the device URN that is cancelling the broadcast.</dd>
+<dd><code>name</code> - the name of the broadcast that you would like to cancel.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceName(java.lang.String,boolean)">
@@ -1095,6 +1536,14 @@ extends java.lang.Object</pre>
 <h4>getDeviceName</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceName&#8203;(java.lang.String&nbsp;sourceUri,
                                       boolean&nbsp;refresh)</pre>
+<div class="block">Returns the name of a targeted device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the name of the device.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the name of the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceId(java.lang.String,boolean)">
@@ -1105,6 +1554,14 @@ extends java.lang.Object</pre>
 <h4>getDeviceId</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceId&#8203;(java.lang.String&nbsp;sourceUri,
                                     boolean&nbsp;refresh)</pre>
+<div class="block">Returns the ID of a targeted device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the name of the device.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the device ID.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceLocation(java.lang.String,boolean)">
@@ -1115,6 +1572,14 @@ extends java.lang.Object</pre>
 <h4>getDeviceLocation</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceLocation&#8203;(java.lang.String&nbsp;sourceUri,
                                           boolean&nbsp;refresh)</pre>
+<div class="block">Returns the location of a targeted device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the location.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the location of the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceAddress(java.lang.String,boolean)">
@@ -1125,6 +1590,14 @@ extends java.lang.Object</pre>
 <h4>getDeviceAddress</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceAddress&#8203;(java.lang.String&nbsp;sourceUri,
                                          boolean&nbsp;refresh)</pre>
+<div class="block">Returns the address of a targeted device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the address.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the address of the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceCoordinates(java.lang.String,boolean)">
@@ -1135,6 +1608,14 @@ extends java.lang.Object</pre>
 <h4>getDeviceCoordinates</h4>
 <pre class="methodSignature">public&nbsp;double[]&nbsp;getDeviceCoordinates&#8203;(java.lang.String&nbsp;sourceUri,
                                      boolean&nbsp;refresh)</pre>
+<div class="block">Retrieves the coordinates of the device's location.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the coordinates.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a double array containing the latitude and longitude of the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceLatLong(java.lang.String,boolean)">
@@ -1145,6 +1626,14 @@ extends java.lang.Object</pre>
 <h4>getDeviceLatLong</h4>
 <pre class="methodSignature">public&nbsp;double[]&nbsp;getDeviceLatLong&#8203;(java.lang.String&nbsp;sourceUri,
                                  boolean&nbsp;refresh)</pre>
+<div class="block">Returns the latitude and longitude coordinates of a targeted device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the coordinates.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a double array containing the latitude and longitude of the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceIndoorLocation(java.lang.String,boolean)">
@@ -1155,6 +1644,14 @@ extends java.lang.Object</pre>
 <h4>getDeviceIndoorLocation</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceIndoorLocation&#8203;(java.lang.String&nbsp;sourceUri,
                                                 boolean&nbsp;refresh)</pre>
+<div class="block">Returns the indoor location of a targeted device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the location.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the indoor location of the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceBattery(java.lang.String,boolean)">
@@ -1163,8 +1660,16 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDeviceBattery</h4>
-<pre class="methodSignature">public&nbsp;java.lang.Integer&nbsp;getDeviceBattery&#8203;(java.lang.String&nbsp;sourceUri,
-                                          boolean&nbsp;refresh)</pre>
+<pre class="methodSignature">public&nbsp;int&nbsp;getDeviceBattery&#8203;(java.lang.String&nbsp;sourceUri,
+                            boolean&nbsp;refresh)</pre>
+<div class="block">Returns the battery of a targeted device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the battery.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the batter of the device as an integer.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceType(java.lang.String,boolean)">
@@ -1175,16 +1680,32 @@ extends java.lang.Object</pre>
 <h4>getDeviceType</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceType&#8203;(java.lang.String&nbsp;sourceUri,
                                       boolean&nbsp;refresh)</pre>
+<div class="block">Returns the device type of a targeted device, i.e. gen2, gen 3, etc.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the device type.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the device type.</dd>
+</dl>
 </li>
 </ul>
-<a id="getDeviceUsername(java.lang.String,boolean)">
+<a id="getUserProfile(java.lang.String,boolean)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getDeviceUsername</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getDeviceUsername&#8203;(java.lang.String&nbsp;sourceUri,
-                                          boolean&nbsp;refresh)</pre>
+<h4>getUserProfile</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getUserProfile&#8203;(java.lang.String&nbsp;sourceUri,
+                                       boolean&nbsp;refresh)</pre>
+<div class="block">Returns the user profile of a targeted device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving the device user profile.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the user profile registered to the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="getDeviceLocationEnabled(java.lang.String,boolean)">
@@ -1195,17 +1716,15 @@ extends java.lang.Object</pre>
 <h4>getDeviceLocationEnabled</h4>
 <pre class="methodSignature">public&nbsp;java.lang.Boolean&nbsp;getDeviceLocationEnabled&#8203;(java.lang.String&nbsp;sourceUri,
                                                   boolean&nbsp;refresh)</pre>
-</li>
-</ul>
-<a id="getDeviceInfo(java.lang.String,com.relaypro.sdk.types.DeviceInfoQueryType,boolean)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getDeviceInfo</h4>
-<pre class="methodSignature">public&nbsp;<a href="types/DeviceInfoResponse.html" title="class in com.relaypro.sdk.types">DeviceInfoResponse</a>&nbsp;getDeviceInfo&#8203;(java.lang.String&nbsp;sourceUri,
-                                        <a href="types/DeviceInfoQueryType.html" title="enum in com.relaypro.sdk.types">DeviceInfoQueryType</a>&nbsp;query,
-                                        boolean&nbsp;refresh)</pre>
+<div class="block">Returns whether the location services on a device are enabled.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>refresh</code> - whether you would like to refresh before retrieving whether the device's location services are
+                enabled.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the device's location services are enabled, false otherwise.</dd>
+</dl>
 </li>
 </ul>
 <a id="setDeviceName(java.lang.String,java.lang.String)">
@@ -1216,6 +1735,14 @@ extends java.lang.Object</pre>
 <h4>setDeviceName</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setDeviceName&#8203;(java.lang.String&nbsp;sourceUri,
                           java.lang.String&nbsp;name)</pre>
+<div class="block">Sets the name of a targeted device and updates it on the Relay Dash.
+ The name remains updated until it is set again via a workflow or updated manually
+ on the Relay Dash.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>name</code> - a new name for your device.</dd>
+</dl>
 </li>
 </ul>
 <a id="enableLocation(java.lang.String)">
@@ -1225,6 +1752,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>enableLocation</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;enableLocation&#8203;(java.lang.String&nbsp;sourceUri)</pre>
+<div class="block">Enables location services on a device.  Location services will remain
+ enabled until they are disabled on the Relay Dash or through a workflow.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="disableLocation(java.lang.String)">
@@ -1234,16 +1767,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>disableLocation</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;disableLocation&#8203;(java.lang.String&nbsp;sourceUri)</pre>
-</li>
-</ul>
-<a id="setLocationEnabled(java.lang.String,boolean)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setLocationEnabled</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setLocationEnabled&#8203;(java.lang.String&nbsp;sourceUri,
-                               boolean&nbsp;enabled)</pre>
+<div class="block">Disables location services on a device.  Location services will remain
+ disabled until they are enabled on the Relay Dash or through a workflow.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="setChannel(java.lang.String,java.lang.String,boolean,boolean)">
@@ -1256,6 +1785,15 @@ extends java.lang.Object</pre>
                        java.lang.String&nbsp;channelName,
                        boolean&nbsp;suppressTTS,
                        boolean&nbsp;disableHomeChannel)</pre>
+<div class="block">Sets the channel that a device is on.  This can be used to chang the channel of a device during a workflow,
+ where the channel will also be updated on the Relay Dash.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device or interaction URN.</dd>
+<dd><code>channelName</code> - the name of the channel you would like to set your device to.</dd>
+<dd><code>suppressTTS</code> - whether you would like to surpress text to speech.</dd>
+<dd><code>disableHomeChannel</code> - whether you would like to disable the home channel.</dd>
+</dl>
 </li>
 </ul>
 <a id="setUserProfile(java.lang.String,java.lang.String,boolean)">
@@ -1267,6 +1805,13 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;void&nbsp;setUserProfile&#8203;(java.lang.String&nbsp;sourceUri,
                            java.lang.String&nbsp;username,
                            boolean&nbsp;force)</pre>
+<div class="block">Sets the profile of a user by updating the username.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sourceUri</code> - the device URN whose profile you would like to update.</dd>
+<dd><code>username</code> - the updated username for the device.</dd>
+<dd><code>force</code> - whether you would like to force this update.</dd>
+</dl>
 </li>
 </ul>
 <a id="enableHomeChannel(java.lang.String)">
@@ -1276,6 +1821,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>enableHomeChannel</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;enableHomeChannel&#8203;(java.lang.String&nbsp;target)</pre>
+<div class="block">Enables the home channel on the device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the device URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="disableHomeChannel(java.lang.String)">
@@ -1285,6 +1835,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>disableHomeChannel</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;disableHomeChannel&#8203;(java.lang.String&nbsp;target)</pre>
+<div class="block">Disables the home channel on the device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>target</code> - the device URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="terminate()">
@@ -1294,6 +1849,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>terminate</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;terminate()</pre>
+<div class="block">Terminates a workflow.  This method is usually called
+ after your workflow has completed and you would like to end the
+ workflow by calling end_interaction(), where you can then terminate
+ the workflow.</div>
 </li>
 </ul>
 <a id="getSourceUri(com.relaypro.sdk.types.StartEvent)">
@@ -1303,6 +1862,13 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getSourceUri</h4>
 <pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;getSourceUri&#8203;(<a href="types/StartEvent.html" title="class in com.relaypro.sdk.types">StartEvent</a>&nbsp;startEvent)</pre>
+<div class="block">Parses out and retrieves the source URN from a Start Event.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>startEvent</code> - the start event.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the source URN.</dd>
+</dl>
 </li>
 </ul>
 <a id="triggerWorkflow(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String[],java.util.Map)">
@@ -1319,6 +1885,37 @@ extends java.lang.Object</pre>
                                                                               java.lang.String&nbsp;userId,
                                                                               java.lang.String[]&nbsp;targets,
                                                                               java.util.Map&lt;java.lang.String,&#8203;java.lang.String&gt;&nbsp;actionArgs)</pre>
+<div class="block">A convenience method for sending an HTTP trigger to the Relay server.
+ This generally would be used in a third-party system to start a Relay
+ workflow via an HTTP trigger and optionally pass data to it with
+ action_args.  Under the covers, this uses Python's "request" library
+ for using the https protocol.
+ If the access_token has expired and the request gets a 401 response,
+ a new access_token will be automatically generated via the refresh_token,
+ and the request will be resubmitted with the new access_token. Otherwise
+ the refresh token won't be used.
+ This method will return a tuple of (requests.Response, access_token)
+ where you can inspect the http response, and get the updated access_token
+ if it was updated (otherwise the original access_token will be returned).</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>accessToken</code> - the current access token. Can be a placeholder value
+         and this method will generate a new one and return it. If the
+         original value of the access token passed in here has expired,
+         this method will also generate a new one and return it.</dd>
+<dd><code>refreshToken</code> - the permanent refresh_token that can be used to
+         obtain a new access_token. The caller should treat the refresh
+         token as very sensitive data, and secure it appropriately.</dd>
+<dd><code>clientId</code> - the auth_sdk_id as returned from "relay env".</dd>
+<dd><code>workflowId</code> - the workflow_id as returned from "relay workflow list".
+         Usually starts with "wf_".</dd>
+<dd><code>subscriberId</code> - the subscriber UUID as returned from "relay whoami".</dd>
+<dd><code>userId</code> - the IMEI of the target device, such as 990007560023456.</dd>
+<dd><code>targets</code> - the device URN on which you would like to trigger the workflow.</dd>
+<dd><code>actionArgs</code> - a Map of any key/value arguments you want
+         to pass in to the workflow that gets started by this trigger.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
 </li>
 </ul>
 <a id="fetchDevice(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)">
@@ -1332,6 +1929,25 @@ extends java.lang.Object</pre>
                                                                           java.lang.String&nbsp;clientId,
                                                                           java.lang.String&nbsp;subscriberId,
                                                                           java.lang.String&nbsp;userId)</pre>
+<div class="block">A convenience method for getting all the details of a device.
+ This will return quite a bit of data regarding device configuration and
+ state. The result, if the query was successful, should have a large JSON
+ dictionary.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>accessToken</code> - the current access token. Can be a placeholder value
+         and this method will generate a new one and return it. If the
+         original value of the access token passed in here has expired,
+         this method will also generate a new one and return it.</dd>
+<dd><code>refreshToken</code> - the permanent refresh_token that can be used to
+         obtain a new access_token. The caller should treat the refresh
+         token as very sensitive data, and secure it appropriately.</dd>
+<dd><code>clientId</code> - the auth_sdk_id as returned from "relay env".</dd>
+<dd><code>subscriberId</code> - the subscriber UUID as returned from "relay whoami".</dd>
+<dd><code>userId</code> - the IMEI of the target device, such as 990007560023456.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a Map containing the response and the access token.</dd>
+</dl>
 </li>
 </ul>
 </li>
