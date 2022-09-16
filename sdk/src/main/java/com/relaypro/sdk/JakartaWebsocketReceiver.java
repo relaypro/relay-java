@@ -16,7 +16,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Map the websocket API (onOpen, handleTextMessage, onError, onClose) to
- * the Relay methods.
+ * the Relay methods. You may replace this with your own mapping if you wish
+ * to use a different websocket implementation. It is provided here for reuse.
  */
 @ServerEndpoint(value="/{workflowname}")
 public class JakartaWebsocketReceiver {
