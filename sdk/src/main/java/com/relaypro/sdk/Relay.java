@@ -42,6 +42,9 @@ import java.util.concurrent.TimeUnit;
 
 import static java.util.Map.entry;
 
+/**
+ * Actions and utilities that can be performed on a Relay device.
+ */
 public class Relay {
 
     private static final Map<String, Workflow> WORKFLOWS = new HashMap<>();
@@ -584,15 +587,15 @@ public class Relay {
 
     /**
      * Places a call to another device.
-     * @param target the device or interaction URN.
-     * @param uri the URN of the device you would like to call.
+     * @param target the device or interaction URN that will place the call.
+     * @param calleeUri the URN of the device you would like to call.
      * @return the call ID.
      */
     @SuppressWarnings("unused")
-    public String placeCall(String target, String uri) {
+    public String placeCall(String target, String calleeUri) {
         logger.debug("Placing call");
         Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlaceCall, target,
-                entry("uri", uri)
+                entry("uri", calleeUri)
         );
         try {
             MessageWrapper resp = sendRequest(req);
@@ -605,8 +608,8 @@ public class Relay {
 
     /**
      * Answers a call on your device.
-     * @param target the device or interaction URN.
-     * @param call_id the call ID.
+     * @param target the device or interaction URN that will answer the call.
+     * @param call_id the ID of the call to answer.
      */
     @SuppressWarnings("unused")
     public void answerCall(String target, String call_id) {
@@ -623,8 +626,8 @@ public class Relay {
 
     /**
      * Ends a call on your device.
-     * @param target the device or interaction URN.
-     * @param call_id the call ID.
+     * @param target the device or interaction URN that will hang up the call.
+     * @param call_id the ID of the call to hang up.
      */
     @SuppressWarnings("unused")
     public void hangupCall(String target, String call_id) {
@@ -1420,13 +1423,13 @@ public class Relay {
 
     // The server host name.  Used for updating an access token, starting a workflow through an HTTP trigger,
     // or retrieving information on a device through the server.
-    String serverHostname = "all-main-pro-ibot.relaysvr.com";
+    static final String SERVER_HOSTNAME = "all-main-pro-ibot.relaysvr.com";
 
     // The version of the Java SDK.
-    String version = "relay-sdk-java/2.0.0";
+    static final String SDK_VERSION = "relay-sdk-java/2.0.0-pre";
 
     // The auth hostname used in URL when granting a new access token.
-    String auth_hostname = "auth.relaygo.com";
+    static final String AUTH_HOSTNAME = "auth.relaygo.com";
 
     private static String encodeQueryParams(Map<String, String> queryParams) {
         // Create a new string builder and for each query parameter in queryParams, 
@@ -1446,7 +1449,7 @@ public class Relay {
 
     private String updateAccessToken(String refreshToken, String clientId) {
         // Create the URL String
-        String grantUrl = "https://" + auth_hostname + "/oauth2/token";
+        String grantUrl = "https://" + AUTH_HOSTNAME + "/oauth2/token";
         
         // Create a Map that contains the payload to be sent with the request
         Map<String, String> grantPayload = new LinkedHashMap<>();
@@ -1461,7 +1464,7 @@ public class Relay {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                     .POST(HttpRequest.BodyPublishers.ofString(encodeQueryParams(grantPayload)))
                     .uri(URI.create(grantUrl))
-                    .setHeader("User-Agent", version)
+                    .setHeader("User-Agent", SDK_VERSION)
                     .setHeader("Content-Type", "application/json")
                     .build();
         
@@ -1523,7 +1526,7 @@ public class Relay {
         queryParams.put("user_id", userId);
 
         // Create the URL and append the encoded query parameters to the URL
-        String url = "https://" + serverHostname + "/ibot/workflow/" + workflowId + encodeQueryParams(queryParams);
+        String url = "https://" + SERVER_HOSTNAME + "/ibot/workflow/" + workflowId + encodeQueryParams(queryParams);
 
         // Create a map containing the payload you would like to send with the request
         Map<String, String> payload = new LinkedHashMap<>();
@@ -1546,7 +1549,7 @@ public class Relay {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                     .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(payload)))
                     .uri(URI.create(url))
-                    .setHeader("User-Agent", version)
+                    .setHeader("User-Agent", SDK_VERSION)
                     .setHeader("Authorization", "Bearer " + accessToken)
                     .build();
         
@@ -1560,7 +1563,7 @@ public class Relay {
                 httpRequest = HttpRequest.newBuilder()
                     .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(payload)))
                     .uri(URI.create(url))
-                    .setHeader("User-Agent", version)
+                    .setHeader("User-Agent", SDK_VERSION)
                     .header("Authorization", "Bearer " + accessToken)
                     .build();
                 
@@ -1601,7 +1604,7 @@ public class Relay {
         queryParams.put("subscriber_id", subscriberId);
 
         // Create a URL and append the encoded query parameters to the URL
-        String url = "https://" + serverHostname + "/relaypro/api/v1/device/" + userId + encodeQueryParams(queryParams);
+        String url = "https://" + SERVER_HOSTNAME + "/relaypro/api/v1/device/" + userId + encodeQueryParams(queryParams);
 
         // Create a new HttpClient and HttpRequest, and add the headers and URL to the request
         HttpClient httpClient = HttpClient.newBuilder()
@@ -1612,7 +1615,7 @@ public class Relay {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                     .GET()
                     .uri(URI.create(url))
-                    .setHeader("User-Agent", version)
+                    .setHeader("User-Agent", SDK_VERSION)
                     .setHeader("Authorization", "Bearer " + accessToken)
                     .build();
         
@@ -1626,7 +1629,7 @@ public class Relay {
                 httpRequest = HttpRequest.newBuilder()
                         .GET()
                         .uri(URI.create(url))
-                        .setHeader("User-Agent", version)
+                        .setHeader("User-Agent", SDK_VERSION)
                         .setHeader("Authorization", "Bearer " + accessToken)
                         .build();
 

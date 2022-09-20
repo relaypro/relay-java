@@ -8,6 +8,9 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Utilities for working with URIs (aka URNs) for Relay devices, groups, and interactions.
+ */
 public class RelayUri {
 
     private static final Logger logger = LoggerFactory.getLogger(Relay.class);
