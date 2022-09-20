@@ -137,6 +137,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre>public abstract class <span class="typeNameLabel">Workflow</span>
 extends java.lang.Object
 implements java.lang.Cloneable</pre>
+<div class="block">A representation of a Relay workflow instance that can receive events from the
+ Relay server, and is where you implement your workflow logic. Override these
+ empty event callbacks with the logic you want to perform upon each event type.
+ The <a href="Relay.html" title="class in com.relaypro.sdk"><code>Relay</code></a> object provides the context for invoking actions. The Event
+ objects passed in to you here provides information about the event and what
+ triggered it.</div>
 </li>
 </ul>
 </div>
@@ -193,43 +199,58 @@ implements java.lang.Cloneable</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallConnected(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallConnectedEvent)">onCallConnected</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                <a href="types/CallConnectedEvent.html" title="class in com.relaypro.sdk.types">CallConnectedEvent</a>&nbsp;callConnectedEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A call attempt that was ringing, progressing, or incoming is now fully
+ connected.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallDisconnected(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallDisconnectedEvent)">onCallDisconnected</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                   <a href="types/CallDisconnectedEvent.html" title="class in com.relaypro.sdk.types">CallDisconnectedEvent</a>&nbsp;callDisconnectedEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A call that was once connected has become disconnected.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallFailed(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallFailedEvent)">onCallFailed</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
             <a href="types/CallFailedEvent.html" title="class in com.relaypro.sdk.types">CallFailedEvent</a>&nbsp;callFailedEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A call failed to get connected.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallProgressing(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallProgressingEvent)">onCallProgressing</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                  <a href="types/CallProgressingEvent.html" title="class in com.relaypro.sdk.types">CallProgressingEvent</a>&nbsp;callProgressingEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The device we called is making progress on getting connected.</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallReceived(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallReceivedEvent)">onCallReceived</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
               <a href="types/CallReceivedEvent.html" title="class in com.relaypro.sdk.types">CallReceivedEvent</a>&nbsp;callReceivedEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The device is receiving an inbound call request.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallRinging(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallRingingEvent)">onCallRinging</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
              <a href="types/CallRingingEvent.html" title="class in com.relaypro.sdk.types">CallRingingEvent</a>&nbsp;callRingingEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The device we called is ringing.</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCallStartRequest(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallStartEvent)">onCallStartRequest</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                   <a href="types/CallStartEvent.html" title="class in com.relaypro.sdk.types">CallStartEvent</a>&nbsp;callStartEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">There is a request to make an outbound call.</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
@@ -253,7 +274,9 @@ implements java.lang.Cloneable</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onPlayInboxMessage(com.relaypro.sdk.Relay,com.relaypro.sdk.types.PlayInboxMessagesEvent)">onPlayInboxMessage</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                   <a href="types/PlayInboxMessagesEvent.html" title="class in com.relaypro.sdk.types">PlayInboxMessagesEvent</a>&nbsp;playInboxMessagesEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Audio is streaming in regarding a missed message.</div>
+</td>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
@@ -458,6 +481,13 @@ implements java.lang.Cloneable</pre>
 <h4>onCallStartRequest</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onCallStartRequest&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                                <a href="types/CallStartEvent.html" title="class in com.relaypro.sdk.types">CallStartEvent</a>&nbsp;callStartEvent)</pre>
+<div class="block">There is a request to make an outbound call. This event can occur on
+ the caller after using the "Call X" voice command on the Assistant.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a Relay device context.</dd>
+<dd><code>callStartEvent</code> - information about the outbound call request</dd>
+</dl>
 </li>
 </ul>
 <a id="onCallReceived(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallReceivedEvent)">
@@ -468,6 +498,13 @@ implements java.lang.Cloneable</pre>
 <h4>onCallReceived</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onCallReceived&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                            <a href="types/CallReceivedEvent.html" title="class in com.relaypro.sdk.types">CallReceivedEvent</a>&nbsp;callReceivedEvent)</pre>
+<div class="block">The device is receiving an inbound call request. This event can occur
+ on the callee.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a Relay device context.</dd>
+<dd><code>callReceivedEvent</code> - information about the inbound call request</dd>
+</dl>
 </li>
 </ul>
 <a id="onCallRinging(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallRingingEvent)">
@@ -478,6 +515,13 @@ implements java.lang.Cloneable</pre>
 <h4>onCallRinging</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onCallRinging&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                           <a href="types/CallRingingEvent.html" title="class in com.relaypro.sdk.types">CallRingingEvent</a>&nbsp;callRingingEvent)</pre>
+<div class="block">The device we called is ringing. We are waiting for them to answer.
+ This event can occur on the caller.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a Relay device context.</dd>
+<dd><code>callRingingEvent</code> - information about the ringing party.</dd>
+</dl>
 </li>
 </ul>
 <a id="onCallProgressing(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallProgressingEvent)">
@@ -488,6 +532,14 @@ implements java.lang.Cloneable</pre>
 <h4>onCallProgressing</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onCallProgressing&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                               <a href="types/CallProgressingEvent.html" title="class in com.relaypro.sdk.types">CallProgressingEvent</a>&nbsp;callProgressingEvent)</pre>
+<div class="block">The device we called is making progress on getting connected. This may
+ be interspersed with <a href="#onCallRinging(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallRingingEvent)"><code>onCallRinging(Relay, CallRingingEvent)</code></a>.
+ This event can occur on the caller.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a Relay device context.</dd>
+<dd><code>callProgressingEvent</code> - information about the called party.</dd>
+</dl>
 </li>
 </ul>
 <a id="onCallConnected(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallConnectedEvent)">
@@ -498,6 +550,13 @@ implements java.lang.Cloneable</pre>
 <h4>onCallConnected</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onCallConnected&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                             <a href="types/CallConnectedEvent.html" title="class in com.relaypro.sdk.types">CallConnectedEvent</a>&nbsp;callConnectedEvent)</pre>
+<div class="block">A call attempt that was ringing, progressing, or incoming is now fully
+ connected. This event can occur on both the caller and the callee.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a Relay device context.</dd>
+<dd><code>callConnectedEvent</code> - information about the other party.</dd>
+</dl>
 </li>
 </ul>
 <a id="onCallDisconnected(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallDisconnectedEvent)">
@@ -508,6 +567,13 @@ implements java.lang.Cloneable</pre>
 <h4>onCallDisconnected</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onCallDisconnected&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                                <a href="types/CallDisconnectedEvent.html" title="class in com.relaypro.sdk.types">CallDisconnectedEvent</a>&nbsp;callDisconnectedEvent)</pre>
+<div class="block">A call that was once connected has become disconnected. This event can
+ occur on both the caller and the callee.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a Relay device context.</dd>
+<dd><code>callDisconnectedEvent</code> - information about the other party.</dd>
+</dl>
 </li>
 </ul>
 <a id="onCallFailed(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallFailedEvent)">
@@ -518,6 +584,13 @@ implements java.lang.Cloneable</pre>
 <h4>onCallFailed</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onCallFailed&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                          <a href="types/CallFailedEvent.html" title="class in com.relaypro.sdk.types">CallFailedEvent</a>&nbsp;callFailedEvent)</pre>
+<div class="block">A call failed to get connected. This event can occur on both the caller
+ and the callee.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a Relay device context.</dd>
+<dd><code>callFailedEvent</code> - information about the call attempt.</dd>
+</dl>
 </li>
 </ul>
 <a id="onPlayInboxMessage(com.relaypro.sdk.Relay,com.relaypro.sdk.types.PlayInboxMessagesEvent)">
@@ -528,6 +601,12 @@ implements java.lang.Cloneable</pre>
 <h4>onPlayInboxMessage</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onPlayInboxMessage&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                                <a href="types/PlayInboxMessagesEvent.html" title="class in com.relaypro.sdk.types">PlayInboxMessagesEvent</a>&nbsp;playInboxMessagesEvent)</pre>
+<div class="block">Audio is streaming in regarding a missed message.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a Relay device context.</dd>
+<dd><code>playInboxMessagesEvent</code> - information about the missed message.</dd>
+</dl>
 </li>
 </ul>
 <a id="clone()">

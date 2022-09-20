@@ -132,6 +132,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Relay</span>
 extends java.lang.Object</pre>
+<div class="block">Actions and utilities that can be performed on a Relay device.</div>
 </li>
 </ul>
 </div>
@@ -462,7 +463,7 @@ extends java.lang.Object</pre>
 <tr id="i37" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#placeCall(java.lang.String,java.lang.String)">placeCall</a></span>&#8203;(java.lang.String&nbsp;target,
-         java.lang.String&nbsp;uri)</code></th>
+         java.lang.String&nbsp;calleeUri)</code></th>
 <td class="colLast">
 <div class="block">Places a call to another device.</div>
 </td>
@@ -1110,12 +1111,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>placeCall</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;placeCall&#8203;(java.lang.String&nbsp;target,
-                                  java.lang.String&nbsp;uri)</pre>
+                                  java.lang.String&nbsp;calleeUri)</pre>
 <div class="block">Places a call to another device.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>target</code> - the device or interaction URN.</dd>
-<dd><code>uri</code> - the URN of the device you would like to call.</dd>
+<dd><code>target</code> - the device or interaction URN that will place the call.</dd>
+<dd><code>calleeUri</code> - the URN of the device you would like to call.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the call ID.</dd>
 </dl>
@@ -1132,8 +1133,8 @@ extends java.lang.Object</pre>
 <div class="block">Answers a call on your device.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>target</code> - the device or interaction URN.</dd>
-<dd><code>call_id</code> - the call ID.</dd>
+<dd><code>target</code> - the device or interaction URN that will answer the call.</dd>
+<dd><code>call_id</code> - the ID of the call to answer.</dd>
 </dl>
 </li>
 </ul>
@@ -1148,8 +1149,8 @@ extends java.lang.Object</pre>
 <div class="block">Ends a call on your device.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>target</code> - the device or interaction URN.</dd>
-<dd><code>call_id</code> - the call ID.</dd>
+<dd><code>target</code> - the device or interaction URN that will hang up the call.</dd>
+<dd><code>call_id</code> - the ID of the call to hang up.</dd>
 </dl>
 </li>
 </ul>

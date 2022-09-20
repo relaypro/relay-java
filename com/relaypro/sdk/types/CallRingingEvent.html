@@ -126,6 +126,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">CallRingingEvent</span>
 extends java.lang.Object</pre>
+<div class="block">The device we called is ringing. We are waiting for them to answer.</div>
 </li>
 </ul>
 </div>
@@ -149,37 +150,51 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#callId">callId</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The ID of this new call.</div>
+</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deviceId">deviceId</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The ID of the other device.</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#deviceName">deviceName</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The name of the other device.</div>
+</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#direction">direction</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Call direction relative to this device: inbound or outbound.</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onnet">onnet</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Whether or not the other party is a Relay-hosted device.</div>
+</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startTimeEpoch">startTimeEpoch</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A timestamp of when the call was requested, in epoch seconds.</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#uri">uri</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A SIP-style URI of the other device.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -244,6 +259,7 @@ extends java.lang.Object</pre>
 <h4>callId</h4>
 <pre>@SerializedName("call_id")
 public&nbsp;java.lang.String callId</pre>
+<div class="block">The ID of this new call.</div>
 </li>
 </ul>
 <a id="direction">
@@ -254,6 +270,7 @@ public&nbsp;java.lang.String callId</pre>
 <h4>direction</h4>
 <pre>@SerializedName("direction")
 public&nbsp;java.lang.String direction</pre>
+<div class="block">Call direction relative to this device: inbound or outbound.</div>
 </li>
 </ul>
 <a id="deviceId">
@@ -264,6 +281,7 @@ public&nbsp;java.lang.String direction</pre>
 <h4>deviceId</h4>
 <pre>@SerializedName("device_id")
 public&nbsp;java.lang.String deviceId</pre>
+<div class="block">The ID of the other device.</div>
 </li>
 </ul>
 <a id="deviceName">
@@ -274,6 +292,7 @@ public&nbsp;java.lang.String deviceId</pre>
 <h4>deviceName</h4>
 <pre>@SerializedName("device_name")
 public&nbsp;java.lang.String deviceName</pre>
+<div class="block">The name of the other device.</div>
 </li>
 </ul>
 <a id="uri">
@@ -284,6 +303,7 @@ public&nbsp;java.lang.String deviceName</pre>
 <h4>uri</h4>
 <pre>@SerializedName("uri")
 public&nbsp;java.lang.String uri</pre>
+<div class="block">A SIP-style URI of the other device. Not currently supported.</div>
 </li>
 </ul>
 <a id="onnet">
@@ -294,6 +314,7 @@ public&nbsp;java.lang.String uri</pre>
 <h4>onnet</h4>
 <pre>@SerializedName("onnet")
 public&nbsp;java.lang.String onnet</pre>
+<div class="block">Whether or not the other party is a Relay-hosted device. "True" or "False".</div>
 </li>
 </ul>
 <a id="startTimeEpoch">
@@ -304,6 +325,7 @@ public&nbsp;java.lang.String onnet</pre>
 <h4>startTimeEpoch</h4>
 <pre>@SerializedName("start_time_epoch")
 public&nbsp;java.lang.String startTimeEpoch</pre>
+<div class="block">A timestamp of when the call was requested, in epoch seconds.</div>
 </li>
 </ul>
 </li>
