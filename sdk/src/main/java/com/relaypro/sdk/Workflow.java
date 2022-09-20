@@ -66,8 +66,8 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * There is a request to make an outbound call. This event can occur when registered
-     * for a "call" with trigger "outbound".
+     * There is a request to make an outbound call. This event can occur on
+     * the caller after using the "Call X" voice command on the Assistant.
      * @param relay a Relay device context.
      * @param callStartEvent information about the outbound call request
      */
@@ -75,8 +75,8 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * The device is receiving an inbound call request. This event can occur when registered
-     * for a "call" with trigger "inbound".
+     * The device is receiving an inbound call request. This event can occur
+     * on the callee.
      * @param relay a Relay device context.
      * @param callReceivedEvent information about the inbound call request
      */
@@ -84,8 +84,8 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * The device we called is ringing. We are waiting for them to answer. This event
-     * can occur when registered for a "call" with trigger "outbound".
+     * The device we called is ringing. We are waiting for them to answer.
+     * This event can occur on the caller.
      * @param relay a Relay device context.
      * @param callRingingEvent information about the ringing party.
      */
@@ -95,7 +95,7 @@ public abstract class Workflow implements Cloneable {
     /**
      * The device we called is making progress on getting connected. This may
      * be interspersed with {@link #onCallRinging(Relay, CallRingingEvent)}.
-     * This event can occur when registered for a "call" with trigger "outbound".
+     * This event can occur on the caller.
      * @param relay a Relay device context.
      * @param callProgressingEvent information about the called party.
      */
@@ -104,8 +104,7 @@ public abstract class Workflow implements Cloneable {
 
     /**
      * A call attempt that was ringing, progressing, or incoming is now fully
-     * connected. This event can occur when registered for a "call" with trigger of either
-     * "inbound" or "outbound".
+     * connected. This event can occur on both the caller and the callee.
      * @param relay a Relay device context.
      * @param callConnectedEvent information about the other party.
      */
@@ -113,8 +112,8 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A call that was once connected has become disconnected. This event can occur when
-     * registered* for a "call" with trigger of either "inbound" or "outbound".
+     * A call that was once connected has become disconnected. This event can
+     * occur on both the caller and the callee.
      * @param relay a Relay device context.
      * @param callDisconnectedEvent information about the other party.
      */
@@ -122,8 +121,8 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A call attempt has failed to become connected. This event can occur when registered for a
-     * "call" with trigger of either "inbound" or "outbound".
+     * A call failed to get connected. This event can occur on both the caller
+     * and the callee.
      * @param relay a Relay device context.
      * @param callFailedEvent information about the call attempt.
      */
