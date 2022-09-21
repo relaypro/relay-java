@@ -263,15 +263,12 @@ public class Relay {
      * Ends an interaction with the user.  Triggers an INTERACTION_ENDED event to signify
      * that the user is done interacting with the device.
      * @param sourceUri the device that you would like to end an interaction with.
-     * @param name the name of the interaction that you would like to end.
      * @return any errors received from the server.
      */
     @SuppressWarnings("UnusedReturnValue")
-    public String endInteraction(String sourceUri, String name) {
+    public String endInteraction(String sourceUri) {
         logger.debug("Ending Interaction for source uri " + sourceUri);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.EndInteraction, sourceUri,
-            entry("name", name)
-        );
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.EndInteraction, sourceUri);
         try {
             MessageWrapper resp = sendRequest(req);
             return (String) resp.parsedJson.get("error");

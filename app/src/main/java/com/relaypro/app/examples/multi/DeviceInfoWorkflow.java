@@ -9,14 +9,12 @@ import com.relaypro.sdk.types.StartEvent;
 
 public class DeviceInfoWorkflow extends Workflow {
 
-    private static final String INTERACTION_NAME = "device info interaction";
-
     @Override
     public void onStart(Relay relay, StartEvent startEvent) {
         super.onStart(relay, startEvent);
 
         String sourceUri = Relay.getSourceUri(startEvent);
-        relay.startInteraction(sourceUri, INTERACTION_NAME, null);
+        relay.startInteraction(sourceUri, "device info interaction", null);
     }
 
     @Override
@@ -73,7 +71,7 @@ public class DeviceInfoWorkflow extends Workflow {
             Boolean locEnabled = relay.getDeviceLocationEnabled(interactionUri, true);
             relay.sayAndWait(interactionUri, "Device location enabled is " + locEnabled);
 
-            relay.endInteraction(interactionUri, INTERACTION_NAME);
+            relay.endInteraction(interactionUri);
         }
         if (lifecycleEvent.isTypeEnded()) {
             relay.terminate();

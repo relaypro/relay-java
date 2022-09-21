@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 public class TimerWorkflow extends Workflow {
 
     private static final Logger logger = LoggerFactory.getLogger(TimerWorkflow.class);
-    private static final String INTERACTION_NAME = "timer interaction";
 
     private String interactionUri = null;
 
@@ -20,7 +19,7 @@ public class TimerWorkflow extends Workflow {
         super.onStart(relay, startEvent);
 
         String sourceUri = Relay.getSourceUri(startEvent);
-        relay.startInteraction(sourceUri, INTERACTION_NAME, null);
+        relay.startInteraction(sourceUri, "timer interaction", null);
     }
 
     @Override
@@ -46,7 +45,7 @@ public class TimerWorkflow extends Workflow {
         logger.debug("Timer fired: " + timerEvent);
         relay.sayAndWait(this.interactionUri, timerEvent.name + " fired");
         relay.clearTimer("second timer");
-        relay.endInteraction(this.interactionUri, INTERACTION_NAME);
+        relay.endInteraction(this.interactionUri);
     }
 
 }

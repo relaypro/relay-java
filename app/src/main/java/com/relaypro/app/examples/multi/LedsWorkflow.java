@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
  */
 public class LedsWorkflow extends Workflow {
     private static final Logger logger = LoggerFactory.getLogger(LedsWorkflow.class);
-    private static final String INTERACTION_NAME = "LED interaction";
     private String interactionUri = null;
 
     @Override
@@ -21,7 +20,7 @@ public class LedsWorkflow extends Workflow {
         super.onStart(relay, startEvent);
 
         String sourceUri = Relay.getSourceUri(startEvent);
-        relay.startInteraction(sourceUri, INTERACTION_NAME, null);
+        relay.startInteraction(sourceUri, "LED interaction", null);
     }
 
     @Override
@@ -79,7 +78,7 @@ public class LedsWorkflow extends Workflow {
         if (timerName.equals("finish")) {
             relay.sayAndWait(this.interactionUri, "goodbye");
             relay.switchAllLedOff(this.interactionUri);
-            relay.endInteraction(this.interactionUri, INTERACTION_NAME);
+            relay.endInteraction(this.interactionUri);
         }
     }
 

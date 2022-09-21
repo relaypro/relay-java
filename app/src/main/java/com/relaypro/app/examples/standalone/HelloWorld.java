@@ -34,7 +34,6 @@ public class HelloWorld {
 
     private static class MyWorkflow extends Workflow {
         private final Logger logger = LoggerFactory.getLogger(MyWorkflow.class);
-        private final String INTERACTION_NAME = "hello interaction";
 
         @Override
         public void onStart(Relay relay, StartEvent startEvent) {
@@ -42,7 +41,7 @@ public class HelloWorld {
 
             String sourceUri = Relay.getSourceUri(startEvent);
             logger.debug("Started hello wf from sourceUri: " + sourceUri + " trigger: " + startEvent.trigger);
-            relay.startInteraction( sourceUri, INTERACTION_NAME, null);
+            relay.startInteraction( sourceUri, "hello interaction", null);
         }
 
         @Override
@@ -53,7 +52,7 @@ public class HelloWorld {
             String interactionUri = (String)lifecycleEvent.sourceUri;
             if (lifecycleEvent.isTypeStarted()) {
                 relay.say(interactionUri, "Hello world");
-                relay.endInteraction(interactionUri, INTERACTION_NAME);
+                relay.endInteraction(interactionUri);
             }
             if (lifecycleEvent.isTypeEnded()) {
                 relay.terminate();
