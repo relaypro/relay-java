@@ -1416,11 +1416,12 @@ public class Relay {
         if (object instanceof String) {
             sourceUri = (String) object;
         }
+        // Remove else if statement after ticket PE-19596 is complete
         else if (object instanceof ArrayList){
             StringBuilder s = new StringBuilder();
             for (Double d : (ArrayList<Double>)object) {
                 s.append(Character.valueOf((char) d.byteValue()));
-            };
+            }
             return s.toString();
         }
         return sourceUri;
