@@ -29,6 +29,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -1417,6 +1418,14 @@ public class Relay {
         }
         if (object instanceof String) {
             sourceUri = (String) object;
+        }
+        // Remove else if statement after ticket PE-19596 is complete
+        else if (object instanceof ArrayList){
+            StringBuilder s = new StringBuilder();
+            for (Double d : (ArrayList<Double>)object) {
+                s.append(Character.valueOf((char) d.byteValue()));
+            }
+            return s.toString();
         }
         return sourceUri;
     }
