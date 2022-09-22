@@ -36,6 +36,9 @@ public class RelayUri {
     // Pattern used when creating an interaction URN.
     public static final String DEVICE_PATTERN = "?device=";
 
+    // Used to specify that the URN is used for an interaction.
+    public static final String INTERACTION = "interaction";
+
     // Beginning of  an interaction URN that uses the name of a device.
     public static final String INTERACTION_URI_NAME = "urn:relay-resource:name:interaction";
 
@@ -96,6 +99,15 @@ public class RelayUri {
     @SuppressWarnings({"unused", "UnusedReturnValue"})
     public static String deviceName(String name) {
         return construct(DEVICE, NAME, URLEncoder.encode(name, StandardCharsets.UTF_8).replace("+", "%20"));
+    }
+
+    /**
+     * Creates a URN from an interaction name.
+     * @param name the name of the interaction.
+     * @return the newly constructed URN.
+     */
+    public static String interactionName(String name) {
+        return construct(INTERACTION, NAME, URLEncoder.encode(name, StandardCharsets.UTF_8).replace("+", "%20"));
     }
 
     /**

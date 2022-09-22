@@ -1385,7 +1385,12 @@ public class Relay {
         try {
             sendRequest(req);
         } catch (EncodeException | IOException | InterruptedException e) {
-            logger.error("Error terminating workflow", e);
+            if (e.getCause() instanceof java.nio.channels.ClosedChannelException) {
+                // looks like the websocket is already closed. If we are terminating, eat it.
+                logger.debug("websocket is already closed on terminate");
+            } else {
+                logger.error("Error terminating workflow", e);
+            }
         }
 
     }
