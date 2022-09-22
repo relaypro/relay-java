@@ -78,7 +78,7 @@ class RelayUtils {
             if (v instanceof Map) {
                 map.put(k, sanitize((Map)v));
             }
-            else if (v instanceof ArrayList && ((ArrayList<Double>)v).get(0) instanceof Double) {
+            else if (v instanceof ArrayList && ((ArrayList<Double>)v).size() > 0 && ((ArrayList<Double>)v).get(0) instanceof Double) {
                 StringBuilder s = new StringBuilder();
                 for (Double d : (ArrayList<Double>)v) {
                     s.append(Character.valueOf((char) d.byteValue()));

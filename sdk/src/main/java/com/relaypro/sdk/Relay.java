@@ -29,10 +29,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -1414,6 +1411,13 @@ public class Relay {
         }
         if (object instanceof String) {
             sourceUri = (String) object;
+        }
+        else if (object instanceof ArrayList){
+            StringBuilder s = new StringBuilder();
+            for (Double d : (ArrayList<Double>)object) {
+                s.append(Character.valueOf((char) d.byteValue()));
+            };
+            return s.toString();
         }
         return sourceUri;
     }
