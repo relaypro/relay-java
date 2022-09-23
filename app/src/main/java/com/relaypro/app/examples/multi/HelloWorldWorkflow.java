@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 public class HelloWorldWorkflow extends Workflow {
 
     private static final Logger logger = LoggerFactory.getLogger(HelloWorldWorkflow.class);
-    private static final String INTERACTION_NAME = "hello interaction";
 
     @Override
     public void onStart(Relay relay, StartEvent startEvent) {
@@ -21,7 +20,7 @@ public class HelloWorldWorkflow extends Workflow {
         String sourceUri = Relay.getSourceUri(startEvent);
         logger.debug("Started hello wf from sourceUri: " + sourceUri + " trigger: " + startEvent.trigger);
 
-        relay.startInteraction( sourceUri, INTERACTION_NAME, null);
+        relay.startInteraction( sourceUri, "hello interaction", null);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class HelloWorldWorkflow extends Workflow {
             relay.say(interactionUri, "What is your name?");
             String returned = relay.listen(interactionUri, "request_1");
             relay.say(interactionUri, "Hello " + returned + ". You are currently using " + deviceName);
-            relay.endInteraction(interactionUri, INTERACTION_NAME);
+            relay.endInteraction(interactionUri);
         }
         if (lifecycleEvent.isTypeEnded()) {
             relay.terminate();
