@@ -258,8 +258,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#endInteraction(java.lang.String,java.lang.String)">endInteraction</a></span>&#8203;(java.lang.String&nbsp;sourceUri,
-              java.lang.String&nbsp;name)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#endInteraction(java.lang.String)">endInteraction</a></span>&#8203;(java.lang.String&nbsp;sourceUri)</code></th>
 <td class="colLast">
 <div class="block">Ends an interaction with the user.</div>
 </td>
@@ -801,20 +800,18 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="endInteraction(java.lang.String,java.lang.String)">
+<a id="endInteraction(java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>endInteraction</h4>
-<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;endInteraction&#8203;(java.lang.String&nbsp;sourceUri,
-                                       java.lang.String&nbsp;name)</pre>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;endInteraction&#8203;(java.lang.String&nbsp;sourceUri)</pre>
 <div class="block">Ends an interaction with the user.  Triggers an INTERACTION_ENDED event to signify
  that the user is done interacting with the device.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>sourceUri</code> - the device that you would like to end an interaction with.</dd>
-<dd><code>name</code> - the name of the interaction that you would like to end.</dd>
+<dd><code>sourceUri</code> - the interaction that you would like to end.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>any errors received from the server.</dd>
 </dl>
