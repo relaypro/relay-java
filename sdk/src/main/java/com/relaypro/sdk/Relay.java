@@ -262,7 +262,7 @@ public class Relay {
     /**
      * Ends an interaction with the user.  Triggers an INTERACTION_ENDED event to signify
      * that the user is done interacting with the device.
-     * @param sourceUri the device that you would like to end an interaction with.
+     * @param sourceUri the interaction that you would like to end.
      * @return any errors received from the server.
      */
     @SuppressWarnings("UnusedReturnValue")
