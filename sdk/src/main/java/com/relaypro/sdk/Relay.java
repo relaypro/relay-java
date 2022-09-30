@@ -237,11 +237,26 @@ public class Relay {
     /**
      * Starts an interaction with the user.  Triggers an INTERACTION_STARTED event
      * and allows the user to interact with the device via functions that require an
+     * interaction URN. Uses a default set of options.
+     * @param sourceUri the device that you would like to start an interaction with.
+     * @param name a name for your interaction
+     * @return any errors received from the server.
+     * @see #startInteraction(String, String, Object)
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    public String startInteraction(String sourceUri, String name) {
+        return startInteraction(sourceUri, name, null);
+    }
+
+    /**
+     * Starts an interaction with the user.  Triggers an INTERACTION_STARTED event
+     * and allows the user to interact with the device via functions that require an
      * interaction URN.
      * @param sourceUri the device that you would like to start an interaction with.
      * @param name a name for your interaction
-     * @param options can be color, home channel, or input types. Defaults to none.
+     * @param options can be color, home channel, or input types.
      * @return any errors received from the server.
+     * @see #startInteraction(String, String)
      */
     @SuppressWarnings("UnusedReturnValue")
     public String startInteraction(String sourceUri, String name, Object options) {
