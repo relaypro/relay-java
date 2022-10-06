@@ -238,30 +238,30 @@ public class Relay {
      * Starts an interaction with the user.  Triggers an INTERACTION_STARTED event
      * and allows the user to interact with the device via functions that require an
      * interaction URN. Uses a default set of options.
-     * @param sourceUri the device that you would like to start an interaction with.
+     * @param target the device that you would like to start an interaction with.
      * @param name a name for your interaction
      * @return any errors received from the server.
      * @see #startInteraction(String, String, Object)
      */
     @SuppressWarnings("UnusedReturnValue")
-    public String startInteraction(String sourceUri, String name) {
-        return startInteraction(sourceUri, name, null);
+    public String startInteraction(String target, String name) {
+        return startInteraction(target, name, null);
     }
 
     /**
      * Starts an interaction with the user.  Triggers an INTERACTION_STARTED event
      * and allows the user to interact with the device via functions that require an
      * interaction URN.
-     * @param sourceUri the device that you would like to start an interaction with.
+     * @param target the device that you would like to start an interaction with.
      * @param name a name for your interaction
      * @param options can be color, home channel, or input types.
      * @return any errors received from the server.
      * @see #startInteraction(String, String)
      */
     @SuppressWarnings("UnusedReturnValue")
-    public String startInteraction(String sourceUri, String name, Object options) {
-        logger.debug("Starting Interaction for source uri " + sourceUri);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StartInteraction, sourceUri,
+    public String startInteraction(String target, String name, Object options) {
+        logger.debug("Starting Interaction for source uri " + target);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StartInteraction, target,
                 entry("name", name),
                 entry("options", options == null ? new Object() : options)
         );
@@ -278,13 +278,13 @@ public class Relay {
     /**
      * Ends an interaction with the user.  Triggers an INTERACTION_ENDED event to signify
      * that the user is done interacting with the device.
-     * @param sourceUri the interaction that you would like to end.
+     * @param target the interaction that you would like to end.
      * @return any errors received from the server.
      */
     @SuppressWarnings("UnusedReturnValue")
-    public String endInteraction(String sourceUri) {
-        logger.debug("Ending Interaction for source uri " + sourceUri);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.EndInteraction, sourceUri);
+    public String endInteraction(String target) {
+        logger.debug("Ending Interaction for source uri " + target);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.EndInteraction, target);
         try {
             MessageWrapper resp = sendRequest(req);
             return (String) resp.parsedJson.get("error");
@@ -296,53 +296,53 @@ public class Relay {
 
     /**
      * Utilizes text to speech capabilities to make the device 'speak' to the user.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param text what you would like the device to say.
      * @return the response ID after the device speaks to the user.
      */
     @SuppressWarnings({"unused", "UnusedReturnValue"})
-    public String say(String sourceUri, String text) {
-        return say(sourceUri, text, LanguageType.English);
+    public String say(String target, String text) {
+        return say(target, text, LanguageType.English);
     }
 
     /**
      * Utilizes text to speech capabilities to make the device 'speak' to the user.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param text what you would like te device to say.
      * @param lang the language of the text that is being spoken.
      * @return the response ID after the device speaks to the user.
      */
     @SuppressWarnings({"unused", "UnusedReturnValue"})
-    public String say(String sourceUri, String text, LanguageType lang) {
-        return say(sourceUri, text, lang, false);
+    public String say(String target, String text, LanguageType lang) {
+        return say(target, text, lang, false);
     }
 
     /**
      * Utilizes text to speech capabilities to make the device 'speak' to the user.
      * Waits until the text is fully played out on the device before continuing.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param text what you would like the device to say.
      */
     @SuppressWarnings("unused")
-    public void sayAndWait(String sourceUri, String text) {
-        sayAndWait(sourceUri, text, LanguageType.English);
+    public void sayAndWait(String target, String text) {
+        sayAndWait(target, text, LanguageType.English);
     }
 
     /**
      * Utilizes text to speech capabilities to make the device 'speak' to the user.
      * Waits until the text is fully played out on the device before continuing.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param text what you would like the device to say.
      * @param lang the language of the text that is being spoken.
      */
     @SuppressWarnings("unused")
-    public void sayAndWait(String sourceUri, String text, LanguageType lang) {
-        say(sourceUri, text, lang, true);
+    public void sayAndWait(String target, String text, LanguageType lang) {
+        say(target, text, lang, true);
     }
 
-    private String say(String sourceUri, String text, LanguageType lang, boolean wait) {
-        logger.debug("Saying " + text + " in " + lang.value() + " to " + sourceUri);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Say, sourceUri,
+    private String say(String target, String text, LanguageType lang, boolean wait) {
+        logger.debug("Saying " + text + " in " + lang.value() + " to " + target);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Say, target,
                 entry("text", text),
                 entry("lang", lang.value())
         );
@@ -359,20 +359,20 @@ public class Relay {
     /**
      * Listens for the user to speak into the device.  Utilizes speech to text functionality to interact with
      * the user.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param requestId the request ID.
      * @return the text that the device parsed from what was spoken.
      */
     @SuppressWarnings("unused")
-    public String listen(String sourceUri, String requestId) {
+    public String listen(String target, String requestId) {
         String[] phrases = {};
-        return listen(sourceUri, requestId, phrases, false, LanguageType.English, 30);
+        return listen(target, requestId, phrases, false, LanguageType.English, 30);
     }
 
     /**
      * Listens for the user to speak into the device.  Utilizes speech to text functionality to interact with
      * the user.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param requestId the request ID.
      * @param phrases phrases that you would like to limit the user's response to.
      * @param transcribe whether you would like to transcribe the user's response.
@@ -381,10 +381,10 @@ public class Relay {
      * @return the text that the device parsed from what was spoken.
      */
     @SuppressWarnings("unused")
-    public String listen(String sourceUri, String requestId, String[] phrases, boolean transcribe, LanguageType lang, int timeout) {
-        logger.debug("Listening to " + sourceUri);
+    public String listen(String target, String requestId, String[] phrases, boolean transcribe, LanguageType lang, int timeout) {
+        logger.debug("Listening to " + target);
         
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Listen, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Listen, target,
             entry("request_id", requestId),
             entry("phrases", phrases),
             entry("transcribe", transcribe),
@@ -402,31 +402,31 @@ public class Relay {
 
     /**
      * Plays a custom audio file that was uploaded by the user.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param filename the name of the audio file.
      * @return the response ID after the audio file has been played on the device.
      */
     @SuppressWarnings({"unused", "UnusedReturnValue"})
-    public String play(String sourceUri, String filename) {
-        return play(sourceUri, filename, false);
+    public String play(String target, String filename) {
+        return play(target, filename, false);
     }
 
     /**
      * Plays a custom audio file that was uploaded by the user.
      * Waits until the audio file has finished playing before continuing through
      * the workflow.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param filename the name of the audio file.
      * @return the response ID after the audio file has been played on the device.
      */
     @SuppressWarnings("unused")
-    public String playAndWait(String sourceUri, String filename) {
-        return play(sourceUri, filename, true);
+    public String playAndWait(String target, String filename) {
+        return play(target, filename, true);
     }
 
-    private String play(String sourceUri, String filename, boolean wait) {
+    private String play(String target, String filename, boolean wait) {
         logger.debug("Playing file: " + filename);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Play, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Play, target,
                 entry("filename", filename)
         );
 
@@ -441,13 +441,13 @@ public class Relay {
 
     /**
      * Stops a playback request on the device.
-     * @param sourceUri the device URN.
+     * @param target the device URN.
      * @param ids the IDs of the devices who you would like to stop the playback message for.
      */
     @SuppressWarnings("unused")
-    public void stopPlayback( String sourceUri, String[] ids) {
+    public void stopPlayback( String target, String[] ids) {
         logger.debug("Stopping playback for: " + Arrays.toString(ids));
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StopPlayback, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.StopPlayback, target,
                 entry("ids", ids)
         );
 
@@ -460,12 +460,12 @@ public class Relay {
 
     /**
      * Play a targeted device's inbox messages.
-     * @param sourceUri the device or interaction URN whose inbox you would like to check.
+     * @param target the device or interaction URN whose inbox you would like to check.
      */
     @SuppressWarnings("unused")
-    public void playUnreadInboxMessages(String sourceUri) {
+    public void playUnreadInboxMessages(String target) {
         logger.debug("Playing unread messages" );
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlayInboxMessages, sourceUri);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.PlayInboxMessages, target);
 
         try {
             sendRequest(req);
@@ -476,13 +476,13 @@ public class Relay {
 
     /**
      * Retrieves the number of messages in a device's inbox.
-     * @param sourceUri the device or interaction URN whose inbox you would like to check.
+     * @param target the device or interaction URN whose inbox you would like to check.
      * @return the number of messages in the specified device's inbox.
      */
     @SuppressWarnings("unused")
-    public int getUnreadInboxSize(String sourceUri) {
+    public int getUnreadInboxSize(String target) {
         logger.debug("Getting unread inbox size");
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.InboxCount, sourceUri);
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.InboxCount, target);
 
         try {
             MessageWrapper resp = sendRequest(req);
@@ -743,100 +743,100 @@ public class Relay {
 
     /**
      * Switches on an LED at a particular index to a specified color.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param index the index of the LED, numbered 1-12.
      * @param color the hex color code you would like to turn the LED to.
      */
     @SuppressWarnings("unused")
-    public void switchLedOn( String sourceUri, int index, String color) {
+    public void switchLedOn( String target, int index, String color) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setColor(Integer.toString(index), color);
-        setLeds( sourceUri, LedEffect.STATIC, ledInfo.ledMap);
+        setLeds( target, LedEffect.STATIC, ledInfo.ledMap);
     }
 
     /**
      * Switches all the LEDs on a device on to a specified color.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param color the hex color code you would like the LEDs to be.
      */
     @SuppressWarnings("unused")
-    public void switchAllLedOn( String sourceUri, String color) {
+    public void switchAllLedOn( String target, String color) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setColor("ring", color);
-        setLeds( sourceUri, LedEffect.STATIC, ledInfo.ledMap);
+        setLeds( target, LedEffect.STATIC, ledInfo.ledMap);
     }
 
     /**
      * Switches all of the LEDs on a device off.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      */
     @SuppressWarnings("unused")
-    public void switchAllLedOff( String sourceUri) {
+    public void switchAllLedOff( String target) {
         LedInfo ledInfo = new LedInfo();
-        setLeds( sourceUri, LedEffect.OFF, ledInfo.ledMap);
+        setLeds( target, LedEffect.OFF, ledInfo.ledMap);
     }
 
     /**
      * Switches all the LEDs on to a configured rainbow pattern and rotates the rainbow
      * a specified number of times.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param rotations the number of times you would like the rainbow to rotate.
      */
     @SuppressWarnings("unused")
-    public void rainbow( String sourceUri, int rotations) {
+    public void rainbow( String target, int rotations) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setRotations(rotations);
-        setLeds( sourceUri, LedEffect.RAINBOW, ledInfo.ledMap);
+        setLeds( target, LedEffect.RAINBOW, ledInfo.ledMap);
     }
 
     /**
      * Switches all the LEDs on a device to a certain color and rotates them a specified number
      * of times.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param color the hex color code you would like to turn the LEDs to.
      * @param rotations the number of times you would like the LEDs to rotate.
      */
     @SuppressWarnings("unused")
-    public void rotate( String sourceUri, String color, int rotations) {
+    public void rotate( String target, String color, int rotations) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setRotations(rotations);
         ledInfo.setColor("1", color);
-        setLeds( sourceUri, LedEffect.ROTATE, ledInfo.ledMap);
+        setLeds( target, LedEffect.ROTATE, ledInfo.ledMap);
     }
 
     /**
      * Switches all the LEDs on a device to a certain color and flashes them
      * a specified number of times.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param color the hex color code you would like to turn the LEDs to.
      * @param count the number of times you would like the LEDs to flash.
      */
     @SuppressWarnings("unused")
-    public void flash( String sourceUri, String color, int count) {
+    public void flash( String target, String color, int count) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setCount(count);
         ledInfo.setColor("ring", color);
-        setLeds( sourceUri, LedEffect.FLASH, ledInfo.ledMap);
+        setLeds( target, LedEffect.FLASH, ledInfo.ledMap);
     }
 
     /**
      * Switches all the LEDs on a device to a certain color and creates a 'breathing' effect,
      * where the LEDs will slowly light up a specified number of times.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param color the hex color code you would like to turn the LEDs to.
      * @param count the number of times you would like the LEDs to flash.
      */
     @SuppressWarnings("unused")
-    public void breathe( String sourceUri, String color, int count) {
+    public void breathe( String target, String color, int count) {
         LedInfo ledInfo = new LedInfo();
         ledInfo.setCount(count);
         ledInfo.setColor("ring", color);
-        setLeds( sourceUri, LedEffect.BREATHE, ledInfo.ledMap);
+        setLeds( target, LedEffect.BREATHE, ledInfo.ledMap);
     }
 
-    private void setLeds( String sourceUri, LedEffect effect, Map<String, Object> args) {
+    private void setLeds( String target, LedEffect effect, Map<String, Object> args) {
         logger.debug("Setting leds: " + effect.value() + " " + args);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetLeds, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetLeds, target,
                 entry("effect", effect.value()),
                 entry("args", args)
         );
@@ -853,13 +853,13 @@ public class Relay {
      * how many vibrations you would like, the duration of each vibration in
      * milliseconds, and how long you would like the pauses between each vibration to last
      * in milliseconds.
-     * @param sourceUri the interaction URN.
+     * @param target the interaction URN.
      * @param pattern an array representing the pattern of your vibration.
      */
     @SuppressWarnings("unused")
-    public void vibrate( String sourceUri, int[] pattern) {
+    public void vibrate( String target, int[] pattern) {
         logger.debug("Vibrating: " + Arrays.toString(pattern));
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Vibrate, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.Vibrate, target,
                 entry("pattern", pattern)
         );
 
@@ -1069,139 +1069,139 @@ public class Relay {
 
     /**
      * Returns the name of a targeted device.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the name of the device.
      * @return the name of the device.
      */
     @SuppressWarnings("unused")
-    public String getDeviceName( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Name, refresh);
+    public String getDeviceName( String target, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( target, DeviceInfoQueryType.Name, refresh);
         return resp != null ? resp.name : null;
     }
 
     /**
      * Returns the ID of a targeted device.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the name of the device.
      * @return the device ID.
      */
     @SuppressWarnings("unused")
-    public String getDeviceId( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Id, refresh);
+    public String getDeviceId( String target, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( target, DeviceInfoQueryType.Id, refresh);
         return resp != null ? resp.id : null;
     }
 
     /**
      * Returns the location of a targeted device.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the location.
      * @return the location of the device.
      */
     @SuppressWarnings("unused")
-    public String getDeviceLocation( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Address, refresh);
+    public String getDeviceLocation( String target, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( target, DeviceInfoQueryType.Address, refresh);
         return resp != null ? resp.address : null;
     }
 
     /**
      * Returns the address of a targeted device.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the address.
      * @return the address of the device.
      */
     @SuppressWarnings("unused")
-    public String getDeviceAddress( String sourceUri, boolean refresh) {
-        return this.getDeviceLocation(sourceUri, refresh);
+    public String getDeviceAddress( String target, boolean refresh) {
+        return this.getDeviceLocation(target, refresh);
     }
 
     /**
      * Retrieves the coordinates of the device's location.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the coordinates.
      * @return a double array containing the latitude and longitude of the device.
      */
     @SuppressWarnings("unused")
-    public double[] getDeviceCoordinates( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LatLong, refresh);
+    public double[] getDeviceCoordinates( String target, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( target, DeviceInfoQueryType.LatLong, refresh);
         return resp != null ? resp.latlong : null;
     }
 
     /**
      * Returns the latitude and longitude coordinates of a targeted device.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the coordinates.
      * @return a double array containing the latitude and longitude of the device.
      */
     @SuppressWarnings("unused")
-    public double[] getDeviceLatLong( String sourceUri, boolean refresh) {
-        return this.getDeviceCoordinates(sourceUri, refresh);
+    public double[] getDeviceLatLong( String target, boolean refresh) {
+        return this.getDeviceCoordinates(target, refresh);
     }
 
     /**
      * Returns the indoor location of a targeted device.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the location.
      * @return the indoor location of the device.
      */
     @SuppressWarnings("unused")
-    public String getDeviceIndoorLocation( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.IndoorLocation, refresh);
+    public String getDeviceIndoorLocation( String target, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( target, DeviceInfoQueryType.IndoorLocation, refresh);
         return resp != null ? resp.indoor_location : null;
     }
 
     /**
      * Returns the battery of a targeted device.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the battery.
      * @return the batter of the device as an integer.
      */
     @SuppressWarnings("unused")
-    public int getDeviceBattery( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Battery, refresh);
+    public int getDeviceBattery( String target, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( target, DeviceInfoQueryType.Battery, refresh);
         return resp != null ? resp.battery : null;
     }
 
     /**
      * Returns the device type of a targeted device, i.e. gen2, gen 3, etc.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the device type.
      * @return the device type.
      */
     @SuppressWarnings("unused")
-    public String getDeviceType( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Type, refresh);
+    public String getDeviceType( String target, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( target, DeviceInfoQueryType.Type, refresh);
         return resp != null ? resp.type : null;
     }
 
     /**
      * Returns the user profile of a targeted device.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving the device user profile.
      * @return the user profile registered to the device.
      */
     @SuppressWarnings("unused")
-    public String getUserProfile( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.Username, refresh);
+    public String getUserProfile( String target, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( target, DeviceInfoQueryType.Username, refresh);
         return resp != null ? resp.username : null;
     }
 
     /**
      * Returns whether the location services on a device are enabled.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param refresh whether you would like to refresh before retrieving whether the device's location services are
      *                enabled.
      * @return true if the device's location services are enabled, false otherwise.
      */
     @SuppressWarnings("unused")
-    public Boolean getDeviceLocationEnabled( String sourceUri, boolean refresh) {
-        DeviceInfoResponse resp = getDeviceInfo( sourceUri, DeviceInfoQueryType.LocationEnabled, refresh);
+    public Boolean getDeviceLocationEnabled( String target, boolean refresh) {
+        DeviceInfoResponse resp = getDeviceInfo( target, DeviceInfoQueryType.LocationEnabled, refresh);
         return resp != null ? resp.location_enabled : null;
     }
 
     @SuppressWarnings("unused")
-    private DeviceInfoResponse getDeviceInfo( String sourceUri, DeviceInfoQueryType query, boolean refresh) {
+    private DeviceInfoResponse getDeviceInfo( String target, DeviceInfoQueryType query, boolean refresh) {
         logger.debug("Getting device info: " + query + " refresh: " + refresh);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetDeviceInfo, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.GetDeviceInfo, target,
                 entry("query", query.value()),
                 entry("refresh", refresh)
         );
@@ -1219,9 +1219,9 @@ public class Relay {
 
     // setDeviceMode is currently not supported
 
-    // public  void setDeviceMode( String sourceUri, DeviceMode mode) {
+    // public  void setDeviceMode( String target, DeviceMode mode) {
     //     logger.debug("Setting device mode: " + mode.value());
-    //     Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceMode, sourceUri,
+    //     Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceMode, target,
     //             entry("mode", mode.value())
     //     );
 
@@ -1236,57 +1236,57 @@ public class Relay {
      * Sets the name of a targeted device and updates it on the Relay Dash.
      * The name remains updated until it is set again via a workflow or updated manually
      * on the Relay Dash.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param name a new name for your device.
      */
     @SuppressWarnings("unused")
-    public void setDeviceName( String sourceUri, String name) {
-        setDeviceInfo( sourceUri, DeviceField.Label, name);
+    public void setDeviceName( String target, String name) {
+        setDeviceInfo( target, DeviceField.Label, name);
     }
 
     /**
      * Enables location services on a device.  Location services will remain
      * enabled until they are disabled on the Relay Dash or through a workflow.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      */
     @SuppressWarnings("unused")
-    public void enableLocation( String sourceUri) {
-        setLocationEnabled(sourceUri, true);
+    public void enableLocation( String target) {
+        setLocationEnabled(target, true);
     }
 
     /**
      * Disables location services on a device.  Location services will remain
      * disabled until they are enabled on the Relay Dash or through a workflow.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      */
     @SuppressWarnings("unused")
-    public void disableLocation( String sourceUri) {
-        setLocationEnabled(sourceUri, false);
+    public void disableLocation( String target) {
+        setLocationEnabled(target, false);
     }
 
     @SuppressWarnings("unused")
-    private void setLocationEnabled( String sourceUri, boolean enabled) {
-        setDeviceInfo( sourceUri, DeviceField.LocationEnabled, String.valueOf(enabled));
+    private void setLocationEnabled( String target, boolean enabled) {
+        setDeviceInfo( target, DeviceField.LocationEnabled, String.valueOf(enabled));
     }
 
     // setDeviceChannel is currently not supported
 
-    // public void setDeviceChannel(String sourceUri, String channel) {
-    //     setDeviceInfo( sourceUri, DeviceField.Channel, channel);
+    // public void setDeviceChannel(String target, String channel) {
+    //     setDeviceInfo( target, DeviceField.Channel, channel);
     // }
 
     /**
      * Sets the channel that a device is on.  This can be used to chang the channel of a device during a workflow,
      * where the channel will also be updated on the Relay Dash.
-     * @param sourceUri the device or interaction URN.
+     * @param target the device or interaction URN.
      * @param channelName the name of the channel you would like to set your device to.
      * @param suppressTTS whether you would like to surpress text to speech.
      * @param disableHomeChannel whether you would like to disable the home channel.
      */
     @SuppressWarnings("unused")
-    public void setChannel( String sourceUri, String channelName, boolean suppressTTS, boolean disableHomeChannel) {
+    public void setChannel( String target, String channelName, boolean suppressTTS, boolean disableHomeChannel) {
         logger.debug("Setting channel: " + channelName + ": supresstts:" + suppressTTS + " disableHomeChannel:" + disableHomeChannel);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetChannel, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetChannel, target,
                 entry("channel_name", channelName),
                 entry("suppress_tts", suppressTTS),
                 entry("disable_home_channel", disableHomeChannel)
@@ -1299,9 +1299,9 @@ public class Relay {
         }
     }
 
-    private void setDeviceInfo( String sourceUri, DeviceField field, String value) {
+    private void setDeviceInfo( String target, DeviceField field, String value) {
         logger.debug("Setting device info: " + field + ": " + value);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceInfo, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetDeviceInfo, target,
                 entry("field", field.value()),
                 entry("value", value)
         );
@@ -1315,14 +1315,14 @@ public class Relay {
 
     /**
      * Sets the profile of a user by updating the username.
-     * @param sourceUri the device URN whose profile you would like to update.
+     * @param target the device URN whose profile you would like to update.
      * @param username the updated username for the device.
      * @param force whether you would like to force this update.
      */
     @SuppressWarnings("unused")
-    public void setUserProfile( String sourceUri, String username, boolean force) {
+    public void setUserProfile( String target, String username, boolean force) {
         logger.debug("Setting user profile: " + username + ": " + force);
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetUserProfile, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetUserProfile, target,
                 entry("username", username),
                 entry("force", force)
         );
@@ -1352,9 +1352,9 @@ public class Relay {
         setHomeChannelState(target, false);
     }
 
-    private void setHomeChannelState(String sourceUri, boolean enabled) {
+    private void setHomeChannelState(String target, boolean enabled) {
         logger.debug("Setting home channel state.");
-        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetHomeChannelState, sourceUri,
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.SetHomeChannelState, target,
             entry("enabled", enabled)               
         );
 
@@ -1367,18 +1367,18 @@ public class Relay {
 
     // restart/powering down device is currently not supported
 
-    // public  void restartDevice( String sourceUri) {
-    //     logger.debug("Restarting device: " + sourceUri);
-    //     powerDownDevice( sourceUri, true);
+    // public  void restartDevice( String target) {
+    //     logger.debug("Restarting device: " + target);
+    //     powerDownDevice( target, true);
     // }
 
-    // public  void powerDownDevice( String sourceUri) {
-    //     logger.debug("Powering down device: " + sourceUri);
-    //     powerDownDevice( sourceUri, true);
+    // public  void powerDownDevice( String target) {
+    //     logger.debug("Powering down device: " + target);
+    //     powerDownDevice( target, true);
     // }
 
-    // private  void powerDownDevice( String sourceUri, boolean restart) {
-    //     Map<String, Object> req = RelayUtils.buildRequest(RequestType.PowerOff, sourceUri,
+    // private  void powerDownDevice( String target, boolean restart) {
+    //     Map<String, Object> req = RelayUtils.buildRequest(RequestType.PowerOff, target,
     //             entry("restart", restart)
     //     );
 
