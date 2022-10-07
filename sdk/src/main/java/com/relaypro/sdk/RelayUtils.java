@@ -65,9 +65,9 @@ class RelayUtils {
     }
 
     @SafeVarargs
-    static Map<String, Object> buildRequest(RequestType type, String sourceUri, Map.Entry<String, Object> ...params) {
+    static Map<String, Object> buildRequest(RequestType type, Map<String, Object> target, Map.Entry<String, Object> ...params) {
         Map<String, Object> map = buildRequest(type, params);
-        map.put("_target", RelayUtils.makeTarget(sourceUri));
+        map.put("_target", target);
         return map;
     }
 
