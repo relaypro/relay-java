@@ -1419,7 +1419,7 @@ public class Relay {
      * @return the source URN.
      */
     @SuppressWarnings("unused")
-    public static String getSourceUri(StartEvent startEvent) {
+    public static String getSourceUriFromStartEvent(StartEvent startEvent) {
         Trigger trigger = null;
         Map<String, Object> args = null;
         Object object = null;

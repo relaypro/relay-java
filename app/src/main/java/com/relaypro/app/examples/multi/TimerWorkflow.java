@@ -18,7 +18,7 @@ public class TimerWorkflow extends Workflow {
     public void onStart(Relay relay, StartEvent startEvent) {
         super.onStart(relay, startEvent);
 
-        String sourceUri = Relay.getSourceUri(startEvent);
+        String sourceUri = Relay.getSourceUriFromStartEvent(startEvent);
         relay.startInteraction(sourceUri, "timer interaction", null);
     }
 
