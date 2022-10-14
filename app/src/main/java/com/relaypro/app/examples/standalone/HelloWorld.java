@@ -39,7 +39,7 @@ public class HelloWorld {
         public void onStart(Relay relay, StartEvent startEvent) {
             super.onStart(relay, startEvent);
 
-            String sourceUri = Relay.getSourceUri(startEvent);
+            String sourceUri = Relay.getSourceUriFromStartEvent(startEvent);
             logger.debug("Started hello wf from sourceUri: " + sourceUri + " trigger: " + startEvent.trigger);
             relay.startInteraction( sourceUri, "hello interaction", null);
         }
