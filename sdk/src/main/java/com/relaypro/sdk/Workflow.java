@@ -33,15 +33,15 @@ import com.relaypro.sdk.types.TimerFiredEvent;
 public abstract class Workflow implements Cloneable {
 
     /**
-     * A decorator for a handler for the START event (workflow is starting).
+     * A decorator for a handler for the  StartEvent (workflow is starting).
      * @param relay a relay device context.
-     * @param startEvent your workflow has been triggered. Contains information the type of trigger.
+     * @param startEvent your workflow has been triggered. Contains information on the type of trigger that started the workflow.
      */
     public void onStart(Relay relay, StartEvent startEvent) {
     }
 
     /**
-     * A decorator for a handler method for the STOP event (workflow is stopping).
+     * A decorator for a handler method for the StopEvent (workflow is stopping).
      * @param relay a relay device context.
      * @param stopEvent information on why your workflow has stopped.
      */
@@ -58,7 +58,7 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A decorator for a handler method for the PROMPT event (text-to-speech is streaming in).
+     * A decorator for a handler method for the PromptEvent (text-to-speech is streaming in).
      * @param relay a relay device context.
      * @param promptEvent marks the beginning and end of text-to-speech delivery.
      */
@@ -66,7 +66,7 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A decorator for a handler method for the TIMER event (the unnamed timer fired).
+     * A decorator for a handler method for the TimerEvent (the unnamed timer fired).
      * @param relay a relay device context.
      * @param timerEvent an unnamed timer has fired.
      */
@@ -74,7 +74,7 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A decorator for a handler method for the TIMER_FIRED event (a named timer fired).
+     * A decorator for a handler method for the TimerFiredEvent (a named timer fired).
      * @param relay a relay device context.
      * @param timerFiredEvent a named timer has fired.
      */
@@ -82,7 +82,7 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A decorator for a handler method for the BUTTON event (the Talk button was pressed).
+     * A decorator for a handler method for the ButtonEvent (the Talk button was pressed).
      * @param relay a relay device context.
      * @param buttonEvent a button has been pressed during a running workflow.
      */
@@ -90,7 +90,7 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A decorator for a handler method for the NOTIFICATION event (a broadcast or alert was sent).
+     * A decorator for a handler method for the NotificationEvent (a broadcast or alert was sent).
      * @param relay a relay device context.
      * @param notificationEvent a device has acknowledged an alert.
      */
@@ -98,7 +98,7 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A decorator for a handler method for the SMS event (TBD).
+     * A decorator for a handler method for the SmsEvent (TBD).
      * @param relay a relay device context.
      * @param smsEvent an SMS event.
      */
@@ -106,7 +106,7 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A decorator for a handler method for the SPEECH event (the listen() function is running).
+     * A decorator for a handler method for the SpeechEvent (the listen() function is running).
      * @param relay a relay device context.
      * @param speechEvent you have spoken into the device.
      */
@@ -114,7 +114,7 @@ public abstract class Workflow implements Cloneable {
     }
 
     /**
-     * A decorator for a handler method for the INCIDENT event (an incident has been created).
+     * A decorator for a handler method for the IncidentEvent (an incident has been created).
      * @param relay a relay device context.
      * @param incidentEvent an incident has been resolved.
      */

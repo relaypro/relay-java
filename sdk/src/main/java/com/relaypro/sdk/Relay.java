@@ -1527,14 +1527,14 @@ public class Relay {
      * and the request will be resubmitted with the new accessToken. Otherwise
      * the refresh token won't be used.
      * This method will return a tuple of (requests.Response, access_token)
-     * where you can inspect the http response, and get the updated accessToken
+     * where you can inspect the http response, and get the updated access_token
      * if it was updated (otherwise the original access_token will be returned).
      * @param accessToken the current access token. Can be a placeholder value
      *         and this method will generate a new one and return it. If the
      *         original value of the access token passed in here has expired,
      *         this method will also generate a new one and return it.
      * @param refreshToken the permanent refresh_token that can be used to
-     *         obtain a new accessToken. The caller should treat the refresh
+     *         obtain a new access_token. The caller should treat the refresh
      *         token as very sensitive data, and secure it appropriately.
      * @param clientId the auth_sdk_id as returned from "relay env".
      * @param workflowId the workflow_id as returned from "relay workflow list".
@@ -1621,7 +1621,7 @@ public class Relay {
      *         original value of the access token passed in here has expired,
      *         this method will also generate a new one and return it.
      * @param refreshToken the permanent refresh_token that can be used to
-     *         obtain a new accessToken. The caller should treat the refresh
+     *         obtain a new access_token. The caller should treat the refresh
      *         token as very sensitive data, and secure it appropriately.
      * @param clientId the auth_sdk_id as returned from "relay env".
      * @param subscriberId the subscriber UUID as returned from "relay whoami".

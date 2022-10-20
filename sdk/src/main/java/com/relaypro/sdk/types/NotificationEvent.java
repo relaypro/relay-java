@@ -32,7 +32,7 @@ public class NotificationEvent {
     /**
      * Contains information regarding the state of the notification, such as
      * a list of devices who have acknowledged the alert, a list of devices on which
-     * the alert has been created, and more.
+     * the alert has been created, and more. See the NotificationState class for more details.
      */
     @SerializedName("notification_state")
     public NotificationState notificationState;

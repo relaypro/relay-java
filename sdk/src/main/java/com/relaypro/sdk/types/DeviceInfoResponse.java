@@ -3,7 +3,7 @@
 package com.relaypro.sdk.types;
 
 /**
- * Fields that are given values from the server after a 
+ * Contains information on the device from the server after a 
  * device info query.
  */
 public class DeviceInfoResponse {

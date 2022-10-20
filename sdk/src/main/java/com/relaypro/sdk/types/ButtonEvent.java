@@ -26,7 +26,7 @@ public class ButtonEvent {
     public String button;
 
     /**
-     * The number of times the button was tapped.
+     * The number of times the button was pressed.
      */
     @SerializedName("taps")
     public String taps;

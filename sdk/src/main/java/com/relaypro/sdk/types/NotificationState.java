@@ -30,7 +30,7 @@ public class NotificationState {
     public String[] cancelled;
 
     /**
-     * List of devices on which the alert timed out being created.
+     * List of devices on which the alert timed out
      */
     @SerializedName("timed_out")
     public String[] timedOut;
