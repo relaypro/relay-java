@@ -2,6 +2,10 @@
 
 package com.relaypro.sdk.types;
 
+/**
+ * The supported languages that can be used for speech, listending, or 
+ * translation on the device.
+ */
 public enum LanguageType {
 
     English("en-US"),
@@ -23,6 +27,11 @@ public enum LanguageType {
     Chinese("zh");
 
     private final String value;
+
+    /**
+     * Returns the LanguageType enum's value.
+     * @return a String representing the language.
+     */
     public String value() {
         return value;
     }

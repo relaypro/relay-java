@@ -2,6 +2,9 @@
 
 package com.relaypro.sdk.types;
 
+/**
+ * The different modes the device can be in, including panic and alarm.
+ */
 public enum DeviceMode {
     
     Panic("panic"), 

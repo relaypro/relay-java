@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Map;
 
+/**
+ * The different types of triggers that can start a workflow.
+ */
 public class Trigger {
     @SerializedName("type")
     public String type;

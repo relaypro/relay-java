@@ -5,6 +5,10 @@ package com.relaypro.sdk.types;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Set information regarding the LED effects, such as how many rotations the 
+ * LEDs should move, the number of times to perform the "flash" effects, and so on.
+ */
 public class LedInfo {
 
     public Map<String, Object> ledMap = new LinkedHashMap<>();

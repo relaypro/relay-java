@@ -2,6 +2,9 @@
 
 package com.relaypro.sdk.types;
 
+/**
+ * Contains information on the device.
+ */
 public enum DeviceField {
     
     Label("label"), 
