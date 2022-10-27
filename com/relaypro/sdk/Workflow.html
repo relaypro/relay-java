@@ -6,15 +6,16 @@
 <title>Workflow (Relay SDK for Java)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="../../../jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../script.js"></script>
 <script type="text/javascript" src="../../../jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="../../../jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="../../../jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../../../jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -142,7 +143,8 @@ implements java.lang.Cloneable</pre>
  empty event callbacks with the logic you want to perform upon each event type.
  The <a href="Relay.html" title="class in com.relaypro.sdk"><code>Relay</code></a> object provides the context for invoking actions. The Event
  objects passed in to you here provides information about the event and what
- triggered it.</div>
+ triggered it.  For more information on each of these methods and their events,
+ see the classes under the "types" directory in the src folder.</div>
 </li>
 </ul>
 </div>
@@ -150,7 +152,7 @@ implements java.lang.Cloneable</pre>
 <ul class="blockList">
 <li class="blockList">
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="constructor.summary">
 <!--   -->
@@ -171,7 +173,7 @@ implements java.lang.Cloneable</pre>
 </ul>
 </section>
 <!-- ========== METHOD SUMMARY =========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.summary">
 <!--   -->
@@ -193,7 +195,9 @@ implements java.lang.Cloneable</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onButton(com.relaypro.sdk.Relay,com.relaypro.sdk.types.ButtonEvent)">onButton</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
         <a href="types/ButtonEvent.html" title="class in com.relaypro.sdk.types">ButtonEvent</a>&nbsp;buttonEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The talk or assistant button has been pressed.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -256,19 +260,25 @@ implements java.lang.Cloneable</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onIncident(com.relaypro.sdk.Relay,com.relaypro.sdk.types.IncidentEvent)">onIncident</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
           <a href="types/IncidentEvent.html" title="class in com.relaypro.sdk.types">IncidentEvent</a>&nbsp;incidentEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">An incident has been created.</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onInteractionLifecycle(com.relaypro.sdk.Relay,com.relaypro.sdk.types.InteractionLifecycleEvent)">onInteractionLifecycle</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                       <a href="types/InteractionLifecycleEvent.html" title="class in com.relaypro.sdk.types">InteractionLifecycleEvent</a>&nbsp;lifecycleEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">An interaction is starting, resuming, or ending.</div>
+</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onNotification(com.relaypro.sdk.Relay,com.relaypro.sdk.types.NotificationEvent)">onNotification</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
               <a href="types/NotificationEvent.html" title="class in com.relaypro.sdk.types">NotificationEvent</a>&nbsp;notificationEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A broadcast or alert has been sent.</div>
+</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -282,43 +292,57 @@ implements java.lang.Cloneable</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onPrompt(com.relaypro.sdk.Relay,com.relaypro.sdk.types.PromptEvent)">onPrompt</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
         <a href="types/PromptEvent.html" title="class in com.relaypro.sdk.types">PromptEvent</a>&nbsp;promptEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Text-to-speech stream has started or stopped on the device.</div>
+</td>
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onSms(com.relaypro.sdk.Relay,com.relaypro.sdk.types.SmsEvent)">onSms</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
      <a href="types/SmsEvent.html" title="class in com.relaypro.sdk.types">SmsEvent</a>&nbsp;smsEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A callback for the SmsEvent (TBD).</div>
+</td>
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onSpeech(com.relaypro.sdk.Relay,com.relaypro.sdk.types.SpeechEvent)">onSpeech</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
         <a href="types/SpeechEvent.html" title="class in com.relaypro.sdk.types">SpeechEvent</a>&nbsp;speechEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">You have spoken into the device, typically when listen() is happening.</div>
+</td>
 </tr>
 <tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onStart(com.relaypro.sdk.Relay,com.relaypro.sdk.types.StartEvent)">onStart</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
        <a href="types/StartEvent.html" title="class in com.relaypro.sdk.types">StartEvent</a>&nbsp;startEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Your workflow is starting.</div>
+</td>
 </tr>
 <tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onStop(com.relaypro.sdk.Relay,com.relaypro.sdk.types.StopEvent)">onStop</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
       <a href="types/StopEvent.html" title="class in com.relaypro.sdk.types">StopEvent</a>&nbsp;stopEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Your workflow is stopping.</div>
+</td>
 </tr>
 <tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onTimer(com.relaypro.sdk.Relay,com.relaypro.sdk.types.TimerEvent)">onTimer</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
        <a href="types/TimerEvent.html" title="class in com.relaypro.sdk.types">TimerEvent</a>&nbsp;timerEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">An unnamed timer has fired.</div>
+</td>
 </tr>
 <tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onTimerFired(com.relaypro.sdk.Relay,com.relaypro.sdk.types.TimerFiredEvent)">onTimerFired</a></span>&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
             <a href="types/TimerFiredEvent.html" title="class in com.relaypro.sdk.types">TimerFiredEvent</a>&nbsp;timerFiredEvent)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">A named timer has fired.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -338,7 +362,7 @@ implements java.lang.Cloneable</pre>
 <ul class="blockList">
 <li class="blockList">
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="constructor.detail">
 <!--   -->
@@ -357,7 +381,7 @@ implements java.lang.Cloneable</pre>
 </ul>
 </section>
 <!-- ============ METHOD DETAIL ========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.detail">
 <!--   -->
@@ -371,6 +395,12 @@ implements java.lang.Cloneable</pre>
 <h4>onStart</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onStart&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                     <a href="types/StartEvent.html" title="class in com.relaypro.sdk.types">StartEvent</a>&nbsp;startEvent)</pre>
+<div class="block">Your workflow is starting.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>startEvent</code> - your workflow has been triggered. Contains information on the type of trigger that started the workflow.</dd>
+</dl>
 </li>
 </ul>
 <a id="onStop(com.relaypro.sdk.Relay,com.relaypro.sdk.types.StopEvent)">
@@ -381,6 +411,12 @@ implements java.lang.Cloneable</pre>
 <h4>onStop</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onStop&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                    <a href="types/StopEvent.html" title="class in com.relaypro.sdk.types">StopEvent</a>&nbsp;stopEvent)</pre>
+<div class="block">Your workflow is stopping.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>stopEvent</code> - information on why your workflow has stopped.</dd>
+</dl>
 </li>
 </ul>
 <a id="onInteractionLifecycle(com.relaypro.sdk.Relay,com.relaypro.sdk.types.InteractionLifecycleEvent)">
@@ -391,6 +427,12 @@ implements java.lang.Cloneable</pre>
 <h4>onInteractionLifecycle</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onInteractionLifecycle&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                                    <a href="types/InteractionLifecycleEvent.html" title="class in com.relaypro.sdk.types">InteractionLifecycleEvent</a>&nbsp;lifecycleEvent)</pre>
+<div class="block">An interaction is starting, resuming, or ending.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>lifecycleEvent</code> - an interaction has started, ended, resumed, been suspended or failed.</dd>
+</dl>
 </li>
 </ul>
 <a id="onPrompt(com.relaypro.sdk.Relay,com.relaypro.sdk.types.PromptEvent)">
@@ -401,6 +443,12 @@ implements java.lang.Cloneable</pre>
 <h4>onPrompt</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onPrompt&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                      <a href="types/PromptEvent.html" title="class in com.relaypro.sdk.types">PromptEvent</a>&nbsp;promptEvent)</pre>
+<div class="block">Text-to-speech stream has started or stopped on the device.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>promptEvent</code> - marks the beginning and end of text-to-speech delivery.</dd>
+</dl>
 </li>
 </ul>
 <a id="onTimer(com.relaypro.sdk.Relay,com.relaypro.sdk.types.TimerEvent)">
@@ -411,6 +459,12 @@ implements java.lang.Cloneable</pre>
 <h4>onTimer</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onTimer&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                     <a href="types/TimerEvent.html" title="class in com.relaypro.sdk.types">TimerEvent</a>&nbsp;timerEvent)</pre>
+<div class="block">An unnamed timer has fired.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>timerEvent</code> - an unnamed timer has fired.</dd>
+</dl>
 </li>
 </ul>
 <a id="onTimerFired(com.relaypro.sdk.Relay,com.relaypro.sdk.types.TimerFiredEvent)">
@@ -421,6 +475,12 @@ implements java.lang.Cloneable</pre>
 <h4>onTimerFired</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onTimerFired&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                          <a href="types/TimerFiredEvent.html" title="class in com.relaypro.sdk.types">TimerFiredEvent</a>&nbsp;timerFiredEvent)</pre>
+<div class="block">A named timer has fired.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>timerFiredEvent</code> - a named timer has fired.</dd>
+</dl>
 </li>
 </ul>
 <a id="onButton(com.relaypro.sdk.Relay,com.relaypro.sdk.types.ButtonEvent)">
@@ -431,6 +491,12 @@ implements java.lang.Cloneable</pre>
 <h4>onButton</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onButton&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                      <a href="types/ButtonEvent.html" title="class in com.relaypro.sdk.types">ButtonEvent</a>&nbsp;buttonEvent)</pre>
+<div class="block">The talk or assistant button has been pressed.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>buttonEvent</code> - a button has been pressed during a running workflow.</dd>
+</dl>
 </li>
 </ul>
 <a id="onNotification(com.relaypro.sdk.Relay,com.relaypro.sdk.types.NotificationEvent)">
@@ -441,6 +507,12 @@ implements java.lang.Cloneable</pre>
 <h4>onNotification</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onNotification&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                            <a href="types/NotificationEvent.html" title="class in com.relaypro.sdk.types">NotificationEvent</a>&nbsp;notificationEvent)</pre>
+<div class="block">A broadcast or alert has been sent.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>notificationEvent</code> - a device has acknowledged an alert.</dd>
+</dl>
 </li>
 </ul>
 <a id="onSms(com.relaypro.sdk.Relay,com.relaypro.sdk.types.SmsEvent)">
@@ -451,6 +523,12 @@ implements java.lang.Cloneable</pre>
 <h4>onSms</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onSms&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                   <a href="types/SmsEvent.html" title="class in com.relaypro.sdk.types">SmsEvent</a>&nbsp;smsEvent)</pre>
+<div class="block">A callback for the SmsEvent (TBD).</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>smsEvent</code> - an SMS event.</dd>
+</dl>
 </li>
 </ul>
 <a id="onSpeech(com.relaypro.sdk.Relay,com.relaypro.sdk.types.SpeechEvent)">
@@ -461,6 +539,12 @@ implements java.lang.Cloneable</pre>
 <h4>onSpeech</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onSpeech&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                      <a href="types/SpeechEvent.html" title="class in com.relaypro.sdk.types">SpeechEvent</a>&nbsp;speechEvent)</pre>
+<div class="block">You have spoken into the device, typically when listen() is happening.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>speechEvent</code> - you have spoken into the device.</dd>
+</dl>
 </li>
 </ul>
 <a id="onIncident(com.relaypro.sdk.Relay,com.relaypro.sdk.types.IncidentEvent)">
@@ -471,6 +555,12 @@ implements java.lang.Cloneable</pre>
 <h4>onIncident</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;onIncident&#8203;(<a href="Relay.html" title="class in com.relaypro.sdk">Relay</a>&nbsp;relay,
                        <a href="types/IncidentEvent.html" title="class in com.relaypro.sdk.types">IncidentEvent</a>&nbsp;incidentEvent)</pre>
+<div class="block">An incident has been created.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>relay</code> - a relay device context.</dd>
+<dd><code>incidentEvent</code> - an incident has been resolved.</dd>
+</dl>
 </li>
 </ul>
 <a id="onCallStartRequest(com.relaypro.sdk.Relay,com.relaypro.sdk.types.CallStartEvent)">

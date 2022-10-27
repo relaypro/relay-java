@@ -6,15 +6,16 @@
 <title>All Classes (Relay SDK for Java)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="script.js"></script>
 <script type="text/javascript" src="jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -111,7 +112,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/ButtonEvent.html" title="class in com.relaypro.sdk.types">ButtonEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">A button has been pressed on your device during a running workflow.</div>
+</th>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/CallConnectedEvent.html" title="class in com.relaypro.sdk.types">CallConnectedEvent</a></td>
@@ -157,27 +160,40 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/DeviceField.html" title="enum in com.relaypro.sdk.types">DeviceField</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Contains information on the device.</div>
+</th>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/DeviceInfoQueryType.html" title="enum in com.relaypro.sdk.types">DeviceInfoQueryType</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Different information you can retrieve on the device through the Relay API calls.</div>
+</th>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/DeviceInfoResponse.html" title="class in com.relaypro.sdk.types">DeviceInfoResponse</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Contains information on the device from the server after a 
+ device info query.</div>
+</th>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/DeviceMode.html" title="enum in com.relaypro.sdk.types">DeviceMode</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">The different modes the device can be in, including panic and alarm.</div>
+</th>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/IncidentEvent.html" title="class in com.relaypro.sdk.types">IncidentEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">An incident has been resolved.</div>
+</th>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/InteractionLifecycleEvent.html" title="class in com.relaypro.sdk.types">InteractionLifecycleEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">An interaction lifecycle event has occurred.</div>
+</th>
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/JakartaWebsocketReceiver.html" title="class in com.relaypro.sdk">JakartaWebsocketReceiver</a></td>
@@ -188,31 +204,48 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/LanguageType.html" title="enum in com.relaypro.sdk.types">LanguageType</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">The supported languages that can be used for speech, listening, or 
+ translation on the device.</div>
+</th>
 </tr>
 <tr id="i16" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/LedEffect.html" title="enum in com.relaypro.sdk.types">LedEffect</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Different effects that the Relay's LEDs can perform.</div>
+</th>
 </tr>
 <tr id="i17" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/LedInfo.html" title="class in com.relaypro.sdk.types">LedInfo</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Set information regarding the LED effects, such as how many rotations the 
+ LEDs should move, the number of times to perform the effect, and so on.</div>
+</th>
 </tr>
 <tr id="i18" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/NotificationEvent.html" title="class in com.relaypro.sdk.types">NotificationEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">A device has acknowledged an alert that was sent out to a group of devices.</div>
+</th>
 </tr>
 <tr id="i19" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/NotificationState.html" title="class in com.relaypro.sdk.types">NotificationState</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Includes information on the state of the notification event.</div>
+</th>
 </tr>
 <tr id="i20" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/PlayInboxMessagesEvent.html" title="class in com.relaypro.sdk.types">PlayInboxMessagesEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Inbox messages are being played on the device.</div>
+</th>
 </tr>
 <tr id="i21" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/PromptEvent.html" title="class in com.relaypro.sdk.types">PromptEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">When text-to-speech is being streamed to a Relay device, this event will mark
+ the beginning and end of that stream delivery.</div>
+</th>
 </tr>
 <tr id="i22" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/Relay.html" title="class in com.relaypro.sdk">Relay</a></td>
@@ -232,39 +265,58 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i25" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/SpeechEvent.html" title="class in com.relaypro.sdk.types">SpeechEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">You have spoken into the device by holding down the action button.</div>
+</th>
 </tr>
 <tr id="i26" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/StartEvent.html" title="class in com.relaypro.sdk.types">StartEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Your workflow has been triggered.</div>
+</th>
 </tr>
 <tr id="i27" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/StopEvent.html" title="class in com.relaypro.sdk.types">StopEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Your workflow has stopped, which might be due to normal completion after
+ you call terminate() or from an abnormal completion error.</div>
+</th>
 </tr>
 <tr id="i28" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/TargetUri.html" title="class in com.relaypro.sdk.types">TargetUri</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">A target URI object used in most Relay API functions to send to the server.</div>
+</th>
 </tr>
 <tr id="i29" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/TimeoutType.html" title="enum in com.relaypro.sdk.types">TimeoutType</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">The timeout type for a timer.</div>
+</th>
 </tr>
 <tr id="i30" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/TimerEvent.html" title="class in com.relaypro.sdk.types">TimerEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">An unnamed timer has fired.</div>
+</th>
 </tr>
 <tr id="i31" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/TimerFiredEvent.html" title="class in com.relaypro.sdk.types">TimerFiredEvent</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">A named timer has fired.</div>
+</th>
 </tr>
 <tr id="i32" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/TimerType.html" title="enum in com.relaypro.sdk.types">TimerType</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">Type of timer on the device.</div>
+</th>
 </tr>
 <tr id="i33" class="rowColor">
 <td class="colFirst"><a href="com/relaypro/sdk/types/Trigger.html" title="class in com.relaypro.sdk.types">Trigger</a></td>
-<th class="colLast" scope="row">&nbsp;</th>
+<th class="colLast" scope="row">
+<div class="block">The different types of triggers that can start a workflow.</div>
+</th>
 </tr>
 <tr id="i34" class="altColor">
 <td class="colFirst"><a href="com/relaypro/sdk/Workflow.html" title="class in com.relaypro.sdk">Workflow</a></td>

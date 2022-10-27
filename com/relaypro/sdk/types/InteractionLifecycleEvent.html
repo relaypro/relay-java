@@ -6,15 +6,16 @@
 <title>InteractionLifecycleEvent (Relay SDK for Java)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
-<link rel="stylesheet" type="text/css" href="../../../../jquery/jquery-ui.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../jquery/jquery-ui.min.css" title="Style">
+<link rel="stylesheet" type="text/css" href="../../../../jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="../../../../script.js"></script>
 <script type="text/javascript" src="../../../../jquery/jszip/dist/jszip.min.js"></script>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils.min.js"></script>
 <!--[if IE]>
 <script type="text/javascript" src="../../../../jquery/jszip-utils/dist/jszip-utils-ie.min.js"></script>
 <![endif]-->
-<script type="text/javascript" src="../../../../jquery/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="../../../../jquery/jquery-ui.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../../../jquery/jquery-ui.min.js"></script>
 </head>
 <body>
 <script type="text/javascript"><!--
@@ -132,6 +133,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">InteractionLifecycleEvent</span>
 extends java.lang.Object</pre>
+<div class="block">An interaction lifecycle event has occurred.  This could indicate that an
+ interaction has started, resumed, been suspended, ended, or failed.</div>
 </li>
 </ul>
 </div>
@@ -139,7 +142,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <!-- =========== FIELD SUMMARY =========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="field.summary">
 <!--   -->
@@ -155,24 +158,30 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reason">reason</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Only set if type is "failed".</div>
+</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sourceUri">sourceUri</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">The interaction URN.</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#type">type</a></span></code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Can be either "started", "resumed", "suspended", "ended" or "failed".</div>
+</td>
 </tr>
 </table>
 </li>
 </ul>
 </section>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="constructor.summary">
 <!--   -->
@@ -193,7 +202,7 @@ extends java.lang.Object</pre>
 </ul>
 </section>
 <!-- ========== METHOD SUMMARY =========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.summary">
 <!--   -->
@@ -209,12 +218,16 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isTypeEnded()">isTypeEnded</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns whether the InteractionLifecycleEvent has a type of "ended".</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isTypeStarted()">isTypeStarted</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns whether the InteractionLifecycleEvent has a type of "started".</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -234,7 +247,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <!-- ============ FIELD DETAIL =========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="field.detail">
 <!--   -->
@@ -248,6 +261,7 @@ extends java.lang.Object</pre>
 <h4>type</h4>
 <pre>@SerializedName("type")
 public&nbsp;java.lang.String type</pre>
+<div class="block">Can be either "started", "resumed", "suspended", "ended" or "failed".</div>
 </li>
 </ul>
 <a id="reason">
@@ -258,6 +272,7 @@ public&nbsp;java.lang.String type</pre>
 <h4>reason</h4>
 <pre>@SerializedName("reason")
 public&nbsp;java.lang.String reason</pre>
+<div class="block">Only set if type is "failed".  Reason for failure.</div>
 </li>
 </ul>
 <a id="sourceUri">
@@ -268,13 +283,14 @@ public&nbsp;java.lang.String reason</pre>
 <h4>sourceUri</h4>
 <pre>@SerializedName("source_uri")
 public&nbsp;java.lang.String sourceUri</pre>
+<div class="block">The interaction URN.</div>
 </li>
 </ul>
 </li>
 </ul>
 </section>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="constructor.detail">
 <!--   -->
@@ -293,7 +309,7 @@ public&nbsp;java.lang.String sourceUri</pre>
 </ul>
 </section>
 <!-- ============ METHOD DETAIL ========== -->
-<section role="region">
+<section>
 <ul class="blockList">
 <li class="blockList"><a id="method.detail">
 <!--   -->
@@ -306,6 +322,11 @@ public&nbsp;java.lang.String sourceUri</pre>
 <li class="blockList">
 <h4>isTypeStarted</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isTypeStarted()</pre>
+<div class="block">Returns whether the InteractionLifecycleEvent has a type of "started".</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the type is "started", false otherwise.</dd>
+</dl>
 </li>
 </ul>
 <a id="isTypeEnded()">
@@ -315,6 +336,11 @@ public&nbsp;java.lang.String sourceUri</pre>
 <li class="blockList">
 <h4>isTypeEnded</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isTypeEnded()</pre>
+<div class="block">Returns whether the InteractionLifecycleEvent has a type of "ended".</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the type is "ended", false otherwise.</dd>
+</dl>
 </li>
 </ul>
 </li>
