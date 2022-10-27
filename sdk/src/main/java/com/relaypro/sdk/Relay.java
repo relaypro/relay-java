@@ -71,6 +71,12 @@ public class Relay {
         runningWorkflowsBySession.put(session, this);
     }
 
+    /**
+     * Adds a workflow to the path. Maps the specified name of the workflow 
+     * to the new instance of the workflow class created.
+     * @param name a name for your workflow.
+     * @param wf a new instance of a class that contains your workflow.
+     */
     public static void addWorkflow(String name, Workflow wf) {
         logger.debug("Adding workflow with name: " + name);
         WORKFLOWS.put(name, wf);
@@ -1515,11 +1521,10 @@ public class Relay {
      * A convenience method for sending an HTTP trigger to the Relay server.
      * This generally would be used in a third-party system to start a Relay
      * workflow via an HTTP trigger and optionally pass data to it with
-     * action_args.  Under the covers, this uses Python's "request" library
-     * for using the https protocol.
-     * If the access_token has expired and the request gets a 401 response,
-     * a new access_token will be automatically generated via the refresh_token,
-     * and the request will be resubmitted with the new access_token. Otherwise
+     * action_args. 
+     * If the accessToken has expired and the request gets a 401 response,
+     * a new access_token will be automatically generated via the refreshToken,
+     * and the request will be resubmitted with the new accessToken. Otherwise
      * the refresh token won't be used.
      * This method will return a tuple of (requests.Response, access_token)
      * where you can inspect the http response, and get the updated access_token

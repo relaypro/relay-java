@@ -2,6 +2,9 @@
 
 package com.relaypro.sdk.types;
 
+/**
+ * A target URI object used in most Relay API functions to send to the server.
+ */
 public class TargetUri {
     private final String[] uris;
 

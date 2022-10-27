@@ -2,6 +2,9 @@
 
 package com.relaypro.sdk.types;
 
+/**
+ * Different information you can retrieve on the device through the Relay API calls.
+ */
 public enum DeviceInfoQueryType {
 
     Name("name"), 

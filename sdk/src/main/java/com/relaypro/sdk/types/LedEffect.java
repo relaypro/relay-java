@@ -2,6 +2,9 @@
 
 package com.relaypro.sdk.types;
 
+/**
+ * Different effects that the Relay's LEDs can perform.
+ */
 public enum LedEffect {
     
     RAINBOW("rainbow"), 

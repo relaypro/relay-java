@@ -2,6 +2,10 @@
 
 package com.relaypro.sdk.types;
 
+/**
+ * Contains information on the device from the server after a 
+ * device info query.
+ */
 public class DeviceInfoResponse {
     
     public String name;

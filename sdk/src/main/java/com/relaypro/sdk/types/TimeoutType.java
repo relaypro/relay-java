@@ -2,6 +2,9 @@
 
 package com.relaypro.sdk.types;
 
+/**
+ * The timeout type for a timer.  Can be either milliseconds, seconds, minutes, or hours.
+ */
 public enum TimeoutType {
     MS("ms"),
     SECS("secs"),

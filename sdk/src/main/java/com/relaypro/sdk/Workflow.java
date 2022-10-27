@@ -28,40 +28,96 @@ import com.relaypro.sdk.types.TimerFiredEvent;
  * empty event callbacks with the logic you want to perform upon each event type.
  * The {@link Relay} object provides the context for invoking actions. The Event
  * objects passed in to you here provides information about the event and what
- * triggered it.
+ * triggered it.  For more information on each of these methods and their events,
+ * see the classes under the "types" directory in the src folder.
  */
 public abstract class Workflow implements Cloneable {
 
+    /**
+     * Your workflow is starting.
+     * @param relay a relay device context.
+     * @param startEvent your workflow has been triggered. Contains information on the type of trigger that started the workflow.
+     */
     public void onStart(Relay relay, StartEvent startEvent) {
     }
 
+    /**
+     * Your workflow is stopping.
+     * @param relay a relay device context.
+     * @param stopEvent information on why your workflow has stopped.
+     */
     public void onStop(Relay relay, StopEvent stopEvent) {
     }
 
+    /**
+     * An interaction is starting, resuming, or ending.
+     * @param relay a relay device context.
+     * @param lifecycleEvent an interaction has started, ended, resumed, been suspended or failed.
+     */
     public void onInteractionLifecycle(Relay relay, InteractionLifecycleEvent lifecycleEvent) {
     }
 
+    /**
+     * Text-to-speech stream has started or stopped on the device.
+     * @param relay a relay device context.
+     * @param promptEvent marks the beginning and end of text-to-speech delivery.
+     */
     public void onPrompt(Relay relay, PromptEvent promptEvent) {
     }
 
+    /**
+     * An unnamed timer has fired.
+     * @param relay a relay device context.
+     * @param timerEvent an unnamed timer has fired.
+     */
     public void onTimer(Relay relay, TimerEvent timerEvent) {
     }
 
+    /**
+     * A named timer has fired.
+     * @param relay a relay device context.
+     * @param timerFiredEvent a named timer has fired.
+     */
     public void onTimerFired(Relay relay, TimerFiredEvent timerFiredEvent) {
     }
 
+    /**
+     * The talk or assistant button has been pressed.
+     * @param relay a relay device context.
+     * @param buttonEvent a button has been pressed during a running workflow.
+     */
     public void onButton(Relay relay, ButtonEvent buttonEvent) {
     }
 
+    /**
+     * A broadcast or alert has been sent.
+     * @param relay a relay device context.
+     * @param notificationEvent a device has acknowledged an alert.
+     */
     public void onNotification(Relay relay, NotificationEvent notificationEvent) {
     }
 
+    /**
+     * A callback for the SmsEvent (TBD).
+     * @param relay a relay device context.
+     * @param smsEvent an SMS event.
+     */
     public void onSms(Relay relay, SmsEvent smsEvent) {
     }
 
+    /**
+     * You have spoken into the device, typically when listen() is happening.
+     * @param relay a relay device context.
+     * @param speechEvent you have spoken into the device.
+     */
     public void onSpeech(Relay relay, SpeechEvent speechEvent) {
     }
 
+    /**
+     * An incident has been created.
+     * @param relay a relay device context.
+     * @param incidentEvent an incident has been resolved.
+     */
     public void onIncident(Relay relay, IncidentEvent incidentEvent) {
     }
 

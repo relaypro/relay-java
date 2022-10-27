@@ -2,6 +2,9 @@
 
 package com.relaypro.sdk.types;
 
+/**
+ * Type of timer on the device.  Can be "timeout" or "interval".
+ */
 public enum TimerType {
     TIMEOUT("timeout"),
     INTERVAL("interval");
