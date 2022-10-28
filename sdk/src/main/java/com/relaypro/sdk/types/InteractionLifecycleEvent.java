@@ -45,4 +45,20 @@ public class InteractionLifecycleEvent {
     public boolean isTypeEnded() {
         return "ended".equals(this.type);
     }
+
+    /**
+     * Returns whether the InteractionLifecycleEvent has a type of "resumed".
+     * @return true if the type is "resumed", false otherwise.
+     */
+    public boolean isTypeResumed() {
+        return "resumed".equals(this.type);
+    }
+
+    /**
+     * Returns whether the InteractionLifecycleEvent has a type of "suspended".
+     * @return true if the type is "suspended", false otherwise.
+     */
+    public boolean isTypeSuspended() {
+        return "suspended".equals(this.type);
+    }
 }
