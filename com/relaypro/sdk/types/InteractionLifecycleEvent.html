@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -224,9 +224,23 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isTypeResumed()">isTypeResumed</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns whether the InteractionLifecycleEvent has a type of "resumed".</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isTypeStarted()">isTypeStarted</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Returns whether the InteractionLifecycleEvent has a type of "started".</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isTypeSuspended()">isTypeSuspended</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Returns whether the InteractionLifecycleEvent has a type of "suspended".</div>
 </td>
 </tr>
 </table>
@@ -332,7 +346,7 @@ public&nbsp;java.lang.String sourceUri</pre>
 <a id="isTypeEnded()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>isTypeEnded</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isTypeEnded()</pre>
@@ -340,6 +354,34 @@ public&nbsp;java.lang.String sourceUri</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true if the type is "ended", false otherwise.</dd>
+</dl>
+</li>
+</ul>
+<a id="isTypeResumed()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isTypeResumed</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;isTypeResumed()</pre>
+<div class="block">Returns whether the InteractionLifecycleEvent has a type of "resumed".</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the type is "resumed", false otherwise.</dd>
+</dl>
+</li>
+</ul>
+<a id="isTypeSuspended()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isTypeSuspended</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;isTypeSuspended()</pre>
+<div class="block">Returns whether the InteractionLifecycleEvent has a type of "suspended".</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the type is "suspended", false otherwise.</dd>
 </dl>
 </li>
 </ul>
