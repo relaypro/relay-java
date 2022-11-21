@@ -37,6 +37,7 @@ enum RequestType {
 //    PowerOff("wf_api_device_power_off_request"),
     Terminate("wf_api_terminate_request"), 
     LogAnalytics("wf_api_log_analytics_event_request"),
+    DebugLog("wf_api_debug_log_request"),
     ResolveIncident("wf_api_resolve_incident_request"),
     CreateIncident("wf_api_create_incident_request");
     

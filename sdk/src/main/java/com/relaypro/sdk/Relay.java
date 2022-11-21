@@ -742,6 +742,23 @@ public class Relay {
     }
 
     /**
+     * Log a debug message that is visible with the CLI command
+     * `relay workflow debug`. This is helpful for debugging workflows.
+     * @param message what you want to appear in the log stream.
+     */
+    @SuppressWarnings("unused")
+    public void debugLog( String message) {
+        logger.debug("Logging debug message");
+        Map<String, Object> req = RelayUtils.buildRequest(RequestType.DebugLog,
+                entry("content", message));
+        try {
+            sendRequest(req);
+        } catch (EncodeException | IOException | InterruptedException e) {
+            logger.error("Error logging message", e);
+        }
+    }
+
+    /**
      * Switches on an LED at a particular index to a specified color.
      * @param sourceUri the interaction URN.
      * @param index the index of the LED, numbered 1-12.
