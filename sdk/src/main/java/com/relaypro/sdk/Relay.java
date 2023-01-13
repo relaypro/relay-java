@@ -1479,7 +1479,7 @@ public class Relay {
         return encodeData.toString();
     }
 
-    private String updateAccessToken(String refreshToken, String clientId) {
+    private static String updateAccessToken(String refreshToken, String clientId) {
         // Create the URL String
         String grantUrl = "https://" + AUTH_HOSTNAME + "/oauth2/token";
         
@@ -1547,7 +1547,7 @@ public class Relay {
      * @return
      */
     @SuppressWarnings({"unused", "UnusedReturnValue"})
-    public Map<String, String> triggerWorkflow(String accessToken, String refreshToken,
+    public static Map<String, String> triggerWorkflow(String accessToken, String refreshToken,
                                                String clientId, String workflowId,
                                                String subscriberId, String userId,
                                                String[] targets, Map<String, String> actionArgs) {
@@ -1629,7 +1629,7 @@ public class Relay {
      * @return a Map containing the response and the access token.
      */
     @SuppressWarnings("unused")
-    public Map<String, String> fetchDevice(String accessToken, String refreshToken, String clientId, String subscriberId, String userId) {
+    public static Map<String, String> fetchDevice(String accessToken, String refreshToken, String clientId, String subscriberId, String userId) {
         // Create a Map containing the query parameters
         Map<String, String> queryParams = new LinkedHashMap<>();
         queryParams.put("subscriber_id", subscriberId);
